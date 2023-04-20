@@ -1,0 +1,35 @@
+using JK.Injection;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Events;
+
+namespace #NAMESPACE#
+{
+    [DisallowMultipleComponent]
+    public class #SCRIPTNAME# : MonoBehaviour, IInjector
+    {
+        #region Inspector
+
+        #NOTRIM#
+
+        #endregion
+
+        public void Inject()
+        {
+            Context context = Context.Find(this);
+            #NOTRIM#
+        }
+
+        private void Awake()
+        {
+            Inject();
+        }
+
+        private void Start()
+        {
+            #NOTRIM#
+        }
+    }
+}

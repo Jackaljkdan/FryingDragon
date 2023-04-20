@@ -1,0 +1,19 @@
+{
+    "name": "JK.Observables.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:29edbb1980869a245a414501cf16d4c7",
+        "GUID:60c8041dd62df6a43875a752fda6b71b"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,4 @@
+#"Disable CS0162: Unreachable code detected"
+-nowarn:0162
+#"Disable CS0649:Field is never assigned to, and will always have its default value null"
+-nowarn:0649

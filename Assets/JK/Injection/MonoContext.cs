@@ -1,0 +1,74 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Events;
+
+namespace JK.Injection
+{
+    [DisallowMultipleComponent]
+    public class MonoContext : MonoBehaviour
+    {
+        #region Inspector
+
+        public Transform installersParent;
+
+        private void Reset()
+        {
+            installersParent = transform;
+        }
+
+        #endregion
+
+        private static List<Installer> installersBuffer = new List<Installer>(16);
+
+        [NonSerialized]
+        public Context context;
+
+        private void Awake()
+        {
+            InitIfNeeded();
+        }
+
+        public void InitIfNeeded()
+        {
+            if (context != null)
+                return;
+
+            Context container = null;
+
+            if (transform.parent != null)
+            {
+                MonoContext ancestor = transform.parent.GetComponentInParent<MonoContext>();
+
+                if (ancestor != null)
+                {
+                    ancestor.InitIfNeeded();
+                    container = ancestor.context;
+                }
+            }
+
+            if (container == null)
+            {
+                ProjectContext projectContext = ProjectContext.Get();
+                if (projectContext != null)
+                    container = projectContext.context;
+            }
+
+            context = new Context(container, name);
+
+            if (installersParent != null)
+            {
+                installersParent.GetComponentsInChildren(installersBuffer);
+
+                foreach (Installer installer in installersBuffer)
+                    installer.Install(context);
+            }
+        }
+
+        public void Clear()
+        {
+            context = null;
+        }
+    }
+}

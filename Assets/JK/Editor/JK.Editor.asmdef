@@ -1,0 +1,18 @@
+{
+    "name": "JK.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:29edbb1980869a245a414501cf16d4c7"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
