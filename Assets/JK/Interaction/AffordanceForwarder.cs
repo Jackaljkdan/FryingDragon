@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 namespace JK.Interaction
 {
-    public class AffordanceForwarder : MonoBehaviour, IAffordance
+    public class AffordanceForwarder : AbstractAffordance
     {
         #region Inspector
 
@@ -14,19 +14,13 @@ namespace JK.Interaction
 
         #endregion
 
-        public void StartHighlight(RaycastHit hit)
+        protected override void StartHighlightProtected(RaycastHit hit)
         {
             if (target != null)
                 target.StartHighlight(hit);
         }
 
-        public void StartHighlight()
-        {
-            if (target != null)
-                target.StartHighlight();
-        }
-
-        public void StopHighlight()
+        protected override void StopHighlightProtected()
         {
             if (target != null)
                 target.StopHighlight();

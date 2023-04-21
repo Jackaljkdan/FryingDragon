@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 namespace JK.Interaction
 {
-    public class InteractionForwarder : MonoBehaviour, IInteractable
+    public class InteractionForwarder : AbstractInteractable
     {
         #region Inspector
 
@@ -14,16 +14,10 @@ namespace JK.Interaction
 
         #endregion
 
-        public void Interact(RaycastHit hit)
+        protected override void InteractProtected(RaycastHit hit)
         {
             if (target != null)
                 target.Interact(hit);
-        }
-
-        public void Interact()
-        {
-            if (target != null)
-                target.Interact();
         }
     }
 }

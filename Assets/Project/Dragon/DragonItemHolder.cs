@@ -13,6 +13,8 @@ namespace Project.Dragon
     {
         #region Inspector
 
+        public Animator animator;
+
         public Transform itemPositionAnchor;
         public GameObject holdedItem;
 
@@ -31,6 +33,18 @@ namespace Project.Dragon
             holdedItem = Instantiate(item, itemPositionAnchor.position, itemPositionAnchor.rotation, itemPositionAnchor);
         }
 
+        private UnityAction onPutItemRelease;
 
+        public void AnimatePutItem(UnityAction onPutItemRelease)
+        {
+            this.onPutItemRelease = onPutItemRelease;
+            animator.Play("Project Attack Bite L");
+        }
+
+        public void OnPutItemRelease()
+        {
+            onPutItemRelease?.Invoke();
+            onPutItemRelease = null;
+        }
     }
 }

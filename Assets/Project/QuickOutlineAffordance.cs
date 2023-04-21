@@ -24,6 +24,12 @@ namespace Project
 
         #endregion
 
+        protected override void Start()
+        {
+            base.Start();
+            outline.enabled = false;
+        }
+
         protected override void StartHighlightProtected(RaycastHit hit)
         {
             outline.enabled = true;

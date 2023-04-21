@@ -1,0 +1,52 @@
+using DG.Tweening;
+using JK.Injection;
+using JK.Interaction;
+using Project.Dragon;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Events;
+
+namespace Project.Cooking
+{
+    [DisallowMultipleComponent]
+    public class Brazier : AbstractInteractable
+    {
+        #region Inspector
+
+        public Transform bowlAnchor;
+
+        [Injected]
+        public DragonItemHolder dragonItemHolder;
+
+        #endregion
+
+        [InjectMethod]
+        public void Inject()
+        {
+            Context context = Context.Find(this);
+            dragonItemHolder = context.Get<DragonItemHolder>(this);
+        }
+
+        private void Awake()
+        {
+            Inject();
+        }
+
+        protected override void InteractProtected(RaycastHit hit)
+        {
+            if (dragonItemHolder.holdedItem == null)
+                return;
+
+            dragonItemHolder.AnimatePutItem(onPutItemRelease: () =>
+            {
+                Transform heldTransform = dragonItemHolder.holdedItem.transform;
+                heldTransform.SetParent(dragonItemHolder.transform.parent, worldPositionStays: true);
+                heldTransform.DOMove(bowlAnchor.position, 0.2f);
+                heldTransform.DORotate(bowlAnchor.eulerAngles, 0.2f);
+                dragonItemHolder.holdedItem = null;
+            });
+        }
+    }
+}

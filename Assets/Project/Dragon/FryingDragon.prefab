@@ -1707,7 +1707,7 @@ MonoBehaviour:
   rb: {fileID: 6142508412747029041}
   speed: 5
   lerpSpeed: 0.6
-  rotationSpeed: 3
+  rotationSpeed: 1
   deltaPosition: {x: 0, y: 0, z: 0}
   deltaRotation: {x: 0, y: 0, z: 0, w: 0}
   velocity: {x: 0, y: 0, z: 0}
@@ -1773,6 +1773,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7e927b495554b348a73ffaa12bf2d21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 6142508412747029055}
   itemPositionAnchor: {fileID: 8719980326431405833}
   holdedItem: {fileID: 0}
 --- !u!114 &9116571236514239554
@@ -1804,7 +1805,7 @@ GameObject:
   - component: {fileID: 7658037785822396123}
   - component: {fileID: 6544867737126421830}
   m_Layer: 0
-  m_Name: DragonItemHolder
+  m_Name: DragonInteractore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

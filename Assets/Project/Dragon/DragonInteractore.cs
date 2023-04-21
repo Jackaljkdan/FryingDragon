@@ -16,26 +16,45 @@ namespace Project.Dragon
 
 
         #endregion
+
         private AbstractInteractable interactable;
+
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.TryGetComponent<AbstractInteractable>(out AbstractInteractable abstractInteractable))
+            if (other.gameObject.TryGetComponent(out AbstractInteractable abstractInteractable))
             {
+                Debug.Log("enter " + other.gameObject.name);
+
+                UnhighlightCurrent();
+
                 interactable = abstractInteractable;
+
+                if (interactable.TryGetComponent(out AbstractAffordance affordance))
+                    affordance.StartHighlight();
             }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.gameObject.TryGetComponent<AbstractInteractable>(out _))
-            {
-                interactable = null;
-            }
+            if (other.gameObject.TryGetComponent(out AbstractInteractable triggeringInteractable))
+                if (triggeringInteractable == interactable)
+                    UnhighlightCurrent();
+        }
+
+        private void UnhighlightCurrent()
+        {
+            if (interactable == null)
+                return;
+
+            if (interactable.TryGetComponent(out AbstractAffordance affordance))
+                affordance.StopHighlight();
+
+            interactable = null;
         }
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.E) && interactable)
+            if (Input.GetKeyDown(KeyCode.E) && interactable != null)
                 interactable.Interact();
         }
     }
