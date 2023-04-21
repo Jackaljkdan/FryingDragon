@@ -20,13 +20,17 @@ namespace Project.Dragon
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.TryGetComponent<AbstractInteractable>(out AbstractInteractable abstractInteractable))
+            {
                 interactable = abstractInteractable;
+            }
         }
 
         private void OnTriggerExit(Collider other)
         {
             if (other.gameObject.TryGetComponent<AbstractInteractable>(out _))
+            {
                 interactable = null;
+            }
         }
 
         private void Update()
