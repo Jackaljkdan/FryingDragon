@@ -100,7 +100,7 @@ namespace Project.Character
             if (movementDirection != Vector3.zero)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(movementDirection);
-                rb.rotation = Quaternion.RotateTowards(rb.rotation, targetRotation, rotationSpeed);
+                rb.MoveRotation(Quaternion.RotateTowards(rb.rotation, targetRotation, rotationSpeed));
             }
 
             deltaPosition = Vector3.zero;
