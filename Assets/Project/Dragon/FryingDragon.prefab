@@ -1672,8 +1672,11 @@ MonoBehaviour:
   rb: {fileID: 6142508412747029041}
   speed: 5
   lerpSpeed: 0.6
+  rotationSpeed: 3
   deltaPosition: {x: 0, y: 0, z: 0}
+  deltaRotation: {x: 0, y: 0, z: 0, w: 0}
   velocity: {x: 0, y: 0, z: 0}
+  mainCamera: {fileID: 0}
 --- !u!95 &6142508412747029055
 Animator:
   serializedVersion: 5

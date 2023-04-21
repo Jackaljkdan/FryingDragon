@@ -1,3 +1,4 @@
+using JK.Injection;
 using JK.Utils;
 using System;
 using System.Collections;
@@ -14,11 +15,11 @@ namespace Project.Character
         #region Inspector
 
         public Animator animator;
-
         public Rigidbody rb;
 
         public float speed = 5.0f;
         public float lerpSpeed = 0.15f;
+        public float rotationSpeed = 10.0f;
 
         [RuntimeField]
         public Vector3 deltaPosition;
@@ -28,6 +29,23 @@ namespace Project.Character
 
         [RuntimeField]
         public Vector3 velocity;
+
+        [Injected]
+        public Transform mainCamera;
+
+        [InjectMethod]
+        public void Inject()
+        {
+            Context context = Context.Find(this);
+            mainCamera = context.Get<Transform>(this, "camera");
+
+        }
+
+        private void Awake()
+        {
+            Inject();
+        }
+
 
         private void Reset()
         {
@@ -39,6 +57,7 @@ namespace Project.Character
 
         private int xHash;
         private int zHash;
+        private Vector3 movement;
 
         private void Start()
         {
@@ -56,8 +75,14 @@ namespace Project.Character
             float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
 
-            animator.SetFloat(xHash, horizontal);
-            animator.SetFloat(zHash, vertical);
+            Vector3 cameraForward = mainCamera.forward.normalized;
+            Vector3 cameraRight = mainCamera.right.normalized;
+
+            movement = cameraForward * vertical + cameraRight * horizontal;
+            Vector3 localMovement = transform.InverseTransformDirection(movement);
+
+            animator.SetFloat(xHash, localMovement.x);
+            animator.SetFloat(zHash, localMovement.z);
         }
 
         private void OnAnimatorMove()
@@ -69,7 +94,14 @@ namespace Project.Character
         private void FixedUpdate()
         {
             rb.MovePosition(rb.position + deltaPosition);
-            //rb.MoveRotation(rb.rotation * deltaRotation);
+
+            Vector3 movementDirection = new Vector3(movement.x, 0, movement.z);
+
+            if (movementDirection != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(movementDirection);
+                rb.rotation = Quaternion.RotateTowards(rb.rotation, targetRotation, rotationSpeed);
+            }
 
             deltaPosition = Vector3.zero;
             deltaRotation = Quaternion.identity;
