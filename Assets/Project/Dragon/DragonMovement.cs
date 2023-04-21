@@ -93,6 +93,8 @@ namespace Project.Character
 
         private void FixedUpdate()
         {
+            deltaPosition.y = 0;
+
             rb.MovePosition(rb.position + deltaPosition);
 
             Vector3 movementDirection = new Vector3(movement.x, 0, movement.z);
