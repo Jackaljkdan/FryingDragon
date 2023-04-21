@@ -75,8 +75,8 @@ namespace Project.Character
             float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
 
-            Vector3 cameraForward = mainCamera.forward.normalized;
-            Vector3 cameraRight = mainCamera.right.normalized;
+            Vector3 cameraForward = mainCamera.forward.WithY(0).normalized;
+            Vector3 cameraRight = mainCamera.right.WithY(0).normalized;
 
             movement = cameraForward * vertical + cameraRight * horizontal;
             Vector3 localMovement = transform.InverseTransformDirection(movement);
