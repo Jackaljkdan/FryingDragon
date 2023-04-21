@@ -12,23 +12,23 @@ namespace Project.Dragon
         #region Inspector
 
         public Transform itemPositionAnchor;
-        public GameObject item;
+        public GameObject holdedItem;
 
         #endregion
 
         public bool TryAddItem(GameObject itemToadd)
         {
-            if (item != null)
+            if (holdedItem != null)
                 return false;
 
-            item = itemToadd;
-            SpawnItem();
+            SpawnItem(itemToadd);
             return true;
         }
 
-        private void SpawnItem()
+        private void SpawnItem(GameObject item)
         {
-            Instantiate(item, itemPositionAnchor.position, itemPositionAnchor.rotation, transform);
+            holdedItem = Instantiate(item, itemPositionAnchor.position, itemPositionAnchor.rotation, itemPositionAnchor);
+
         }
     }
 }
