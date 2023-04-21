@@ -1,3 +1,5 @@
+using JK.Injection;
+using JK.Interaction;
 using Project.Dragon;
 using System;
 using System.Collections;
@@ -8,41 +10,31 @@ using UnityEngine.Events;
 namespace Project.Items
 {
     [DisallowMultipleComponent]
-    public class ItemDispenser : MonoBehaviour
+    public class ItemDispenser : AbstractInteractable
     {
         #region Inspector
 
         public GameObject grabbableItem;
 
+        [Injected]
+        public DragonItemHolder holder;
+
+        [InjectMethod]
+        public void Inject()
+        {
+            Context context = Context.Find(this);
+            holder = context.Get<DragonItemHolder>();
+        }
+
+        private void Awake()
+        {
+            Inject();
+        }
+
         #endregion
-        private DragonItemHolder itemHolder;
-
-        private void Update()
+        protected override void InteractProtected(RaycastHit hit)
         {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                if (itemHolder != null)
-                {
-                    itemHolder.TryAddItem(grabbableItem);
-                }
-            }
+            holder.TryAddItem(grabbableItem);
         }
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.TryGetComponent<DragonItemHolder>(out DragonItemHolder item))
-            {
-                itemHolder = item;
-            }
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.TryGetComponent<DragonItemHolder>(out _))
-            {
-                itemHolder = null;
-            }
-        }
-
-
     }
 }

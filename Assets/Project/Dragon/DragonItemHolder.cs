@@ -1,3 +1,5 @@
+using JK.Interaction;
+using Project.Items;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,18 +18,19 @@ namespace Project.Dragon
 
         #endregion
 
-        public bool TryAddItem(GameObject itemToadd)
+        public void TryAddItem(GameObject objectToAdd)
         {
             if (holdedItem != null)
-                return false;
+                return;
 
-            SpawnItem(itemToadd);
-            return true;
+            SpawnItem(objectToAdd);
         }
 
         private void SpawnItem(GameObject item)
         {
             holdedItem = Instantiate(item, itemPositionAnchor.position, itemPositionAnchor.rotation, itemPositionAnchor);
         }
+
+
     }
 }
