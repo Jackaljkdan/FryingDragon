@@ -85,6 +85,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cookingTime: 10
+  particles: {fileID: 8022481610342416062}
+  smokeParticles: {fileID: 8928624203355022718}
   slider: {fileID: 8234989636829807358}
 --- !u!1 &193874164144156523
 GameObject:
@@ -945,6 +947,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 5008006341839126}
     m_Modifications:
     - target: {fileID: 3770819115314925417, guid: 043176b6a68be2b43b073aaaa4782c7d, type: 3}
+      propertyPath: clearBehavior
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3770819115314925417, guid: 043176b6a68be2b43b073aaaa4782c7d, type: 3}
       propertyPath: animatedLights.Array.data[0].rangeEnd
       value: 3
       objectReference: {fileID: 0}
@@ -1018,15 +1024,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6294508013172393185, guid: 043176b6a68be2b43b073aaaa4782c7d, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.15
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 6294508013172393185, guid: 043176b6a68be2b43b073aaaa4782c7d, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.06
+      value: 0.16
       objectReference: {fileID: 0}
     - target: {fileID: 6294508013172393185, guid: 043176b6a68be2b43b073aaaa4782c7d, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.15
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 6294508013172393185, guid: 043176b6a68be2b43b073aaaa4782c7d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1097,6 +1103,16 @@ PrefabInstance:
 --- !u!4 &8022481610342416061 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6294508013172393185, guid: 043176b6a68be2b43b073aaaa4782c7d, type: 3}
+  m_PrefabInstance: {fileID: 4039448718883011164}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &8022481610342416062 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6294508013172393186, guid: 043176b6a68be2b43b073aaaa4782c7d, type: 3}
+  m_PrefabInstance: {fileID: 4039448718883011164}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &8928624203355022718 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4893118513826488098, guid: 043176b6a68be2b43b073aaaa4782c7d, type: 3}
   m_PrefabInstance: {fileID: 4039448718883011164}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9161408941384394961
