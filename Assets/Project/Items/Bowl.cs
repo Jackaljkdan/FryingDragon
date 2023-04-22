@@ -51,7 +51,7 @@ namespace Project.Items
         public void TryAddIngredient(GameObject ingredient)
         {
             ingredients.Add(ingredient);
-            Instantiate(ingredient, spawnAnchor.position, spawnAnchor.rotation.normalized, transform.root);
+            Instantiate(ingredient, spawnAnchor.position, UnityEngine.Random.rotation, transform.root);
         }
     }
 }
