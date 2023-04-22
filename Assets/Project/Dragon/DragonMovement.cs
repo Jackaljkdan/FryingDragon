@@ -88,6 +88,9 @@ namespace Project.Character
 
         private void FixedUpdate()
         {
+            float magnitude = deltaPosition.magnitude;
+            Vector3 localDelta = transform.InverseTransformDirection(animator.deltaPosition).WithX(0);
+            deltaPosition = transform.TransformDirection(localDelta).WithY(0).normalized * magnitude;
             rb.MovePosition(rb.position + deltaPosition);
             rb.MoveRotation(rb.rotation * deltaRotation);
 
