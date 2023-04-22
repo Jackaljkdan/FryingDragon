@@ -70,40 +70,26 @@ namespace Project.Character
             velocity = Vector3.zero;
         }
 
+        float horizontal;
         private void Update()
         {
-            float horizontal = Input.GetAxis("Horizontal");
+            horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
 
-            Vector3 cameraForward = mainCamera.forward.WithY(0).normalized;
-            Vector3 cameraRight = mainCamera.right.WithY(0).normalized;
-
-            movement = cameraForward * vertical + cameraRight * horizontal;
-            Vector3 localMovement = transform.InverseTransformDirection(movement);
-
-            animator.SetFloat(xHash, localMovement.x);
-            animator.SetFloat(zHash, localMovement.z);
+            animator.SetFloat(xHash, horizontal);
+            animator.SetFloat(zHash, vertical);
         }
 
         private void OnAnimatorMove()
         {
             deltaPosition += animator.deltaPosition;
-            deltaRotation *= animator.deltaRotation;
+            deltaRotation *= Quaternion.Euler(0, horizontal * rotationSpeed, 0);
         }
 
         private void FixedUpdate()
         {
-            deltaPosition.y = 0;
-
             rb.MovePosition(rb.position + deltaPosition);
-
-            Vector3 movementDirection = new Vector3(movement.x, 0, movement.z);
-
-            if (movementDirection != Vector3.zero)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(movementDirection);
-                rb.MoveRotation(Quaternion.RotateTowards(rb.rotation, targetRotation, rotationSpeed));
-            }
+            rb.MoveRotation(rb.rotation * deltaRotation);
 
             deltaPosition = Vector3.zero;
             deltaRotation = Quaternion.identity;
