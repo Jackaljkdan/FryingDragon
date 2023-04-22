@@ -2,6 +2,7 @@ using DG.Tweening;
 using JK.Injection;
 using JK.Interaction;
 using Project.Dragon;
+using Project.Items;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -42,6 +43,10 @@ namespace Project.Cooking
             dragonItemHolder.AnimatePutItem(onPutItemRelease: () =>
             {
                 Transform heldTransform = dragonItemHolder.holdedItem.transform;
+
+                if (heldTransform.TryGetComponent(out Bowl bowl))
+                    bowl.enabled = false;
+
                 heldTransform.SetParent(dragonItemHolder.transform.parent, worldPositionStays: true);
                 heldTransform.DOMove(bowlAnchor.position, 0.2f);
                 heldTransform.DORotate(bowlAnchor.eulerAngles, 0.2f);
