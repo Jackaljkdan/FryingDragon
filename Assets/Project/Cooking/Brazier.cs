@@ -17,6 +17,7 @@ namespace Project.Cooking
         #region Inspector
 
         public Transform bowlAnchor;
+        public Cooking cooking;
 
         [Injected]
         public DragonItemHolder dragonItemHolder;
@@ -54,6 +55,7 @@ namespace Project.Cooking
                 heldTransform.DOMove(bowlAnchor.position, 0.2f);
                 heldTransform.DORotate(bowlAnchor.eulerAngles, 0.2f);
                 dragonItemHolder.holdedItem = null;
+                cooking.StartCooking();
             });
         }
     }
