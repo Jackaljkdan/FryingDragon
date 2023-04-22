@@ -17,7 +17,8 @@ namespace Project.Cooking
         #region Inspector
 
         public Transform bowlAnchor;
-        public Cooking cooking;
+
+        public Bowl bowl;
 
         [Injected]
         public DragonItemHolder dragonItemHolder;
@@ -41,9 +42,12 @@ namespace Project.Cooking
             if (dragonItemHolder.holdedItem == null)
                 return;
 
+            if (bowl != null)
+                return;
+
             Transform heldTransform = dragonItemHolder.holdedItem.transform;
 
-            if (!heldTransform.TryGetComponent(out Bowl bowl))
+            if (!heldTransform.TryGetComponent(out bowl))
                 return;
 
             bowl.GlueIngredients();
@@ -55,7 +59,6 @@ namespace Project.Cooking
                 heldTransform.DOMove(bowlAnchor.position, 0.2f);
                 heldTransform.DORotate(bowlAnchor.eulerAngles, 0.2f);
                 dragonItemHolder.holdedItem = null;
-                cooking.StartCooking();
             });
         }
     }

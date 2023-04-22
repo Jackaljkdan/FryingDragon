@@ -59,5 +59,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: BowlDispenser
       objectReference: {fileID: 0}
+    - target: {fileID: 487198648582202015, guid: be0378e138f6eeb469d7dd80621d12f3, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be0378e138f6eeb469d7dd80621d12f3, type: 3}

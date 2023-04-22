@@ -1,4 +1,5 @@
 using DG.Tweening;
+using JK.Utils.DGTweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -47,11 +48,15 @@ namespace Project.Cooking
 
         #endregion
 
+        public bool IsCooking => cookingTween.IsActiveAndPlaying();
+
+        private Tween cookingTween;
+
         public void StartCooking()
         {
             particles.gameObject.SetActive(true);
             slider.transform.DOScale(1, 1f).SetEase(Ease.OutBounce);
-            slider.DOValue(1f, cookingTime).SetEase(Ease.Linear);
+            cookingTween = slider.DOValue(1f, cookingTime).SetEase(Ease.Linear);
         }
 
         public void StopCooking()

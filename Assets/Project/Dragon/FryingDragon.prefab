@@ -1970,7 +1970,7 @@ GameObject:
   - component: {fileID: 6544867737126421830}
   - component: {fileID: 2798513521177060015}
   - component: {fileID: 6572645210636558047}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DragonInteractore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2019,6 +2019,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   available: []
   highlighting: {fileID: 0}
+  primaryKey: 101
+  secondaryKey: 102
 --- !u!114 &2798513521177060015
 MonoBehaviour:
   m_ObjectHideFlags: 0
