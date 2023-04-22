@@ -13,21 +13,15 @@ namespace Project.Cooking
     {
         #region Inspector
 
-        public float cookingTime = 1f;
-        public Slider cookingSlider;
+        public float cookingTime = 10f;
+        public Slider slider;
 
         #endregion
 
         public void StartCooking()
         {
-            cookingSlider.value = 0;
-            cookingSlider.transform.DOScale(1, 1).SetEase(Ease.OutBounce);
-            cookingSlider.DOValue(1, cookingTime);
-        }
-
-        public void StopCooking()
-        {
-            cookingSlider.transform.DOScale(0, 1).SetEase(Ease.InBounce);
+            slider.transform.DOScale(1, 1f).SetEase(Ease.OutBounce);
+            slider.DOValue(1f, cookingTime).SetEase(Ease.Linear);
         }
     }
 }
