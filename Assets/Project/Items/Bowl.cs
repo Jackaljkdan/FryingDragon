@@ -50,8 +50,14 @@ namespace Project.Items
 
         public void TryAddIngredient(GameObject ingredient)
         {
-            ingredients.Add(ingredient);
-            Instantiate(ingredient, spawnAnchor.position, UnityEngine.Random.rotation, transform.root);
+            GameObject spawned = Instantiate(ingredient, spawnAnchor.position, UnityEngine.Random.rotation, transform.root);
+            ingredients.Add(spawned);
+        }
+
+        public void RemoveIngredient(GameObject ingredient)
+        {
+
+            ingredients.Remove(ingredient);
         }
     }
 }
