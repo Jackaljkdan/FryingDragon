@@ -40,13 +40,16 @@ namespace Project.Cooking
             if (dragonItemHolder.holdedItem == null)
                 return;
 
+            Transform heldTransform = dragonItemHolder.holdedItem.transform;
+
+            if (!heldTransform.TryGetComponent(out Bowl bowl))
+                return;
+
+            bowl.GlueIngredients();
+
             dragonItemHolder.AnimatePutItem(onPutItemRelease: () =>
             {
-                Transform heldTransform = dragonItemHolder.holdedItem.transform;
-
-                if (heldTransform.TryGetComponent(out Bowl bowl))
-                    bowl.enabled = false;
-
+                bowl.enabled = false;
                 heldTransform.SetParent(dragonItemHolder.transform.parent, worldPositionStays: true);
                 heldTransform.DOMove(bowlAnchor.position, 0.2f);
                 heldTransform.DORotate(bowlAnchor.eulerAngles, 0.2f);

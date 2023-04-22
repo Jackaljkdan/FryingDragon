@@ -59,5 +59,35 @@ namespace Project.Items
 
             ingredients.Remove(ingredient);
         }
+
+        public void GlueIngredients()
+        {
+            foreach (GameObject ingredient in ingredients)
+            {
+                ingredient.transform.SetParent(transform);
+                Rigidbody rb = ingredient.GetComponent<Rigidbody>();
+
+                if (!rb)
+                    continue;
+
+                rb.useGravity = false;
+                rb.isKinematic = true;
+            }
+        }
+
+        public void UnGlueIngredients()
+        {
+            foreach (GameObject ingredient in ingredients)
+            {
+                ingredient.transform.SetParent(transform.root);
+                Rigidbody rb = ingredient.GetComponent<Rigidbody>();
+
+                if (!rb)
+                    continue;
+
+                rb.useGravity = true;
+                rb.isKinematic = false;
+            }
+        }
     }
 }
