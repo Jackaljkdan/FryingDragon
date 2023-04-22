@@ -1,4 +1,5 @@
 using JK.Interaction;
+using JK.Utils;
 using Project.Items;
 using System;
 using System.Collections;
@@ -13,49 +14,88 @@ namespace Project.Dragon
     {
         #region Inspector
 
+        [RuntimeField]
+        public List<AbstractInteractable> available;
 
+        [RuntimeField]
+        public AbstractInteractable highlighting;
 
         #endregion
 
-        private AbstractInteractable interactable;
+        private void Start()
+        {
+            highlighting = null;
+            available = new List<AbstractInteractable>();
+        }
+
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.TryGetComponent(out AbstractInteractable abstractInteractable))
+            if (other.gameObject.TryGetComponent(out AbstractInteractable triggeringInteractable))
             {
-                Debug.Log("enter " + other.gameObject.name);
+                //Debug.Log("enter " + other.gameObject.name);
 
-                UnhighlightCurrent();
+                if (available.Contains(triggeringInteractable))
+                    return;
 
-                interactable = abstractInteractable;
-
-                if (interactable.TryGetComponent(out AbstractAffordance affordance))
-                    affordance.StartHighlight();
+                available.Add(triggeringInteractable);
+                UpdateHighlighting();
             }
         }
 
         private void OnTriggerExit(Collider other)
         {
             if (other.gameObject.TryGetComponent(out AbstractInteractable triggeringInteractable))
-                if (triggeringInteractable == interactable)
-                    UnhighlightCurrent();
+            {
+                if (!available.Contains(triggeringInteractable))
+                    return;
+
+                available.Remove(triggeringInteractable);
+                UpdateHighlighting();
+            }
         }
 
-        private void UnhighlightCurrent()
+        private void UpdateHighlighting()
         {
-            if (interactable == null)
+            var closest = GetClosestInteractable();
+
+            if (closest == highlighting)
                 return;
 
-            if (interactable.TryGetComponent(out AbstractAffordance affordance))
+            if (highlighting != null && highlighting.TryGetComponent(out AbstractAffordance affordance))
                 affordance.StopHighlight();
 
-            interactable = null;
+            highlighting = closest;
+
+            if (highlighting != null && highlighting.TryGetComponent(out affordance))
+                affordance.StartHighlight();
+        }
+
+        private AbstractInteractable GetClosestInteractable()
+        {
+            Transform myTransform = transform;
+
+            float minDistance = float.PositiveInfinity;
+            AbstractInteractable closest = null;
+
+            foreach (var interactable in available)
+            {
+                float distance = Vector3.Distance(interactable.transform.position, myTransform.position);
+
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    closest = interactable;
+                }
+            }
+
+            return closest;
         }
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.E) && interactable != null)
-                interactable.Interact();
+            if (Input.GetKeyDown(KeyCode.E) && highlighting != null)
+                highlighting.Interact();
         }
     }
 }
