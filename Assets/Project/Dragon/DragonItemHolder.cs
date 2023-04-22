@@ -30,7 +30,7 @@ namespace Project.Dragon
 
         private void SpawnItem(GameObject item)
         {
-            holdedItem = Instantiate(item, itemPositionAnchor.position, itemPositionAnchor.rotation, itemPositionAnchor);
+            holdedItem = Instantiate(item, itemPositionAnchor.position, itemPositionAnchor.rotation, transform.root);
         }
 
         private UnityAction onPutItemRelease;
