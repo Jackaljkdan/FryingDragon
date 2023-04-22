@@ -16,7 +16,9 @@ namespace Project.Character
 
         public Animator animator;
         public Rigidbody rb;
-        public Rigidbody sweepTester;
+        public CharacterController characterController;
+        [RuntimeField]
+        public Transform characterControllerTransform;
 
         public float speed = 5.0f;
         public float lerpSpeed = 0.15f;
@@ -35,7 +37,7 @@ namespace Project.Character
         public Vector3 adjustedDelta;
 
         [DebugField]
-        public Vector2 cumulativeInput;
+        public Vector2 input;
 
         [Injected]
         public Transform mainCamera;
@@ -69,26 +71,43 @@ namespace Project.Character
 
             deltaPosition = Vector3.zero;
             deltaRotation = Quaternion.identity;
-            cumulativeInput = Vector3.zero;
+            input = Vector3.zero;
+
+            characterControllerTransform = characterController.transform;
+            characterControllerTransform.SetParent(transform.parent);
         }
 
-        float horizontal;
         private void Update()
         {
-            horizontal = Input.GetAxis("Horizontal");
-            float vertical = Input.GetAxis("Vertical");
+            input = new Vector2(
+                Input.GetAxis("Horizontal"),
+                Input.GetAxis("Vertical")
+            );
 
-            cumulativeInput.x += horizontal;
-            cumulativeInput.y += vertical;
+            animator.SetFloat(xHash, input.x);
+            animator.SetFloat(zHash, input.y);
 
-            animator.SetFloat(xHash, horizontal);
-            animator.SetFloat(zHash, vertical);
+        }
+
+        private void LateUpdate()
+        {
         }
 
         private void OnAnimatorMove()
         {
-            deltaPosition += animator.deltaPosition;
-            deltaRotation *= Quaternion.Euler(0, horizontal * TimeUtils.AdjustToFrameRate(rotationSpeed), 0);
+            Transform myTransform = transform;
+
+            deltaPosition = animator.deltaPosition;
+            float magnitude = deltaPosition.magnitude;
+
+            localDelta = myTransform.InverseTransformDirection(deltaPosition).WithX(0);
+            if (input.y == 0)
+                localDelta.z = 0;
+
+            adjustedDelta = myTransform.TransformDirection(localDelta).WithY(0).normalized * magnitude * speed;
+            characterController.Move(adjustedDelta);
+
+            deltaRotation *= Quaternion.Euler(0, input.x * TimeUtils.AdjustToFrameRate(rotationSpeed), 0);
         }
 
         [DebugField]
@@ -96,27 +115,10 @@ namespace Project.Character
 
         private void FixedUpdate()
         {
-            float magnitude = deltaPosition.magnitude;
-
-            localDelta = transform.InverseTransformDirection(animator.deltaPosition).WithX(0);
-            if (cumulativeInput.y == 0)
-                localDelta.z = 0;
-
-            adjustedDelta = transform.TransformDirection(localDelta).WithY(0).normalized * magnitude;
-
             rb.MoveRotation(rb.rotation * deltaRotation);
+            rb.MovePosition(characterControllerTransform.position);
+            characterControllerTransform.rotation = rb.rotation;
 
-            if (sweepTester.SweepTest(adjustedDelta, out RaycastHit hit, adjustedDelta.magnitude, QueryTriggerInteraction.Ignore))
-                sweepHit = hit.collider;
-            else
-            {
-                sweepHit = null;
-                rb.MovePosition(rb.position + adjustedDelta);
-            }
-
-
-            cumulativeInput = Vector2.zero;
-            deltaPosition = Vector3.zero;
             deltaRotation = Quaternion.identity;
         }
     }
