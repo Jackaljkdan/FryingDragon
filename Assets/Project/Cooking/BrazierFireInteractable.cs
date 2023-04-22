@@ -1,3 +1,4 @@
+using JK.Injection;
 using JK.Interaction;
 using System;
 using System.Collections;
@@ -16,6 +17,9 @@ namespace Project.Cooking
 
         public Cooking cooking;
 
+        [Injected]
+        public Animator dragonAnimator;
+
         private void Reset()
         {
             brazier = GetComponent<Brazier>();
@@ -24,6 +28,18 @@ namespace Project.Cooking
 
         #endregion
 
+        [InjectMethod]
+        public void Inject()
+        {
+            Context context = Context.Find(this);
+            dragonAnimator = context.Get<Animator>(this, "dragon");
+        }
+
+        private void Awake()
+        {
+            Inject();
+        }
+
         protected override void InteractProtected(RaycastHit hit)
         {
             if (brazier.bowl == null)
@@ -31,6 +47,8 @@ namespace Project.Cooking
 
             if (cooking.IsCooking)
                 return;
+
+            dragonAnimator.Play("Attack FireBall");
 
             cooking.StartCooking();
         }
