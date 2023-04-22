@@ -9,6 +9,7 @@ using UnityEngine.Events;
 namespace Project.Items
 {
     [DisallowMultipleComponent]
+    [LateExecutionOrder]
     public class Bowl : MonoBehaviour
     {
         #region Inspector
@@ -44,6 +45,7 @@ namespace Project.Items
         private void FixedUpdate()
         {
             rb.MovePosition(anchorTransform.position);
+            rb.MoveRotation(anchorTransform.rotation);
         }
 
         public void TryAddIngredient(GameObject ingredient)
