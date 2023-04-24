@@ -48,7 +48,7 @@ namespace Project.Cooking
             if (cooking.IsCooking)
                 return;
 
-            dragonAnimator.Play("Attack FireBall");
+            dragonAnimator.CrossFade("Attack FireBall", 0.1f);
 
             cooking.StartCooking();
         }

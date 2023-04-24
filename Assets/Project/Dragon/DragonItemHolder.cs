@@ -38,7 +38,7 @@ namespace Project.Dragon
         public void AnimatePutItem(UnityAction onPutItemRelease)
         {
             this.onPutItemRelease = onPutItemRelease;
-            animator.Play("Project Attack Bite L");
+            animator.CrossFade("Project Attack Bite L", 0.1f);
         }
 
         public void OnPutItemRelease()
