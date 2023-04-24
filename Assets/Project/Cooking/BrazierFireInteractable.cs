@@ -1,5 +1,6 @@
 using JK.Injection;
 using JK.Interaction;
+using Project.Dragon;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,6 +21,9 @@ namespace Project.Cooking
         [Injected]
         public Animator dragonAnimator;
 
+        [Injected]
+        public DragonItemHolder dragonItemHolder;
+
         private void Reset()
         {
             brazier = GetComponent<Brazier>();
@@ -33,6 +37,7 @@ namespace Project.Cooking
         {
             Context context = Context.Find(this);
             dragonAnimator = context.Get<Animator>(this, "dragon");
+            dragonItemHolder = context.Get<DragonItemHolder>(this);
         }
 
         private void Awake()
@@ -48,7 +53,10 @@ namespace Project.Cooking
             if (cooking.IsCooking)
                 return;
 
-            dragonAnimator.Play("Attack FireBall");
+            if (dragonItemHolder.holdedItem != null)
+                return;
+
+            dragonAnimator.CrossFade("Attack FireBall", 0.1f);
 
             cooking.StartCooking();
         }
