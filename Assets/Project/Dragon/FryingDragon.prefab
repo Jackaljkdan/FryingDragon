@@ -1790,10 +1790,12 @@ GameObject:
   m_Component:
   - component: {fileID: 6142508412747029042}
   - component: {fileID: 6142508412747029040}
+  - component: {fileID: 365722623747555029}
   - component: {fileID: 6142508412747029055}
   - component: {fileID: 6142508412747029041}
   - component: {fileID: 4229203199805098585}
   - component: {fileID: 4489904668856326921}
+  - component: {fileID: 5097790792733314705}
   - component: {fileID: 9116571236514239554}
   - component: {fileID: 5550925280635440886}
   m_Layer: 0
@@ -1845,9 +1847,20 @@ MonoBehaviour:
   deltaRotation: {x: 0, y: 0, z: 0, w: 0}
   localDelta: {x: 0, y: 0, z: 0}
   adjustedDelta: {x: 0, y: 0, z: 0}
-  input: {x: 0, y: 0}
   mainCamera: {fileID: 0}
-  sweepHit: {fileID: 0}
+--- !u!114 &365722623747555029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6142508412747029045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f0a6df1e04b51742a5e0bf290e0cead, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dragonMovement: {fileID: 6142508412747029040}
 --- !u!95 &6142508412747029055
 Animator:
   serializedVersion: 5
@@ -1913,6 +1926,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 6142508412747029055}
   particleSystem: {fileID: 9157452354730570582}
+--- !u!114 &5097790792733314705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6142508412747029045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57349c97ce1fbd44abba6c4ad6096a5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 0
+  dragonInput: {fileID: 365722623747555029}
+  dragonMovement: {fileID: 6142508412747029040}
+  dragonFireAnimation: {fileID: 4489904668856326921}
+  dragonInteractore: {fileID: 6544867737126421830}
+  isFiring: 0
+  chosenFlammable: {fileID: 0}
+  distanceToChosen: 0
+  slider: {fileID: 0}
+  flammableList: {fileID: 0}
 --- !u!114 &9116571236514239554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1926,8 +1961,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   components:
+  - {fileID: 365722623747555029}
   - {fileID: 4229203199805098585}
   - {fileID: 4489904668856326921}
+  - {fileID: 5097790792733314705}
   targetGameObject: {fileID: 0}
   id: 
   injectionType: 0

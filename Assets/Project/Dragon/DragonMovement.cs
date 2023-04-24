@@ -17,6 +17,7 @@ namespace Project.Character
         public Animator animator;
         public Rigidbody rb;
         public CharacterController characterController;
+
         [RuntimeField]
         public Transform characterControllerTransform;
 
@@ -35,9 +36,6 @@ namespace Project.Character
 
         [DebugField]
         public Vector3 adjustedDelta;
-
-        [DebugField]
-        public Vector2 input;
 
         [Injected]
         public Transform mainCamera;
@@ -64,33 +62,24 @@ namespace Project.Character
         private int xHash;
         private int zHash;
 
+        private Vector2 input;
+
         private void Start()
         {
             xHash = Animator.StringToHash("X");
             zHash = Animator.StringToHash("Z");
 
-            deltaPosition = Vector3.zero;
             deltaRotation = Quaternion.identity;
-            input = Vector3.zero;
 
             characterControllerTransform = characterController.transform;
             characterControllerTransform.SetParent(transform.parent);
         }
 
-        private void Update()
+        public void Move(Vector2 input)
         {
-            input = new Vector2(
-                Input.GetAxis("Horizontal"),
-                Input.GetAxis("Vertical")
-            );
-
+            this.input = input;
             animator.SetFloat(xHash, input.x);
             animator.SetFloat(zHash, input.y);
-
-        }
-
-        private void LateUpdate()
-        {
         }
 
         private void OnAnimatorMove()
@@ -108,10 +97,9 @@ namespace Project.Character
             characterController.Move(adjustedDelta.WithY(-9));
 
             deltaRotation *= Quaternion.Euler(0, input.x * TimeUtils.AdjustToFrameRate(rotationSpeed), 0);
-        }
 
-        [DebugField]
-        public Collider sweepHit;
+            input = Vector2.zero;
+        }
 
         private void FixedUpdate()
         {

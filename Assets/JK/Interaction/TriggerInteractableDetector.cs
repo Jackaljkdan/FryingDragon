@@ -36,7 +36,9 @@ namespace JK.Interaction
                     return;
 
                 available.Add(triggeringInteractable);
-                UpdateHighlighting();
+
+                if (enabled)
+                    UpdateHighlighting();
             }
         }
 
@@ -48,8 +50,23 @@ namespace JK.Interaction
                     return;
 
                 available.Remove(triggeringInteractable);
-                UpdateHighlighting();
+
+                if (enabled)
+                    UpdateHighlighting();
             }
+        }
+
+        private void OnEnable()
+        {
+            UpdateHighlighting();
+        }
+
+        private void OnDisable()
+        {
+            if (highlighting != null && highlighting.TryGetComponent(out AbstractAffordance affordance))
+                affordance.StopHighlight();
+
+            highlighting = null;
         }
 
         private void UpdateHighlighting()
