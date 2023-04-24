@@ -19,7 +19,7 @@ namespace Project.Cooking
         public Cooking cooking;
 
         [Injected]
-        public Animator dragonAnimator;
+        public new DragonFireAnimation animation;
 
         [Injected]
         public DragonItemHolder dragonItemHolder;
@@ -36,7 +36,7 @@ namespace Project.Cooking
         public void Inject()
         {
             Context context = Context.Find(this);
-            dragonAnimator = context.Get<Animator>(this, "dragon");
+            animation = context.Get<DragonFireAnimation>(this);
             dragonItemHolder = context.Get<DragonItemHolder>(this);
         }
 
@@ -56,7 +56,7 @@ namespace Project.Cooking
             if (dragonItemHolder.holdedItem != null)
                 return;
 
-            dragonAnimator.CrossFade("Attack FireBall", 0.1f);
+            animation.PlayFireAnimation();
 
             cooking.StartCooking();
         }
