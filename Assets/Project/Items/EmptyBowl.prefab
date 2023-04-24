@@ -139,6 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcee3d084c155754cba7942e7cf9d4fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ingredientLostTrigger: {fileID: 1007798851499646501}
   spawnAnchor: {fileID: 3329629542998326953}
   rb: {fileID: 1009923789983941946}
   ingredients: []

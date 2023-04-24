@@ -41,10 +41,32 @@ namespace Project.Dragon
             animator.CrossFade("Project Attack Bite L", 0.1f);
         }
 
+        private UnityAction onRetrieveItemRelease;
+        private UnityAction onRetrieveEnd;
+
+        public void AnimateRetriveItem(UnityAction onRetrieveEnd, UnityAction onRetrieveItemRelease)
+        {
+            this.onRetrieveEnd = onRetrieveEnd;
+            this.onRetrieveItemRelease = onRetrieveItemRelease;
+            animator.CrossFade("Project Attack Bite L", 0.1f);
+        }
+
         public void OnPutItemRelease()
         {
             onPutItemRelease?.Invoke();
             onPutItemRelease = null;
+        }
+
+        public void OnRetriveItemRelease()
+        {
+            onRetrieveItemRelease?.Invoke();
+            onRetrieveItemRelease = null;
+        }
+
+        public void OnRetriveEnd()
+        {
+            onRetrieveEnd?.Invoke();
+            onRetrieveEnd = null;
         }
     }
 }

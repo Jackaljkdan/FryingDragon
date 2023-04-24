@@ -1,5 +1,6 @@
 using JK.Injection;
 using JK.Utils;
+using Project.Items.Ingredients;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,6 +15,8 @@ namespace Project.Items
     {
         #region Inspector
 
+        public GameObject ingredientLostTrigger;
+
         public Transform spawnAnchor;
         public Rigidbody rb;
 
@@ -26,6 +29,7 @@ namespace Project.Items
         private void Reset()
         {
             rb = GetComponent<Rigidbody>();
+            ingredientLostTrigger = GetComponentInChildren<IngeredientLostTrigger>().gameObject;
         }
 
         #endregion
@@ -62,6 +66,8 @@ namespace Project.Items
 
         public void GlueIngredients()
         {
+            ingredientLostTrigger.SetActive(false);
+
             foreach (GameObject ingredient in ingredients)
             {
                 ingredient.transform.SetParent(transform);
@@ -88,6 +94,8 @@ namespace Project.Items
                 rb.useGravity = true;
                 rb.isKinematic = false;
             }
+
+            ingredientLostTrigger.SetActive(true);
         }
     }
 }

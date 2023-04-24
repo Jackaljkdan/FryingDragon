@@ -39,11 +39,14 @@ namespace Project.Cooking
 
         protected override void InteractProtected(RaycastHit hit)
         {
-            if (dragonItemHolder.holdedItem == null)
+            if (dragonItemHolder.holdedItem == bowl)
                 return;
 
             if (bowl != null)
+            {
+                RetrieveBowl();
                 return;
+            }
 
             Transform heldTransform = dragonItemHolder.holdedItem.transform;
 
@@ -60,6 +63,24 @@ namespace Project.Cooking
                 heldTransform.DORotate(bowlAnchor.eulerAngles, 0.2f);
                 dragonItemHolder.holdedItem = null;
             });
+        }
+
+        private void RetrieveBowl()
+        {
+            dragonItemHolder.AnimateRetriveItem(
+                onRetrieveItemRelease: () =>
+                {
+                    bowl.enabled = true;
+                    bowl.transform.SetParent(transform.root, worldPositionStays: true);
+                    bowl.transform.position = bowlAnchor.position;
+                    bowl.transform.rotation = bowlAnchor.rotation;
+                    dragonItemHolder.holdedItem = bowl.gameObject;
+                },
+                onRetrieveEnd: () =>
+                {
+                    bowl.UnGlueIngredients();
+                    bowl = null;
+                });
         }
     }
 }
