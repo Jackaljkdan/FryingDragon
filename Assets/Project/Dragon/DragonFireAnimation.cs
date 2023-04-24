@@ -30,7 +30,7 @@ namespace Project.Dragon
 
         public void PlayFireAnimation()
         {
-            animator.CrossFade("Attack FireBall", 0.1f);
+            animator.CrossFade("Breath Fire Start", 0.1f);
             particleSystem.gameObject.SetActive(true);
             particleSystem.Stop();
             particleSystem.Play();
