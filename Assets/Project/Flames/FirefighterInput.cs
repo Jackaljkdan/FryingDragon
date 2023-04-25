@@ -13,6 +13,8 @@ namespace Project.Flames
 
         public FirefighterMovement firefighterMovement;
 
+        public ParticleSystem extinguisherParticleSystem;
+
         #endregion
 
         private void Update()
