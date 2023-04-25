@@ -1,3 +1,5 @@
+using JK.Injection;
+using JK.Interaction;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,11 +10,19 @@ using UnityEngine.Events;
 namespace Project.Flames
 {
     [DisallowMultipleComponent]
-    public class Flammable : MonoBehaviour
+    public class Flammable : AbstractInteractable
     {
         #region Inspector
 
+        public float extinguishSeconds = 1f;
+
         public new ParticleSystem particleSystem;
+
+        [Injected]
+        public ParticleSystem extinguisherParticleSystem;
+
+        [Injected]
+        public FirefighterInput firefighterInput;
 
         private void Reset()
         {
@@ -33,13 +43,26 @@ namespace Project.Flames
                 StopFire();
         }
 
-
         #endregion
 
         public bool IsOnFire => particleSystem.isPlaying;
 
-        private void Start()
+        [InjectMethod]
+        public void Inject()
         {
+            Context context = Context.Find(this);
+            extinguisherParticleSystem = context.Get<ParticleSystem>(this, "firefighter.particle");
+            firefighterInput = context.Get<FirefighterInput>(this);
+        }
+
+        private void Awake()
+        {
+            Inject();
+        }
+
+        protected override void Start()
+        {
+            base.Start();
             particleSystem.gameObject.SetActive(false);
         }
 
@@ -52,6 +75,20 @@ namespace Project.Flames
         public void StopFire()
         {
             particleSystem.Stop();
+        }
+
+        protected override void InteractProtected(RaycastHit hit)
+        {
+            extinguisherParticleSystem.Play();
+            firefighterInput.enabled = false;
+            Invoke(nameof(StopExtinguishing), extinguishSeconds);
+        }
+
+        private void StopExtinguishing()
+        {
+            StopFire();
+            extinguisherParticleSystem.Stop();
+            firefighterInput.enabled = true;
         }
     }
 }

@@ -29,8 +29,98 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 549810502587812884}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3135844586391919781
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3664096208712056647}
+  - component: {fileID: 2502369855375903014}
+  - component: {fileID: 8003879736809663892}
+  - component: {fileID: 3032217426571046770}
+  - component: {fileID: 6093941607696826513}
+  m_Layer: 9
+  m_Name: FirefighterInteraction
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3664096208712056647
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3135844586391919781}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 549810502587812884}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &2502369855375903014
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3135844586391919781}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 2}
+  m_Center: {x: 0, y: 0.5, z: 0.5}
+--- !u!114 &8003879736809663892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3135844586391919781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7932157cabee375468403d1e265f9856, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collider: {fileID: 2502369855375903014}
+  gizmoColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &3032217426571046770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3135844586391919781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9272d5be0c4a8a440baa67287b42382d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <IsHighlighting>k__BackingField: 0
+  target: {fileID: 8244173452922240450}
+--- !u!114 &6093941607696826513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3135844586391919781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc4141ab059779c449625a0c46495f59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _: 0
+  target: {fileID: 4715761688942011016}
 --- !u!1 &6514150677927017552
 GameObject:
   m_ObjectHideFlags: 0
@@ -44,8 +134,8 @@ GameObject:
   - component: {fileID: 1595309629}
   - component: {fileID: 6514150677927017554}
   - component: {fileID: 6514150677927017553}
-  m_Layer: 0
-  m_Name: FridgeTrigger
+  m_Layer: 8
+  m_Name: DragonInteraction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -162,7 +252,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6294508013172393185, guid: 93c0e4305caaa5342ae2563eb65bda66, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6294508013172393185, guid: 93c0e4305caaa5342ae2563eb65bda66, type: 3}
       propertyPath: m_LocalPosition.x
@@ -222,7 +312,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7539286505454239565, guid: 93c0e4305caaa5342ae2563eb65bda66, type: 3}
       propertyPath: m_Range
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7539286505454239565, guid: 93c0e4305caaa5342ae2563eb65bda66, type: 3}
       propertyPath: m_Intensity
@@ -337,6 +427,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94580bc348ab80e44a01e4e1c88424b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _: 0
   particleSystem: {fileID: 6613697465597814738}
 --- !u!114 &6505162782225123451
 MonoBehaviour:
