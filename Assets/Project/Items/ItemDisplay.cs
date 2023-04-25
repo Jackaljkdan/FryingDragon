@@ -34,6 +34,9 @@ namespace Project.Items
 
             GameObject spawn = Instantiate(itemToDisplay, spawnAnchor.position, spawnAnchor.rotation, spawnAnchor);
 
+            spawn.TryGetComponent<MeshRenderer>(out MeshRenderer renderer);
+            renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+
             if (spawn.TryGetComponent<Rigidbody>(out Rigidbody rb))
             {
                 rb.isKinematic = true;
