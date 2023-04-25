@@ -5,8 +5,10 @@ using Project.Items.Ingredients;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace Project.Cooking.Recipes
 {
@@ -19,6 +21,11 @@ namespace Project.Cooking.Recipes
         public List<IngredientTypeValue> neededValueList = new();
 
         public new RectTransform animation;
+
+        public Image bgImage;
+
+        public Color bgColor = Color.white;
+        public Color cookingBgColor = new Color(246, 158, 71);
 
         [RuntimeField]
         public List<IngredientTypeValue> availableIngredients = new();
@@ -101,8 +108,27 @@ namespace Project.Cooking.Recipes
 
         public Tween DOEnter()
         {
-            animation.position = animation.position.WithY(-50);
+            animation.position = animation.position.WithY(-20);
             return animation.DOLocalMoveY(0, 1).SetEase(Ease.OutElastic);
+        }
+
+        public Tween DOExit()
+        {
+            bgImage.color = cookingBgColor;
+            return animation.DOLocalMoveY(50, 1).SetEase(Ease.InElastic);
+        }
+
+        public bool IsRecipeCooking(List<IngredientTypeValue> ingredients)
+        {
+            if (ingredients.Count != neededValueList.Count)
+                return false;
+
+            bool areEqual = ingredients.OrderBy(x => x).SequenceEqual(neededValueList.OrderBy(x => x));
+
+            if (areEqual)
+                DOExit();
+
+            return areEqual;
         }
     }
 }

@@ -19,6 +19,8 @@ namespace Project.Cooking.Recipes
 
         public RectTransform parent;
 
+        public List<RecipesVisualizer> spawnedRecipes;
+
         [Injected]
         private SignalBus signalBus;
 
@@ -39,18 +41,30 @@ namespace Project.Cooking.Recipes
         private void Start()
         {
             signalBus.AddListener<NewRecipeSignal>(OnNewRecipe);
+            signalBus.AddListener<CookingStartedSignal>(OnCookingStarted);
         }
 
         private void OnDestroy()
         {
             signalBus.RemoveListener<NewRecipeSignal>(OnNewRecipe);
+            signalBus.RemoveListener<CookingStartedSignal>(OnCookingStarted);
         }
 
         private void OnNewRecipe(NewRecipeSignal arg)
         {
             RecipesVisualizer spawned = Instantiate(prefab, parent);
+            spawnedRecipes.Add(spawned);
             spawned.DOEnter();
             spawned.ShowRecipe(arg.recipe);
+        }
+
+        private void OnCookingStarted(CookingStartedSignal arg)
+        {
+            foreach (RecipesVisualizer recipesVisualizer in spawnedRecipes)
+            {
+                if (recipesVisualizer.IsRecipeCooking(arg.ingredients))
+                    break;
+            }
         }
     }
 }

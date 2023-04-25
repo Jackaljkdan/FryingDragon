@@ -76,6 +76,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cookingTime: 10
+  brazier: {fileID: 8712741712626338}
   particles: {fileID: 8022481610342416062}
   smokeParticles: {fileID: 8928624203355022718}
   readyParticles: {fileID: 670272222372582579}
@@ -131,8 +132,7 @@ MonoBehaviour:
   _: 0
   extinguishSeconds: 1
   particleSystem: {fileID: 4119114096339783177}
-  extinguisherParticleSystem: {fileID: 0}
-  firefighterInput: {fileID: 0}
+  firefighterSpawner: {fileID: 0}
 --- !u!1 &193874164144156523
 GameObject:
   m_ObjectHideFlags: 0

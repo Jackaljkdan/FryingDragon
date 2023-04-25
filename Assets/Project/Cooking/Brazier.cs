@@ -23,6 +23,9 @@ namespace Project.Cooking
         [Injected]
         public DragonItemHolder dragonItemHolder;
 
+        [Injected]
+        private SignalBus signalBus;
+
         #endregion
 
         [InjectMethod]
@@ -30,6 +33,7 @@ namespace Project.Cooking
         {
             Context context = Context.Find(this);
             dragonItemHolder = context.Get<DragonItemHolder>(this);
+            signalBus = context.Get<SignalBus>(this);
         }
 
         private void Awake()
@@ -57,6 +61,7 @@ namespace Project.Cooking
 
             dragonItemHolder.AnimatePutItem(onPutItemRelease: () =>
             {
+                signalBus.Invoke(new ItemRemovedSignal());
                 bowl.enabled = false;
                 heldTransform.SetParent(dragonItemHolder.transform.parent, worldPositionStays: true);
                 heldTransform.DOMove(bowlAnchor.position, 0.2f);
