@@ -47,5 +47,10 @@ namespace Project.Items.Ingredients
 
         }
 
+        public void HideChecked()
+        {
+            checkedImage.SetActive(false);
+        }
+
     }
 }

@@ -38,6 +38,15 @@ namespace Project.Cooking.Recipes
         {
             RequestNewRecipe();
         }
+
+        [ContextMenu("Request All Recipes")]
+        public void RequestAllRecipesFromInspector()
+        {
+            for (int i = 0; i < maxRecipes; i++)
+            {
+                RequestNewRecipe();
+            }
+        }
         #endregion
 
         public void RequestNewRecipe()

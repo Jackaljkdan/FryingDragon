@@ -19,6 +19,9 @@ namespace Project.Cooking.Recipes
         public List<IngredientImage> imagesList = new();
         public List<IngredientTypeValue> neededValueList = new();
 
+        [RuntimeField]
+        public List<IngredientTypeValue> availableIngredients = new();
+
         [Injected]
         private SignalBus signalBus;
 
@@ -87,29 +90,25 @@ namespace Project.Cooking.Recipes
         {
             Ingredient ingredient = arg.ingredient;
 
+            ShowCheckmark(ingredient.ingredientTypeValue);
+        }
+
+        private void ShowCheckmark(IngredientTypeValue type)
+        {
             for (int i = 0; i < imagesList.Count; i++)
             {
-                if (imagesList[i].ShowChecked(ingredient.ingredientTypeValue))
+                if (imagesList[i].ShowChecked(type))
                     break;
             }
         }
 
-        private void OnIngredientLost(IngredientLostSignal arg)
+        private void OnIngredientLost(IngredientLostSignal args)
         {
-            List<Ingredient> ingredients = arg.availableIngredients;
-            List<IngredientTypeValue> availableIngredients = new();
+            RemoveAllCheckmarks();
 
-            for (int i = 0; i < ingredients.Count; i++)
+            foreach (Ingredient ingredient in args.availableIngredients)
             {
-                availableIngredients.Add(ingredients[i].ingredientTypeValue);
-            }
-
-            foreach (IngredientTypeValue neededValue in neededValueList)
-            {
-                if (!availableIngredients.Contains(neededValue))
-                    RequestHideCheckmark(neededValue);
-                else
-                    availableIngredients.Remove(neededValue);
+                ShowCheckmark(ingredient.ingredientTypeValue);
             }
         }
 
@@ -119,6 +118,14 @@ namespace Project.Cooking.Recipes
             {
                 if (imagesList[i].HideChecked(toHide))
                     break;
+            }
+        }
+
+        private void RemoveAllCheckmarks()
+        {
+            for (int i = imagesList.Count - 1; i >= 0; i--)
+            {
+                imagesList[i].HideChecked();
             }
         }
     }
