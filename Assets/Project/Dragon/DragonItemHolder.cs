@@ -25,7 +25,8 @@ namespace Project.Dragon
             if (holdedItem != null)
                 return;
 
-            SpawnItem(objectToAdd);
+            AnimateRetriveItem(
+                onRetrieveItemRelease: () => { SpawnItem(objectToAdd); }, onRetrieveEnd: () => { });
         }
 
         private void SpawnItem(GameObject item)
