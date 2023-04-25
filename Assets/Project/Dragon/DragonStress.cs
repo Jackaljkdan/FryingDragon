@@ -95,6 +95,8 @@ namespace Project.Dragon
 
         private void Update()
         {
+            slider.value = value;
+
             if (!IsInFrenzy)
                 return;
 
