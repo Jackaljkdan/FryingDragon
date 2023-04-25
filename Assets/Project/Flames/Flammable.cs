@@ -1,5 +1,7 @@
+using DG.Tweening;
 using JK.Injection;
 using JK.Interaction;
+using JK.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -81,6 +83,13 @@ namespace Project.Flames
         {
             extinguisherParticleSystem.Play();
             firefighterInput.enabled = false;
+
+            Transform firefighterTransform = firefighterInput.firefighterMovement.characterControllerTransform;
+            firefighterTransform.DORotate(
+                Quaternion.LookRotation((transform.position - firefighterTransform.position).WithY(0).normalized).eulerAngles,
+                0.5f
+            );
+
             Invoke(nameof(StopExtinguishing), extinguishSeconds);
         }
 
