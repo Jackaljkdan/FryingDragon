@@ -29,6 +29,8 @@ namespace Project.Dragon
 
         public DragonInteractore dragonInteractore;
 
+        public UnityEvent onFrenzy = new UnityEvent();
+
         [RuntimeField]
         public bool isFiring;
 
@@ -98,7 +100,8 @@ namespace Project.Dragon
 
         private void OnIngredientLost(IngredientLostSignal signal)
         {
-            IncrementStress(ingredientLostStress);
+            if (!IsInFrenzy)
+                IncrementStress(ingredientLostStress);
         }
 
         private void IncrementStress(float delta)
@@ -114,6 +117,7 @@ namespace Project.Dragon
             value = 1;
             dragonInput.enabled = false;
             dragonInteractore.enabled = false;
+            onFrenzy.Invoke();
         }
 
         public void StopFrenzy()
