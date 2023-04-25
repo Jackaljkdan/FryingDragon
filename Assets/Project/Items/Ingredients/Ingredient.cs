@@ -1,18 +1,14 @@
+using Project.Items.Ingredients;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Ingredient : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    #region Inspector
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public IngredientTypeValue ingredientTypeValue;
+
+    #endregion
+
 }

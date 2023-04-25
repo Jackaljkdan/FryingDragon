@@ -26,6 +26,10 @@ namespace Project.Items
         [Injected]
         public Transform anchorTransform;
 
+
+        [Injected]
+        private SignalBus signalBus;
+
         private void Reset()
         {
             rb = GetComponent<Rigidbody>();
@@ -38,6 +42,7 @@ namespace Project.Items
         public void Inject()
         {
             Context context = Context.Find(this);
+            signalBus = context.Get<SignalBus>(this);
             anchorTransform = context.Get<Transform>(this, "dragon.anchor");
         }
 
@@ -56,12 +61,14 @@ namespace Project.Items
         {
             GameObject spawned = Instantiate(ingredient, spawnAnchor.position, UnityEngine.Random.rotation, transform.root);
             ingredients.Add(spawned);
+            signalBus.Invoke(new IngredientTakenSignal() { ingredient = spawned.GetComponent<Ingredient>() });
         }
 
         public void RemoveIngredient(GameObject ingredient)
         {
 
             ingredients.Remove(ingredient);
+            signalBus.Invoke(new IngredientLostSignal() { ingredient = ingredient.GetComponent<Ingredient>() });
         }
 
         public void GlueIngredients()
