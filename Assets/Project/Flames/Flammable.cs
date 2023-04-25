@@ -5,7 +5,6 @@ using JK.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -21,10 +20,7 @@ namespace Project.Flames
         public new ParticleSystem particleSystem;
 
         [Injected]
-        public ParticleSystem extinguisherParticleSystem;
-
-        [Injected]
-        public FirefighterInput firefighterInput;
+        public FirefighterSpawner firefighterSpawner;
 
         private void Reset()
         {
@@ -53,8 +49,7 @@ namespace Project.Flames
         public void Inject()
         {
             Context context = Context.Find(this);
-            extinguisherParticleSystem = context.Get<ParticleSystem>(this, "firefighter.particle");
-            firefighterInput = context.Get<FirefighterInput>(this);
+            firefighterSpawner = context.Get<FirefighterSpawner>(this);
         }
 
         private void Awake()
@@ -81,7 +76,12 @@ namespace Project.Flames
 
         protected override void InteractProtected(RaycastHit hit)
         {
-            extinguisherParticleSystem.Play();
+            if (firefighterSpawner.spawned == null)
+                return;
+
+            var firefighterInput = firefighterSpawner.spawned;
+
+            firefighterInput.extinguisherParticleSystem.Play();
             firefighterInput.enabled = false;
 
             Transform firefighterTransform = firefighterInput.firefighterMovement.characterControllerTransform;
@@ -96,8 +96,12 @@ namespace Project.Flames
         private void StopExtinguishing()
         {
             StopFire();
-            extinguisherParticleSystem.Stop();
-            firefighterInput.enabled = true;
+
+            if (firefighterSpawner.spawned != null)
+            {
+                firefighterSpawner.spawned.extinguisherParticleSystem.Stop();
+                firefighterSpawner.spawned.enabled = true;
+            }
         }
     }
 }
