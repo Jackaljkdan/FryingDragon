@@ -1750,6 +1750,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firefighterMovement: {fileID: 7143162459236915358}
+  extinguisherParticleSystem: {fileID: 2129856533312100134}
 --- !u!114 &2224744768708992921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2113,6 +2114,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 515a70cd555094a4a9cf699a8ea60cba, type: 3}
+--- !u!198 &2129856533312100134 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2057629368133821732, guid: 515a70cd555094a4a9cf699a8ea60cba, type: 3}
+  m_PrefabInstance: {fileID: 72319525396935170}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7889517648781331858 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7817647219293732752, guid: 515a70cd555094a4a9cf699a8ea60cba, type: 3}
