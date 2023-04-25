@@ -48,15 +48,12 @@ namespace Project.Flames
 
         private Vector2 input;
 
-        public void Start()
+        private void Awake()
         {
             xHash = Animator.StringToHash("X");
             zHash = Animator.StringToHash("Z");
 
             characterControllerTransform = characterController.transform;
-
-            ikWeight = 0;
-            DOIkWeight(1, 0.5f);
         }
 
         public void Move(Vector2 input)

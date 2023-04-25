@@ -74,7 +74,8 @@ namespace Project.Flames
         {
             input.enabled = true;
             movement.enabled = true;
-            movement.Start();
+            movement.ikWeight = 0;
+            movement.DOIkWeight(1, 0.5f);
             enabled = false;
         }
     }
