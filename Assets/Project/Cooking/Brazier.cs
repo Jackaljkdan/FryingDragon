@@ -20,6 +20,8 @@ namespace Project.Cooking
 
         public Bowl bowl;
 
+        public UnityEvent onBowlRemoved;
+
         [Injected]
         public DragonItemHolder dragonItemHolder;
 
@@ -75,6 +77,7 @@ namespace Project.Cooking
             dragonItemHolder.AnimateRetriveItem(
                 onRetrieveItemRelease: () =>
                 {
+                    onBowlRemoved.Invoke();
                     bowl.enabled = true;
                     bowl.transform.SetParent(transform.root, worldPositionStays: true);
                     bowl.transform.position = bowlAnchor.position;

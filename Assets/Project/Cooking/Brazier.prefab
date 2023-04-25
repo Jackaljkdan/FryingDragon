@@ -62,6 +62,21 @@ MonoBehaviour:
   _: 0
   bowlAnchor: {fileID: 6895690478891193086}
   bowl: {fileID: 0}
+  onBowlRemoved:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 737503114630798829}
+        m_TargetAssemblyTypeName: Project.Cooking.Cooking, Assembly-CSharp
+        m_MethodName: StopCooking
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   dragonItemHolder: {fileID: 0}
 --- !u!114 &737503114630798829
 MonoBehaviour:

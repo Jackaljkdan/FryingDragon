@@ -111,6 +111,8 @@ namespace Project.Cooking
         public void StopCooking()
         {
             particles.Stop();
+            slider.transform.DOScale(0, .5f).SetEase(Ease.InElastic);
+            cookingTween?.Kill();
         }
 
         private void SetCookingColors()
