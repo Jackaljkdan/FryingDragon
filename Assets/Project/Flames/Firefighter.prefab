@@ -1824,7 +1824,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  rotationSpeed: 3
+  rotationSpeed: 2.5
   animator: {fileID: 8888892721434103668}
   ikAnchors: {fileID: 4805856598668312093}
   characterController: {fileID: 8548467145901124414}

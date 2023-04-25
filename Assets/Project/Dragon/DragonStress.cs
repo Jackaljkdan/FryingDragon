@@ -156,7 +156,7 @@ namespace Project.Dragon
             {
                 float rightDot = Vector3.Dot(dragonTransform.right, direction);
                 float rightDotSign = Mathf.Sign(rightDot);
-                movementInput.x = Mathf.Lerp(1 * rightDotSign, 0.33f * rightDotSign, dot);
+                movementInput.x = Mathf.Lerp(1 * rightDotSign, 0.6f * rightDotSign, dot);
             }
 
             if (isTooFar || !isFacing)
