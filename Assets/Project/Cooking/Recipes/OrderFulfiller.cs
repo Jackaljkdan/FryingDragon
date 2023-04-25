@@ -14,8 +14,8 @@ namespace Project.Cooking.Recipes
     {
         #region Inspector
 
+        public int maxRecipes = 3;
         public List<Recipe> recipes = new();
-
 
         [Injected]
         private SignalBus signalBus;
@@ -42,6 +42,9 @@ namespace Project.Cooking.Recipes
 
         public void RequestNewRecipe()
         {
+            if (recipes.Count >= maxRecipes)
+                return;
+
             Recipe newRecipe = new Recipe(GetRandomIngredients(3));
             recipes.Add(newRecipe);
             signalBus.Invoke(new NewRecipeSignal() { recipe = newRecipe });
