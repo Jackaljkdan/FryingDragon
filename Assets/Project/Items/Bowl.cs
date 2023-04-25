@@ -26,7 +26,6 @@ namespace Project.Items
         [Injected]
         public Transform anchorTransform;
 
-
         [Injected]
         private SignalBus signalBus;
 

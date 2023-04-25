@@ -1,8 +1,12 @@
 using DG.Tweening;
+using JK.Injection;
 using JK.Utils.DGTweening;
+using Project.Items;
+using Project.Items.Ingredients;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -16,6 +20,8 @@ namespace Project.Cooking
 
         public float cookingTime = 10f;
 
+        public Brazier brazier;
+
         public ParticleSystem particles;
         public ParticleSystem smokeParticles;
         public ParticleSystem readyParticles;
@@ -27,6 +33,9 @@ namespace Project.Cooking
         public Color backgroundColor = new Color(63, 63, 63);
         public Color cookingColor = Color.white;
         public Color overcookingColor = Color.red;
+
+        [Injected]
+        private SignalBus signalBus;
 
         [ContextMenu("Stop")]
         private void StopInEditMode()
@@ -52,8 +61,22 @@ namespace Project.Cooking
                 smokeParticles.Stop();
         }
 
-
         #endregion
+
+        private List<IngredientTypeValue> ingredients;
+
+        [InjectMethod]
+        public void Inject()
+        {
+            Context context = Context.Find(this);
+            signalBus = context.Get<SignalBus>(this);
+        }
+
+        private void Awake()
+        {
+            Inject();
+        }
+
 
         public bool IsCooking => cookingTween.IsActiveAndPlaying();
 
@@ -66,6 +89,10 @@ namespace Project.Cooking
             particles.gameObject.SetActive(true);
             slider.transform.DOScale(1, 1f).SetEase(Ease.OutBounce);
             cookingTween = slider.DOValue(1f, cookingTime).SetEase(Ease.Linear);
+
+            ingredients = brazier.bowl.ingredients.Select(el => el.ingredientTypeValue).ToList();
+
+            signalBus.Invoke(new CookingStartedSignal() { ingredients = ingredients });
 
             cookingTween.OnComplete(() =>
             {

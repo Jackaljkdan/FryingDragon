@@ -1,4 +1,5 @@
 using DG.Tweening;
+using JK.Injection;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,6 +23,9 @@ namespace Project.Items.Ingredients
 
         public List<Texture2D> ingredientsImages = new();
 
+        [Injected]
+        private SignalBus signalBus;
+
         #endregion
 
         private bool active = false;
@@ -30,9 +34,29 @@ namespace Project.Items.Ingredients
 
         private IngredientTypeValue currentIngredient;
 
+        [InjectMethod]
+        public void Inject()
+        {
+            Context context = Context.Find(this);
+            signalBus = context.Get<SignalBus>(this);
+
+        }
+
+
         private void Awake()
         {
             checkedImage.transform.localScale = Vector3.zero;
+            Inject();
+        }
+
+        private void Start()
+        {
+            signalBus.AddListener<ItemRemovedSignal>(OnItemRemoved);
+        }
+
+        private void OnDestroy()
+        {
+            signalBus.RemoveListener<ItemRemovedSignal>(OnItemRemoved);
         }
 
         public void SetImage(IngredientTypeValue ingredient)
@@ -68,6 +92,11 @@ namespace Project.Items.Ingredients
             active = false;
             tween?.Kill();
             tween = checkedImage.transform.DOScale(Vector3.zero, animationOutSeconds).SetEase(Ease.Linear);
+        }
+
+        private void OnItemRemoved(ItemRemovedSignal arg)
+        {
+            HideChecked();
         }
 
     }

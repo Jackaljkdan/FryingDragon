@@ -217,6 +217,9 @@ MonoBehaviour:
   imagesList: []
   neededValueList: 
   animation: {fileID: 6405274334084485988}
+  bgImage: {fileID: 2843839404319169858}
+  bgColor: {r: 1, g: 1, b: 1, a: 1}
+  cookingBgColor: {r: 0.9339623, g: 0.67260987, b: 0.3568441, a: 1}
   availableIngredients: 
 --- !u!1001 &2631651750927385920
 PrefabInstance:
