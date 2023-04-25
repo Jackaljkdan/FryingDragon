@@ -24,7 +24,7 @@ namespace Project.Items.Ingredients
         {
             if (other.TryGetComponentInParent<Ingredient>(out Ingredient ingredient))
             {
-                bowl.RemoveIngredient(ingredient.gameObject);
+                bowl.RemoveIngredient(ingredient);
             }
         }
     }

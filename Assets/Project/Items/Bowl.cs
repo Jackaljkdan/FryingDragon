@@ -21,7 +21,7 @@ namespace Project.Items
         public Rigidbody rb;
 
         [RuntimeField]
-        public List<GameObject> ingredients = new();
+        public List<Ingredient> ingredients = new();
 
         [Injected]
         public Transform anchorTransform;
@@ -60,22 +60,22 @@ namespace Project.Items
         public void TryAddIngredient(GameObject ingredient)
         {
             GameObject spawned = Instantiate(ingredient, spawnAnchor.position, UnityEngine.Random.rotation, transform.root);
-            ingredients.Add(spawned);
+            ingredients.Add(spawned.GetComponent<Ingredient>());
             signalBus.Invoke(new IngredientTakenSignal() { ingredient = spawned.GetComponent<Ingredient>() });
         }
 
-        public void RemoveIngredient(GameObject ingredient)
+        public void RemoveIngredient(Ingredient ingredient)
         {
 
             ingredients.Remove(ingredient);
-            signalBus.Invoke(new IngredientLostSignal() { ingredient = ingredient.GetComponent<Ingredient>() });
+            signalBus.Invoke(new IngredientLostSignal() { ingredient = ingredient.GetComponent<Ingredient>(), availableIngredients = ingredients });
         }
 
         public void GlueIngredients()
         {
             ingredientLostTrigger.SetActive(false);
 
-            foreach (GameObject ingredient in ingredients)
+            foreach (Ingredient ingredient in ingredients)
             {
                 ingredient.transform.SetParent(transform);
                 Rigidbody rb = ingredient.GetComponent<Rigidbody>();
@@ -90,7 +90,7 @@ namespace Project.Items
 
         public void UnGlueIngredients()
         {
-            foreach (GameObject ingredient in ingredients)
+            foreach (Ingredient ingredient in ingredients)
             {
                 ingredient.transform.SetParent(transform.root);
                 Rigidbody rb = ingredient.GetComponent<Rigidbody>();

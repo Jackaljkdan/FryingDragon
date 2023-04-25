@@ -17,6 +17,7 @@ namespace Project.Cooking.Recipes
         public GameObject recipeUIElement;
         public Transform recipesAnchor;
         public List<IngredientImage> imagesList = new();
+        public List<IngredientTypeValue> neededValueList = new();
 
         [Injected]
         private SignalBus signalBus;
@@ -53,6 +54,7 @@ namespace Project.Cooking.Recipes
         private void OnNewRecipe(NewRecipeSignal arg)
         {
             List<IngredientTypeValue> ingredients = arg.recipe.ingredients;
+            neededValueList.AddRange(ingredients);
 
             GameObject spawned = Instantiate(recipeUIElement, recipesAnchor.position, Quaternion.identity, transform);
             IngredientImage[] ingredientImages = spawned.GetComponentsInChildren<IngredientImage>(true);
@@ -79,14 +81,30 @@ namespace Project.Cooking.Recipes
 
         private void OnIngredientLost(IngredientLostSignal arg)
         {
-            Ingredient ingredient = arg.ingredient;
+            List<Ingredient> ingredients = arg.availableIngredients;
+            List<IngredientTypeValue> availableIngredients = new();
 
-            for (int i = imagesList.Count - 1; i >= 0; i--)
+            for (int i = 0; i < ingredients.Count; i++)
             {
-                if (imagesList[i].HideChecked(ingredient.ingredientTypeValue))
-                    break;
+                availableIngredients.Add(ingredients[i].ingredientTypeValue);
+            }
+
+            foreach (IngredientTypeValue neededValue in neededValueList)
+            {
+                if (!availableIngredients.Contains(neededValue))
+                    RequestHideCheckmark(neededValue);
+                else
+                    availableIngredients.Remove(neededValue);
             }
         }
 
+        private void RequestHideCheckmark(IngredientTypeValue toHide)
+        {
+            for (int i = imagesList.Count - 1; i >= 0; i--)
+            {
+                if (imagesList[i].HideChecked(toHide))
+                    break;
+            }
+        }
     }
 }

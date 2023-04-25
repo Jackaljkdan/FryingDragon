@@ -10,6 +10,7 @@ namespace Project.Items.Ingredients
     public struct IngredientLostSignal
     {
         public Ingredient ingredient;
+        public List<Ingredient> availableIngredients;
     }
 
     [Serializable]
