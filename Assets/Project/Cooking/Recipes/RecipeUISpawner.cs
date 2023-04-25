@@ -15,8 +15,9 @@ namespace Project.Cooking.Recipes
     {
         #region Inspector
 
-        public GameObject recipeUIElement;
-        public List<Transform> recipeAnchors;
+        public RecipesVisualizer prefab;
+
+        public RectTransform parent;
 
         [Injected]
         private SignalBus signalBus;
@@ -29,6 +30,7 @@ namespace Project.Cooking.Recipes
         }
 
         #endregion
+
         private void Awake()
         {
             Inject();
@@ -44,26 +46,11 @@ namespace Project.Cooking.Recipes
             signalBus.RemoveListener<NewRecipeSignal>(OnNewRecipe);
         }
 
-        private Transform FindEmptyAnchor()
-        {
-            for (int i = 0; i < recipeAnchors.Count; i++)
-            {
-                if (recipeAnchors[i].childCount == 0)
-                    return recipeAnchors[i];
-            }
-            return null;
-        }
-
         private void OnNewRecipe(NewRecipeSignal arg)
         {
-            Transform recipesAnchor = FindEmptyAnchor();
-
-            if (!recipesAnchor)
-                return;
-
-            GameObject spawned = Instantiate(recipeUIElement, recipesAnchor.position, Quaternion.identity, recipesAnchor);
-            spawned.transform.DOLocalMoveY(-50f, 1).SetEase(Ease.OutElastic);
-            spawned.GetComponent<RecipesVisualizer>().ShowRecipe(arg.recipe);
+            RecipesVisualizer spawned = Instantiate(prefab, parent);
+            spawned.DOEnter();
+            spawned.ShowRecipe(arg.recipe);
         }
     }
 }

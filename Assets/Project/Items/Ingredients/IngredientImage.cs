@@ -30,6 +30,11 @@ namespace Project.Items.Ingredients
 
         private IngredientTypeValue currentIngredient;
 
+        private void Awake()
+        {
+            checkedImage.transform.localScale = Vector3.zero;
+        }
+
         public void SetImage(IngredientTypeValue ingredient)
         {
             image.texture = ingredientsImages[(int)ingredient];

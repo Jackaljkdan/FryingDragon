@@ -1,3 +1,4 @@
+using DG.Tweening;
 using JK.Injection;
 using JK.Utils;
 using Project.Items.Ingredients;
@@ -16,6 +17,8 @@ namespace Project.Cooking.Recipes
 
         public List<IngredientImage> imagesList = new();
         public List<IngredientTypeValue> neededValueList = new();
+
+        public new RectTransform animation;
 
         [RuntimeField]
         public List<IngredientTypeValue> availableIngredients = new();
@@ -53,14 +56,12 @@ namespace Project.Cooking.Recipes
         {
             List<IngredientTypeValue> ingredients = recipe.ingredients;
             neededValueList.AddRange(ingredients);
-            IngredientImage[] ingredientImages = GetComponentsInChildren<IngredientImage>(true);
-            imagesList.AddRange(ingredientImages);
+            GetComponentsInChildren(includeInactive: true, imagesList);
 
             for (int i = 0; i < ingredients.Count; i++)
             {
                 IngredientTypeValue ingredient = ingredients[i];
-                ingredientImages[i].SetImage(ingredient);
-
+                imagesList[i].SetImage(ingredient);
             }
         }
 
@@ -96,6 +97,12 @@ namespace Project.Cooking.Recipes
             {
                 imagesList[i].HideChecked();
             }
+        }
+
+        public Tween DOEnter()
+        {
+            animation.position = animation.position.WithY(-50);
+            return animation.DOLocalMoveY(0, 1).SetEase(Ease.OutElastic);
         }
     }
 }

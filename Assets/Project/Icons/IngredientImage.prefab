@@ -53,6 +53,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 1126450220596585576}
   checkedImage: {fileID: 2875839243834555082}
+  animationInSeconds: 1
+  animationOutSeconds: 0.3
   ingredientsImages:
   - {fileID: 2800000, guid: 54d3d18e1006f7140b118ee77fe16dd3, type: 3}
   - {fileID: 2800000, guid: bc08e29bd5c221945a108430c9da4b6a, type: 3}
@@ -91,10 +93,10 @@ RectTransform:
   m_Father: {fileID: 1126450219559517382}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 30, y: 30}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1126450220596585579
 CanvasRenderer:
@@ -124,7 +126,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 2800000, guid: 54d3d18e1006f7140b118ee77fe16dd3, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -171,16 +173,16 @@ RectTransform:
   m_GameObject: {fileID: 2875839243834555082}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1126450219559517382}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 30, y: 30}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8795834444811175409
 CanvasRenderer:
