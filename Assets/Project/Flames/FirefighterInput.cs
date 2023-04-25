@@ -1,3 +1,4 @@
+using Project.Dragon;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,7 +16,20 @@ namespace Project.Flames
 
         public ParticleSystem extinguisherParticleSystem;
 
+        public DragonInteractore interactore;
+
         #endregion
+
+        private void OnEnable()
+        {
+            interactore.enabled = true;
+        }
+
+        private void OnDisable()
+        {
+            interactore.enabled = false;
+            firefighterMovement.Move(new Vector2(0, 0));
+        }
 
         private void Update()
         {
