@@ -45,6 +45,7 @@ namespace Project.Cooking.Recipes
             Recipe newRecipe = new Recipe(GetRandomIngredients(3));
             recipes.Add(newRecipe);
             signalBus.Invoke(new NewRecipeSignal() { recipe = newRecipe });
+
         }
 
         private List<IngredientTypeValue> GetRandomIngredients(int count)
