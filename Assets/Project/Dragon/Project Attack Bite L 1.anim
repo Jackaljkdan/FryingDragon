@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Project Attack Bite L
+  m_Name: Project Attack Bite L 1
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -76900,15 +76900,8 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.4
-    functionName: OnPutItemRelease
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.43333334
-    functionName: OnRetriveItemRelease
+  - time: 0
+    functionName: OnRetriveEnd
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
