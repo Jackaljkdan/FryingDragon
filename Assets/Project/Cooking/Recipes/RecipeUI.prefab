@@ -85,6 +85,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7888248687451612849}
+  - component: {fileID: 475390651130981901}
   m_Layer: 0
   m_Name: RecipeUI
   m_TagString: Untagged
@@ -116,6 +117,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &475390651130981901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8537787965947202132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56c847e2c351c404f8f6a1a229d6cbd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recipeUIElement: {fileID: 0}
+  recipeAnchors: []
+  imagesList: []
+  neededValueList: 
+  availableIngredients: 
 --- !u!1001 &2476107099298421551
 PrefabInstance:
   m_ObjectHideFlags: 0

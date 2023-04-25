@@ -14,8 +14,6 @@ namespace Project.Cooking.Recipes
     {
         #region Inspector
 
-        public GameObject recipeUIElement;
-        public List<Transform> recipeAnchors;
         public List<IngredientImage> imagesList = new();
         public List<IngredientTypeValue> neededValueList = new();
 
@@ -37,45 +35,25 @@ namespace Project.Cooking.Recipes
             Inject();
         }
 
-
         #endregion
 
         private void Start()
         {
-            signalBus.AddListener<NewRecipeSignal>(OnNewRecipe);
             signalBus.AddListener<IngredientTakenSignal>(OnIngredientTaken);
             signalBus.AddListener<IngredientLostSignal>(OnIngredientLost);
         }
 
         private void OnDestroy()
         {
-            signalBus.RemoveListener<NewRecipeSignal>(OnNewRecipe);
             signalBus.RemoveListener<IngredientTakenSignal>(OnIngredientTaken);
             signalBus.RemoveListener<IngredientLostSignal>(OnIngredientLost);
         }
 
-        private Transform FindEmptyAnchor()
+        public void ShowRecipe(Recipe recipe)
         {
-            for (int i = 0; i < recipeAnchors.Count; i++)
-            {
-                if (recipeAnchors[i].childCount == 0)
-                    return recipeAnchors[i];
-            }
-            return null;
-        }
-
-        private void OnNewRecipe(NewRecipeSignal arg)
-        {
-            Transform recipesAnchor = FindEmptyAnchor();
-
-            if (!recipesAnchor)
-                return;
-
-            List<IngredientTypeValue> ingredients = arg.recipe.ingredients;
+            List<IngredientTypeValue> ingredients = recipe.ingredients;
             neededValueList.AddRange(ingredients);
-
-            GameObject spawned = Instantiate(recipeUIElement, recipesAnchor.position, Quaternion.identity, recipesAnchor);
-            IngredientImage[] ingredientImages = spawned.GetComponentsInChildren<IngredientImage>(true);
+            IngredientImage[] ingredientImages = GetComponentsInChildren<IngredientImage>(true);
             imagesList.AddRange(ingredientImages);
 
             for (int i = 0; i < ingredients.Count; i++)
@@ -109,15 +87,6 @@ namespace Project.Cooking.Recipes
             foreach (Ingredient ingredient in args.availableIngredients)
             {
                 ShowCheckmark(ingredient.ingredientTypeValue);
-            }
-        }
-
-        private void RequestHideCheckmark(IngredientTypeValue toHide)
-        {
-            for (int i = imagesList.Count - 1; i >= 0; i--)
-            {
-                if (imagesList[i].HideChecked(toHide))
-                    break;
             }
         }
 
