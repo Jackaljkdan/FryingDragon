@@ -15,7 +15,7 @@ namespace Project.Cooking.Recipes
         #region Inspector
 
         public GameObject recipeUIElement;
-        public Transform recipesAnchor;
+        public List<Transform> recipeAnchors;
         public List<IngredientImage> imagesList = new();
         public List<IngredientTypeValue> neededValueList = new();
 
@@ -51,12 +51,27 @@ namespace Project.Cooking.Recipes
             signalBus.RemoveListener<IngredientLostSignal>(OnIngredientLost);
         }
 
+        private Transform FindEmptyAnchor()
+        {
+            for (int i = 0; i < recipeAnchors.Count; i++)
+            {
+                if (recipeAnchors[i].childCount == 0)
+                    return recipeAnchors[i];
+            }
+            return null;
+        }
+
         private void OnNewRecipe(NewRecipeSignal arg)
         {
+            Transform recipesAnchor = FindEmptyAnchor();
+
+            if (!recipesAnchor)
+                return;
+
             List<IngredientTypeValue> ingredients = arg.recipe.ingredients;
             neededValueList.AddRange(ingredients);
 
-            GameObject spawned = Instantiate(recipeUIElement, recipesAnchor.position, Quaternion.identity, transform);
+            GameObject spawned = Instantiate(recipeUIElement, recipesAnchor.position, Quaternion.identity, recipesAnchor);
             IngredientImage[] ingredientImages = spawned.GetComponentsInChildren<IngredientImage>(true);
             imagesList.AddRange(ingredientImages);
 
