@@ -1,4 +1,6 @@
+using DG.Tweening;
 using JK.Injection;
+using JK.Utils;
 using Project.Items.Ingredients;
 using System;
 using System.Collections;
@@ -60,6 +62,7 @@ namespace Project.Cooking.Recipes
                 return;
 
             GameObject spawned = Instantiate(recipeUIElement, recipesAnchor.position, Quaternion.identity, recipesAnchor);
+            spawned.transform.DOLocalMoveY(-50f, 1).SetEase(Ease.OutElastic);
             spawned.GetComponent<RecipesVisualizer>().ShowRecipe(arg.recipe);
         }
     }
