@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &1257373904575055485
 Transform:
@@ -308,8 +308,7 @@ MonoBehaviour:
   _: 0
   extinguishSeconds: 1
   particleSystem: {fileID: 8148034295520169309}
-  extinguisherParticleSystem: {fileID: 0}
-  firefighterInput: {fileID: 0}
+  firefighterSpawner: {fileID: 0}
 --- !u!1 &7109601559000299159
 GameObject:
   m_ObjectHideFlags: 0

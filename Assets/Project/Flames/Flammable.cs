@@ -109,13 +109,13 @@ namespace Project.Flames
 
         private void StopExtinguishing()
         {
-            StopFire();
-
             if (firefighterSpawner.spawned != null)
             {
                 firefighterSpawner.spawned.extinguisherParticleSystem.Stop();
                 firefighterSpawner.spawned.enabled = true;
             }
+
+            StopFire();
         }
     }
 }
