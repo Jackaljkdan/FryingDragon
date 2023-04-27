@@ -17,9 +17,13 @@ namespace Project.Dragon
     {
         #region Inspector
 
-        public float value;
+        public float stress;
 
         public float ingredientLostStress = 0.1f;
+
+        public float fireStressRelief = 0.25f;
+
+        public Animator dragonAnimator;
 
         public DragonInput dragonInput;
 
@@ -30,6 +34,12 @@ namespace Project.Dragon
         public DragonInteractore dragonInteractore;
 
         public UnityEvent onFrenzy = new UnityEvent();
+
+        [RuntimeField]
+        public bool isInFrenzy;
+
+        [RuntimeField]
+        public bool isEmbarassed;
 
         [RuntimeField]
         public bool isFiring;
@@ -72,8 +82,6 @@ namespace Project.Dragon
 
         #endregion
 
-        public bool IsInFrenzy => value >= 1;
-
         [InjectMethod]
         public void Inject()
         {
@@ -88,6 +96,12 @@ namespace Project.Dragon
             Inject();
         }
 
+        private void Start()
+        {
+            isInFrenzy = false;
+            isEmbarassed = false;
+        }
+
         private void OnEnable()
         {
             signalBus.AddListener<IngredientLostSignal>(OnIngredientLost);
@@ -100,21 +114,21 @@ namespace Project.Dragon
 
         private void OnIngredientLost(IngredientLostSignal signal)
         {
-            if (!IsInFrenzy)
-                IncrementStress(ingredientLostStress);
+            IncrementStress(ingredientLostStress);
         }
 
         private void IncrementStress(float delta)
         {
-            value = Mathf.Clamp01(value + delta);
+            stress = Mathf.Clamp01(stress + delta);
 
-            if (value >= 1)
+            if (stress >= 1 && !isInFrenzy)
                 StartFrenzy();
         }
 
         public void StartFrenzy()
         {
-            value = 1;
+            stress = 1;
+            isInFrenzy = true;
             dragonInput.enabled = false;
             dragonInteractore.enabled = false;
             onFrenzy.Invoke();
@@ -122,16 +136,32 @@ namespace Project.Dragon
 
         public void StopFrenzy()
         {
-            value = 0;
+            stress = 0;
+            isInFrenzy = false;
+            isEmbarassed = true;
+            dragonMovement.Move(Vector2.zero);
+            dragonAnimator.CrossFade("Confused", 0.2f);
+        }
+
+        public void StopEmarassment()
+        {
+            dragonAnimator.CrossFade("Move", 0.2f);
+            isEmbarassed = false;
             dragonInput.enabled = true;
             dragonInteractore.enabled = true;
         }
 
         private void Update()
         {
-            slider.value = value;
+            slider.value = stress;
 
-            if (!IsInFrenzy)
+            if (isEmbarassed && flammableList.fires.Value == 0)
+            {
+                StopEmarassment();
+                return;
+            }
+
+            if (!isInFrenzy)
                 return;
 
             if (isFiring)
@@ -171,6 +201,10 @@ namespace Project.Dragon
 
                 isFiring = true;
                 chosenFlammable = null;
+
+                stress = Mathf.Clamp01(stress - fireStressRelief);
+                if (stress <= 0)
+                    StopFrenzy();
             }
 
             dragonMovement.Move(movementInput);

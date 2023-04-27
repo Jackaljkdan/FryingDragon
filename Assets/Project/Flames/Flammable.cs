@@ -22,6 +22,9 @@ namespace Project.Flames
         [Injected]
         public FirefighterSpawner firefighterSpawner;
 
+        [Injected]
+        private SignalBus signalBus;
+
         private void Reset()
         {
             particleSystem = GetComponentInChildren<ParticleSystem>();
@@ -50,6 +53,7 @@ namespace Project.Flames
         {
             Context context = Context.Find(this);
             firefighterSpawner = context.Get<FirefighterSpawner>(this);
+            signalBus = context.Get<SignalBus>(this);
         }
 
         private void Awake()
@@ -65,13 +69,23 @@ namespace Project.Flames
 
         public void StartFire()
         {
+            if (IsOnFire)
+                return;
+
             particleSystem.gameObject.SetActive(true);
             particleSystem.Play();
+
+            signalBus.Invoke(new FireStartSignal(this));
         }
 
         public void StopFire()
         {
+            if (!IsOnFire)
+                return;
+
             particleSystem.Stop();
+
+            signalBus.Invoke(new FireStopSignal(this));
         }
 
         protected override void InteractProtected(RaycastHit hit)
