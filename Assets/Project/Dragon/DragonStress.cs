@@ -141,6 +141,7 @@ namespace Project.Dragon
         {
             stress.Value = 0;
             isInFrenzy = false;
+            isFiring = false;
             isEmbarassed = true;
             dragonMovement.Move(Vector2.zero);
             dragonAnimator.CrossFade("Confused", 0.2f);

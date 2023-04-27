@@ -1766,7 +1766,6 @@ GameObject:
   - component: {fileID: 1478285804688941656}
   - component: {fileID: 8548467145901124414}
   - component: {fileID: 874309519250222702}
-  - component: {fileID: 6968228773344088949}
   m_Layer: 0
   m_Name: Firefighter
   m_TagString: Untagged
@@ -1926,23 +1925,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &6968228773344088949
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8888892721426773448}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27e5dc2a8a4986142ae48381659369c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  components:
-  - {fileID: 6759358304728985591}
-  targetGameObject: {fileID: 0}
-  id: 
-  injectionType: 0
 --- !u!1 &8888892721426774770
 GameObject:
   m_ObjectHideFlags: 0
