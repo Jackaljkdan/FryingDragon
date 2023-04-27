@@ -1,6 +1,8 @@
 using DG.Tweening;
 using JK.Injection;
 using JK.Utils;
+using Project.Dragon;
+using Project.Items;
 using Project.Items.Ingredients;
 using System;
 using System.Collections;
@@ -40,11 +42,15 @@ namespace Project.Cooking.Recipes
         [Injected]
         private SignalBus signalBus;
 
+        [Injected]
+        public DragonItemHolder holder;
+
         [InjectMethod]
         public void Inject()
         {
             Context context = Context.Find(this);
             signalBus = context.Get<SignalBus>(this);
+            holder = context.Get<DragonItemHolder>(this);
         }
 
         #endregion
@@ -78,6 +84,20 @@ namespace Project.Cooking.Recipes
                 IngredientTypeValue ingredient = ingredients[i];
                 imagesList[i].SetImage(ingredient);
             }
+
+            GetStartingIngredients();
+        }
+
+        private void GetStartingIngredients()
+        {
+            if (!holder.holdedItem)
+                return;
+
+            if (holder.holdedItem.TryGetComponentInChildren<Bowl>(out Bowl bowl))
+                foreach (Ingredient ingredient in bowl.ingredients)
+                {
+                    ShowCheckmark(ingredient.ingredientTypeValue);
+                }
         }
 
         private void OnIngredientTaken(IngredientTakenSignal arg)
@@ -145,9 +165,7 @@ namespace Project.Cooking.Recipes
             sliderBackgroundArea.color = sliderBackgroundColor;
             sliderFillArea.color = sliderCookingColor;
             slider.DOValue(1f, cookingTime).SetEase(Ease.Linear).OnComplete(() => StartOvercooking(cookingTime));
-
         }
-
 
         public bool IsRecipeCooking(List<IngredientTypeValue> ingredients, float recipeCookingTime)
         {
