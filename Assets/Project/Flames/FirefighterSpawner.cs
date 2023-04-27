@@ -15,13 +15,13 @@ namespace Project.Flames
     {
         #region Inspector
 
-        public AssetReferenceComponent<FirefighterInput> firefighterAsset;
+        public AssetReferenceComponent<FirefighterExit> firefighterAsset;
 
         public Transform parent;
         public Transform anchor;
 
         [RuntimeField]
-        public FirefighterInput spawned;
+        public FirefighterExit spawned;
 
         [Injected]
         public DragonStress dragonStress;
@@ -64,6 +64,9 @@ namespace Project.Flames
         private void OnDisable()
         {
             signalBus.RemoveListener<FireStartSignal>(OnFireStart);
+
+            if (spawned != null)
+                spawned.onExit.RemoveListener(OnSpawnedExit);
         }
 
         private void OnFireStart(FireStartSignal arg)
@@ -85,7 +88,14 @@ namespace Project.Flames
             firefighterAsset.InstantiateAsync(anchor.position, anchor.rotation, parent).Completed += handle =>
             {
                 spawned = handle.Result;
+                spawned.onExit.AddListener(OnSpawnedExit);
             };
+        }
+
+        private void OnSpawnedExit()
+        {
+            firefighterAsset.ReleaseInstance(spawned.gameObject);
+            spawned = null;
         }
     }
 }

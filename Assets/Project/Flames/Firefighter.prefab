@@ -1819,7 +1819,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8888892721426773448}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2bf9d73cad83374bb10ee9a4b562e7a, type: 3}
   m_Name: 
@@ -1841,7 +1841,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8888892721426773448}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f274020d7845394abc61e9699f3b0cd, type: 3}
   m_Name: 
@@ -1882,6 +1882,9 @@ MonoBehaviour:
   input: {fileID: 6759358304728985591}
   movement: {fileID: 7143162459236915358}
   agent: {fileID: 874309519250222702}
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
   flammableList: {fileID: 0}
   dragonStress: {fileID: 0}
   exitAnchor: {fileID: 0}
@@ -2266,28 +2269,6 @@ ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 2057629368133821732, guid: 515a70cd555094a4a9cf699a8ea60cba, type: 3}
   m_PrefabInstance: {fileID: 72319525396935170}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2254858189265608886 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2182613775383089844, guid: 515a70cd555094a4a9cf699a8ea60cba, type: 3}
-  m_PrefabInstance: {fileID: 72319525396935170}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5194854094877835504
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2254858189265608886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27e5dc2a8a4986142ae48381659369c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  components:
-  - {fileID: 2129856533312100134}
-  targetGameObject: {fileID: 0}
-  id: firefighter.particle
-  injectionType: 0
 --- !u!4 &7889517648781331858 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7817647219293732752, guid: 515a70cd555094a4a9cf699a8ea60cba, type: 3}

@@ -93,7 +93,7 @@ namespace Project.Flames
             if (firefighterSpawner.spawned == null)
                 return;
 
-            var firefighterInput = firefighterSpawner.spawned;
+            var firefighterInput = firefighterSpawner.spawned.input;
 
             firefighterInput.extinguisherParticleSystem.Play();
             firefighterInput.enabled = false;
@@ -111,8 +111,8 @@ namespace Project.Flames
         {
             if (firefighterSpawner.spawned != null)
             {
-                firefighterSpawner.spawned.extinguisherParticleSystem.Stop();
-                firefighterSpawner.spawned.enabled = true;
+                firefighterSpawner.spawned.input.extinguisherParticleSystem.Stop();
+                firefighterSpawner.spawned.input.enabled = true;
             }
 
             StopFire();

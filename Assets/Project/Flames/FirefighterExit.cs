@@ -23,6 +23,8 @@ namespace Project.Flames
 
         public NavMeshAgent agent;
 
+        public UnityEvent onExit = new UnityEvent();
+
         [Injected]
         public FlammableList flammableList;
 
@@ -74,14 +76,20 @@ namespace Project.Flames
         public void Exit()
         {
             flammableList.fires.onChange.RemoveListener(OnFiresChange);
+
             input.enabled = false;
             input.movement.enabled = false;
+
             agent.enabled = true;
             agent.destination = exitAnchor.position;
+
             animator.CrossFade("Move", 0.5f);
             animator.SetFloat("X", 0);
             animator.SetFloat("Z", 1);
+
             StartCoroutine(ExitCoroutine());
+
+            onExit.Invoke();
         }
 
         private IEnumerator ExitCoroutine()
