@@ -98,7 +98,7 @@ namespace Project.Flames
             firefighterInput.extinguisherParticleSystem.Play();
             firefighterInput.enabled = false;
 
-            Transform firefighterTransform = firefighterInput.firefighterMovement.characterControllerTransform;
+            Transform firefighterTransform = firefighterInput.movement.characterControllerTransform;
             firefighterTransform.DORotate(
                 Quaternion.LookRotation((transform.position - firefighterTransform.position).WithY(0).normalized).eulerAngles,
                 0.5f
@@ -109,13 +109,13 @@ namespace Project.Flames
 
         private void StopExtinguishing()
         {
-            StopFire();
-
             if (firefighterSpawner.spawned != null)
             {
                 firefighterSpawner.spawned.extinguisherParticleSystem.Stop();
                 firefighterSpawner.spawned.enabled = true;
             }
+
+            StopFire();
         }
     }
 }

@@ -56,6 +56,11 @@ namespace Project.Flames
             characterControllerTransform = characterController.transform;
         }
 
+        private void Start()
+        {
+
+        }
+
         public void Move(Vector2 input)
         {
             this.input = input;

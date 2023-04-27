@@ -13,18 +13,12 @@ namespace JK.Interaction
         #region Inspector
 
         [RuntimeField]
-        public List<AbstractInteractable> available;
+        public List<AbstractInteractable> available = new();
 
         [RuntimeField]
         public AbstractInteractable highlighting;
 
         #endregion
-
-        protected virtual void Start()
-        {
-            highlighting = null;
-            available = new List<AbstractInteractable>();
-        }
 
         private void OnTriggerEnter(Collider other)
         {
