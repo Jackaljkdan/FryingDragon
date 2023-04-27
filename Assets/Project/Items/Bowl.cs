@@ -109,9 +109,17 @@ namespace Project.Items
         public void Drop()
         {
             enabled = false;
+
+            float force = 3 * (ingredients.Count + 1);
+
             rb.isKinematic = false;
             rb.useGravity = true;
-            rb.AddForceAtPosition(dropForceAnchor.forward * 3, dropForceAnchor.position, ForceMode.Impulse);
+            rb.AddForceAtPosition(dropForceAnchor.forward * force, dropForceAnchor.position, ForceMode.Impulse);
+
+            ingredientLostTrigger.SetActive(false);
+
+            for (int i = ingredients.Count - 1; i >= 0; i--)
+                RemoveIngredient(ingredients[i]);
         }
     }
 }
