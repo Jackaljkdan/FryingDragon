@@ -2,6 +2,7 @@ using JK.Injection;
 using JK.Utils;
 using Project.Character;
 using Project.Flames;
+using Project.Items.Ingredients;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,6 +19,8 @@ namespace Project.Dragon
 
         public float value;
 
+        public float ingredientLostStress = 0.1f;
+
         public DragonInput dragonInput;
 
         public DragonMovement dragonMovement;
@@ -26,10 +29,12 @@ namespace Project.Dragon
 
         public DragonInteractore dragonInteractore;
 
+        public UnityEvent onFrenzy = new UnityEvent();
+
         [RuntimeField]
         public bool isFiring;
-        [RuntimeField]
 
+        [RuntimeField]
         public Flammable chosenFlammable;
 
         [DebugField]
@@ -40,6 +45,9 @@ namespace Project.Dragon
 
         [Injected]
         public FlammableList flammableList;
+
+        [Injected]
+        private SignalBus signalBus;
 
         [ContextMenu("Start frenzy")]
         private void StartFrenzyInEditMode()
@@ -72,6 +80,7 @@ namespace Project.Dragon
             Context context = Context.Find(this);
             slider = context.GetOptional<Slider>("dragon.stress");
             flammableList = context.Get<FlammableList>(this);
+            signalBus = context.Get<SignalBus>(this);
         }
 
         private void Awake()
@@ -79,11 +88,36 @@ namespace Project.Dragon
             Inject();
         }
 
+        private void OnEnable()
+        {
+            signalBus.AddListener<IngredientLostSignal>(OnIngredientLost);
+        }
+
+        private void OnDisable()
+        {
+            signalBus.RemoveListener<IngredientLostSignal>(OnIngredientLost);
+        }
+
+        private void OnIngredientLost(IngredientLostSignal signal)
+        {
+            if (!IsInFrenzy)
+                IncrementStress(ingredientLostStress);
+        }
+
+        private void IncrementStress(float delta)
+        {
+            value = Mathf.Clamp01(value + delta);
+
+            if (value >= 1)
+                StartFrenzy();
+        }
+
         public void StartFrenzy()
         {
             value = 1;
             dragonInput.enabled = false;
             dragonInteractore.enabled = false;
+            onFrenzy.Invoke();
         }
 
         public void StopFrenzy()
@@ -122,7 +156,7 @@ namespace Project.Dragon
             {
                 float rightDot = Vector3.Dot(dragonTransform.right, direction);
                 float rightDotSign = Mathf.Sign(rightDot);
-                movementInput.x = Mathf.Lerp(1 * rightDotSign, 0.33f * rightDotSign, dot);
+                movementInput.x = Mathf.Lerp(1 * rightDotSign, 0.6f * rightDotSign, dot);
             }
 
             if (isTooFar || !isFacing)
