@@ -20,19 +20,6 @@ namespace Project.Cooking.Recipes
         [Injected]
         private SignalBus signalBus;
 
-        [InjectMethod]
-        public void Inject()
-        {
-            Context context = Context.Find(this);
-            signalBus = context.Get<SignalBus>(this);
-        }
-
-        private void Awake()
-        {
-            Inject();
-        }
-
-
         [ContextMenu("Request Recipe")]
         public void RequestRecipeFromInspector()
         {
@@ -48,6 +35,18 @@ namespace Project.Cooking.Recipes
             }
         }
         #endregion
+
+        [InjectMethod]
+        public void Inject()
+        {
+            Context context = Context.Find(this);
+            signalBus = context.Get<SignalBus>(this);
+        }
+
+        private void Awake()
+        {
+            Inject();
+        }
 
         public void TryRequestNewRecipe()
         {
