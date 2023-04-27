@@ -21,6 +21,7 @@ namespace Project.Cooking.Recipes
         public List<IngredientTypeValue> neededValueList = new();
 
         public new RectTransform animation;
+        public Slider slider;
 
         public Image bgImage;
 
@@ -43,6 +44,7 @@ namespace Project.Cooking.Recipes
         private void Awake()
         {
             Inject();
+            //slider.GetComponent<RectTransform>().localScale = Vector3.zero;
         }
 
         #endregion
@@ -108,15 +110,20 @@ namespace Project.Cooking.Recipes
 
         public Tween DOEnter()
         {
-            animation.position = animation.position.WithY(-20);
+            animation.position = animation.position.WithY(animation.position.y + 20);
             return animation.DOLocalMoveY(0, 1).SetEase(Ease.OutElastic);
         }
 
         public Tween DOExit()
         {
             bgImage.color = cookingBgColor;
-            return animation.DOLocalMoveY(50, 1).SetEase(Ease.InElastic);
+            return animation.DOLocalMoveY(50, 1).SetEase(Ease.InElastic).OnComplete(
+                () =>
+                {
+                    slider.GetComponent<RectTransform>().DOScale(Vector3.one, 0.5f).SetEase(Ease.OutElastic);
+                });
         }
+
 
         public bool IsRecipeCooking(List<IngredientTypeValue> ingredients)
         {
