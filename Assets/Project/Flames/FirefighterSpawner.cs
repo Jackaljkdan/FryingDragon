@@ -26,6 +26,9 @@ namespace Project.Flames
         [Injected]
         public DragonStress dragonStress;
 
+        [RuntimeField]
+        private SignalBus signalBus;
+
         private void Reset()
         {
             parent = transform.root;
@@ -45,6 +48,7 @@ namespace Project.Flames
         {
             Context context = Context.Find(this);
             dragonStress = context.Get<DragonStress>(this);
+            signalBus = context.Get<SignalBus>(this);
         }
 
         private void Awake()
@@ -54,17 +58,26 @@ namespace Project.Flames
 
         private void OnEnable()
         {
-            dragonStress.onFrenzy.AddListener(OnDragonFrenzy);
+            signalBus.AddListener<FireStartSignal>(OnFireStart);
         }
 
         private void OnDisable()
         {
-            dragonStress.onFrenzy.RemoveListener(OnDragonFrenzy);
+            signalBus.RemoveListener<FireStartSignal>(OnFireStart);
         }
 
-        private void OnDragonFrenzy()
+        private void OnFireStart(FireStartSignal arg)
         {
-            Spawn();
+            if (spawned != null)
+                return;
+
+            if (!dragonStress.isInFrenzy)
+                return;
+
+            if (IsInvoking(nameof(Spawn)))
+                return;
+
+            Invoke(nameof(Spawn), 1);
         }
 
         public void Spawn()
