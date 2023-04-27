@@ -34,6 +34,8 @@ namespace Project.Dragon
 
         public DragonInteractore dragonInteractore;
 
+        public DragonItemHolder dragonItemHolder;
+
         public UnityEvent onFrenzy = new UnityEvent();
 
         [RuntimeField]
@@ -73,9 +75,12 @@ namespace Project.Dragon
 
         private void Reset()
         {
+            dragonAnimator = GetComponent<Animator>();
             dragonInput = GetComponent<DragonInput>();
             dragonMovement = GetComponent<DragonMovement>();
             dragonFireAnimation = GetComponent<DragonFireAnimation>();
+            dragonInteractore = GetComponentInChildren<DragonInteractore>();
+            dragonItemHolder = GetComponent<DragonItemHolder>();
         }
 
         #endregion
@@ -128,6 +133,7 @@ namespace Project.Dragon
             isInFrenzy = true;
             dragonInput.enabled = false;
             dragonInteractore.enabled = false;
+            dragonItemHolder.DropItem();
             onFrenzy.Invoke();
         }
 
@@ -203,6 +209,12 @@ namespace Project.Dragon
             }
 
             dragonMovement.Move(movementInput);
+        }
+
+        private void LateUpdate()
+        {
+            if (Input.GetKeyDown(KeyCode.Backspace) && !isInFrenzy)
+                StartFrenzy();
         }
 
         private void StopFiring()

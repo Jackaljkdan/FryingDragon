@@ -20,6 +20,8 @@ namespace Project.Items
         public Transform spawnAnchor;
         public Rigidbody rb;
 
+        public Transform dropForceAnchor;
+
         [RuntimeField]
         public List<Ingredient> ingredients = new();
 
@@ -102,6 +104,14 @@ namespace Project.Items
             }
 
             ingredientLostTrigger.SetActive(true);
+        }
+
+        public void Drop()
+        {
+            enabled = false;
+            rb.isKinematic = false;
+            rb.useGravity = true;
+            rb.AddForceAtPosition(dropForceAnchor.forward * 3, dropForceAnchor.position, ForceMode.Impulse);
         }
     }
 }

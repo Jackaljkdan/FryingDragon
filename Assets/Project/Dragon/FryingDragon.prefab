@@ -1789,13 +1789,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6142508412747029042}
+  - component: {fileID: 5097790792733314705}
   - component: {fileID: 6142508412747029040}
   - component: {fileID: 365722623747555029}
-  - component: {fileID: 6142508412747029055}
-  - component: {fileID: 6142508412747029041}
   - component: {fileID: 4229203199805098585}
+  - component: {fileID: 6142508412747029055}
   - component: {fileID: 4489904668856326921}
-  - component: {fileID: 5097790792733314705}
+  - component: {fileID: 6142508412747029041}
   - component: {fileID: 9116571236514239554}
   - component: {fileID: 5550925280635440886}
   m_Layer: 0
@@ -1824,6 +1824,40 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &5097790792733314705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6142508412747029045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57349c97ce1fbd44abba6c4ad6096a5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stress:
+    _value: 0
+    onChange:
+      m_PersistentCalls:
+        m_Calls: []
+  ingredientLostStress: 0.1
+  fireStressRelief: 0.25
+  dragonAnimator: {fileID: 6142508412747029055}
+  dragonInput: {fileID: 365722623747555029}
+  dragonMovement: {fileID: 6142508412747029040}
+  dragonFireAnimation: {fileID: 4489904668856326921}
+  dragonInteractore: {fileID: 6544867737126421830}
+  dragonItemHolder: {fileID: 4229203199805098585}
+  onFrenzy:
+    m_PersistentCalls:
+      m_Calls: []
+  isInFrenzy: 0
+  isEmbarassed: 0
+  isFiring: 0
+  chosenFlammable: {fileID: 0}
+  distanceToChosen: 0
+  flammableList: {fileID: 0}
 --- !u!114 &6142508412747029040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1861,6 +1895,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragonMovement: {fileID: 6142508412747029040}
+--- !u!114 &4229203199805098585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6142508412747029045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7e927b495554b348a73ffaa12bf2d21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 6142508412747029055}
+  itemPositionAnchor: {fileID: 8719980326431405833}
+  holdedItem: {fileID: 0}
 --- !u!95 &6142508412747029055
 Animator:
   serializedVersion: 5
@@ -1881,6 +1930,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &4489904668856326921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6142508412747029045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f622d4f1e2cc474ebee5ff667083e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 6142508412747029055}
+  particleSystem: {fileID: 9157452354730570582}
 --- !u!54 &6142508412747029041
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1897,65 +1960,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 80
   m_CollisionDetection: 1
---- !u!114 &4229203199805098585
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6142508412747029045}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7e927b495554b348a73ffaa12bf2d21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 6142508412747029055}
-  itemPositionAnchor: {fileID: 8719980326431405833}
-  holdedItem: {fileID: 0}
---- !u!114 &4489904668856326921
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6142508412747029045}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f622d4f1e2cc474ebee5ff667083e36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 6142508412747029055}
-  particleSystem: {fileID: 9157452354730570582}
---- !u!114 &5097790792733314705
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6142508412747029045}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57349c97ce1fbd44abba6c4ad6096a5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stress: 0
-  ingredientLostStress: 0.1
-  fireStressRelief: 0.25
-  dragonAnimator: {fileID: 6142508412747029055}
-  dragonInput: {fileID: 365722623747555029}
-  dragonMovement: {fileID: 6142508412747029040}
-  dragonFireAnimation: {fileID: 4489904668856326921}
-  dragonInteractore: {fileID: 6544867737126421830}
-  onFrenzy:
-    m_PersistentCalls:
-      m_Calls: []
-  isInFrenzy: 0
-  isEmbarassed: 0
-  isFiring: 0
-  chosenFlammable: {fileID: 0}
-  distanceToChosen: 0
-  slider: {fileID: 0}
-  flammableList: {fileID: 0}
 --- !u!114 &9116571236514239554
 MonoBehaviour:
   m_ObjectHideFlags: 0

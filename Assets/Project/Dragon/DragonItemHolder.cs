@@ -69,5 +69,26 @@ namespace Project.Dragon
             onRetrieveEnd?.Invoke();
             onRetrieveEnd = null;
         }
+
+        public void DropItem()
+        {
+            if (holdedItem == null)
+                return;
+
+            holdedItem.transform.SetParent(transform.parent, worldPositionStays: true);
+
+            if (holdedItem.TryGetComponent(out Bowl bowl))
+            {
+                bowl.Drop();
+            }
+            else if (holdedItem.TryGetComponent(out Rigidbody rb))
+            {
+                rb.useGravity = true;
+                rb.isKinematic = false;
+                rb.AddForce(transform.TransformDirection(Vector3.forward) * 3, ForceMode.Impulse);
+            }
+
+            holdedItem = null;
+        }
     }
 }
