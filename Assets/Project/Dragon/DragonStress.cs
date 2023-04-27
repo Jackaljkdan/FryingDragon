@@ -1,4 +1,5 @@
 using JK.Injection;
+using JK.Observables;
 using JK.Utils;
 using Project.Character;
 using Project.Flames;
@@ -17,7 +18,7 @@ namespace Project.Dragon
     {
         #region Inspector
 
-        public float stress;
+        public ObservableProperty<float> stress = new ObservableProperty<float>();
 
         public float ingredientLostStress = 0.1f;
 
@@ -49,9 +50,6 @@ namespace Project.Dragon
 
         [DebugField]
         public float distanceToChosen;
-
-        [Injected]
-        public Slider slider;
 
         [Injected]
         public FlammableList flammableList;
@@ -86,7 +84,6 @@ namespace Project.Dragon
         public void Inject()
         {
             Context context = Context.Find(this);
-            slider = context.GetOptional<Slider>("dragon.stress");
             flammableList = context.Get<FlammableList>(this);
             signalBus = context.Get<SignalBus>(this);
         }
@@ -119,15 +116,15 @@ namespace Project.Dragon
 
         private void IncrementStress(float delta)
         {
-            stress = Mathf.Clamp01(stress + delta);
+            stress.Value = Mathf.Clamp01(stress.Value + delta);
 
-            if (stress >= 1 && !isInFrenzy)
+            if (stress.Value >= 1 && !isInFrenzy)
                 StartFrenzy();
         }
 
         public void StartFrenzy()
         {
-            stress = 1;
+            stress.Value = 1;
             isInFrenzy = true;
             dragonInput.enabled = false;
             dragonInteractore.enabled = false;
@@ -136,7 +133,7 @@ namespace Project.Dragon
 
         public void StopFrenzy()
         {
-            stress = 0;
+            stress.Value = 0;
             isInFrenzy = false;
             isEmbarassed = true;
             dragonMovement.Move(Vector2.zero);
@@ -153,8 +150,6 @@ namespace Project.Dragon
 
         private void Update()
         {
-            slider.value = stress;
-
             if (isEmbarassed && flammableList.fires.Value == 0)
             {
                 StopEmarassment();
@@ -202,8 +197,8 @@ namespace Project.Dragon
                 isFiring = true;
                 chosenFlammable = null;
 
-                stress = Mathf.Clamp01(stress - fireStressRelief);
-                if (stress <= 0)
+                stress.Value = Mathf.Clamp01(stress.Value - fireStressRelief);
+                if (stress.Value <= 0)
                     StopFrenzy();
             }
 
