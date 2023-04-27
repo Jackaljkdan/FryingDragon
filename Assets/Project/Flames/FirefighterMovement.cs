@@ -77,7 +77,7 @@ namespace Project.Flames
             if (input.y == 0)
                 localDelta.z = 0;
 
-            characterControllerTransform.Rotate(0, input.x * TimeUtils.AdjustToFrameRate(rotationSpeed), 0);
+            characterControllerTransform.Rotate(0, input.x * Mathf.Sign(input.y) * TimeUtils.AdjustToFrameRate(rotationSpeed), 0);
 
             adjustedDelta = characterControllerTransform.TransformDirection(localDelta).WithY(0).normalized * magnitude * speed;
             characterController.Move(adjustedDelta.WithY(-9));

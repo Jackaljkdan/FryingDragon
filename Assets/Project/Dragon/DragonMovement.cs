@@ -96,7 +96,7 @@ namespace Project.Character
             adjustedDelta = myTransform.TransformDirection(localDelta).WithY(0).normalized * magnitude * speed;
             characterController.Move(adjustedDelta.WithY(-9));
 
-            deltaRotation *= Quaternion.Euler(0, input.x * TimeUtils.AdjustToFrameRate(rotationSpeed), 0);
+            deltaRotation *= Quaternion.Euler(0, input.x * Mathf.Sign(input.y) * TimeUtils.AdjustToFrameRate(rotationSpeed), 0);
 
             input = Vector2.zero;
         }
