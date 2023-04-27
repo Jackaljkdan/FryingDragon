@@ -62,7 +62,7 @@ namespace Project.Cooking.Recipes
         {
             foreach (RecipesVisualizer recipesVisualizer in spawnedRecipes)
             {
-                if (recipesVisualizer.IsRecipeCooking(arg.ingredients))
+                if (recipesVisualizer.IsRecipeCooking(arg.ingredients, arg.cookingTime))
                     break;
             }
         }

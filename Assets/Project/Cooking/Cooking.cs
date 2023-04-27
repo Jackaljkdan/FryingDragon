@@ -92,7 +92,7 @@ namespace Project.Cooking
 
             ingredients = brazier.bowl.ingredients.Select(el => el.ingredientTypeValue).ToList();
 
-            signalBus.Invoke(new CookingStartedSignal() { ingredients = ingredients });
+            signalBus.Invoke(new CookingStartedSignal() { cookingTime = cookingTime, ingredients = ingredients });
 
             cookingTween.OnComplete(() =>
             {

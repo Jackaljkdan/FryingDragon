@@ -11,6 +11,7 @@ namespace Project.Cooking
     [Serializable]
     public struct CookingStartedSignal
     {
+        public float cookingTime;
         public List<IngredientTypeValue> ingredients;
     }
 }

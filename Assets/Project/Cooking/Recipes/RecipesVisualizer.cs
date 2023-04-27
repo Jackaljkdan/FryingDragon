@@ -22,11 +22,17 @@ namespace Project.Cooking.Recipes
 
         public new RectTransform animation;
         public Slider slider;
+        public Image sliderBackgroundArea;
+        public Image sliderFillArea;
 
         public Image bgImage;
 
         public Color bgColor = Color.white;
         public Color cookingBgColor = new Color(246, 158, 71);
+
+        public Color sliderBackgroundColor = new Color(63, 63, 63);
+        public Color sliderCookingColor = Color.white;
+        public Color sliderOvercookingColor = Color.red;
 
         [RuntimeField]
         public List<IngredientTypeValue> availableIngredients = new();
@@ -41,13 +47,13 @@ namespace Project.Cooking.Recipes
             signalBus = context.Get<SignalBus>(this);
         }
 
+        #endregion
+
         private void Awake()
         {
             Inject();
-            //slider.GetComponent<RectTransform>().localScale = Vector3.zero;
+            slider.GetComponent<RectTransform>().localScale = Vector3.zero;
         }
-
-        #endregion
 
         private void Start()
         {
@@ -114,28 +120,49 @@ namespace Project.Cooking.Recipes
             return animation.DOLocalMoveY(0, 1).SetEase(Ease.OutElastic);
         }
 
-        public Tween DOExit()
+        public Tween DOStartCookingAnimation()
         {
             bgImage.color = cookingBgColor;
             return animation.DOLocalMoveY(50, 1).SetEase(Ease.InElastic).OnComplete(
                 () =>
                 {
                     slider.GetComponent<RectTransform>().DOScale(Vector3.one, 0.5f).SetEase(Ease.OutElastic);
+
                 });
         }
 
+        private void StartOvercooking(float cookingTime)
+        {
+            slider.value = 0;
+            sliderBackgroundArea.color = sliderCookingColor;
+            sliderFillArea.color = sliderOvercookingColor;
+            slider.DOValue(1f, cookingTime).SetEase(Ease.Linear);
+        }
 
-        public bool IsRecipeCooking(List<IngredientTypeValue> ingredients)
+        private void StartCooking(float cookingTime)
+        {
+            slider.value = 0;
+            sliderBackgroundArea.color = sliderBackgroundColor;
+            sliderFillArea.color = sliderCookingColor;
+            slider.DOValue(1f, cookingTime).SetEase(Ease.Linear).OnComplete(() => StartOvercooking(cookingTime));
+
+        }
+
+
+        public bool IsRecipeCooking(List<IngredientTypeValue> ingredients, float recipeCookingTime)
         {
             if (ingredients.Count != neededValueList.Count)
                 return false;
 
             bool areEqual = ingredients.OrderBy(x => x).SequenceEqual(neededValueList.OrderBy(x => x));
 
-            if (areEqual)
-                DOExit();
+            if (!areEqual)
+                return false;
 
-            return areEqual;
+            StartCooking(recipeCookingTime);
+            DOStartCookingAnimation();
+
+            return true;
         }
     }
 }
