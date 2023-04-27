@@ -1,3 +1,4 @@
+using CartoonFX;
 using DG.Tweening;
 using JK.Injection;
 using JK.Utils.DGTweening;
@@ -20,11 +21,16 @@ namespace Project.Cooking
 
         public float cookingTime = 10f;
 
+        public string burnedText = "Burned";
+
         public Brazier brazier;
 
         public ParticleSystem particles;
         public ParticleSystem smokeParticles;
         public ParticleSystem readyParticles;
+        public ParticleSystem textParticles;
+
+        public CFXR_ParticleText dynamicParticleText;
 
         public Slider slider;
         public Image sliderBackgroundArea;
@@ -96,16 +102,23 @@ namespace Project.Cooking
 
             cookingTween.OnComplete(() =>
             {
-                readyParticles.gameObject.SetActive(true);
-                readyParticles.Play();
-                SetOvercookingColors();
-                slider.DOValue(1f, cookingTime).SetEase(Ease.Linear);
+                StartOvercooking();
             });
         }
 
         public void StartOvercooking()
         {
+            readyParticles.gameObject.SetActive(true);
+            readyParticles.Play();
+            SetOvercookingColors();
+            slider.DOValue(1f, cookingTime).SetEase(Ease.Linear).OnComplete(BurnedRecipe);
+        }
 
+        public void BurnedRecipe()
+        {
+            slider.transform.DOScale(0, 1f).SetEase(Ease.InElastic);
+            dynamicParticleText.UpdateText(burnedText);
+            textParticles.Play(true);
         }
 
         public void StopCooking()
