@@ -15,6 +15,8 @@ namespace Project.Flames
     {
         #region Inspector
 
+        public Animator animator;
+
         public FirefighterInput input;
 
         public FirefighterMovement movement;
@@ -51,7 +53,6 @@ namespace Project.Flames
         private void Awake()
         {
             Inject();
-            agent.enabled = false;
         }
 
         private void Start()
@@ -74,8 +75,12 @@ namespace Project.Flames
         {
             flammableList.fires.onChange.RemoveListener(OnFiresChange);
             input.enabled = false;
+            input.movement.enabled = false;
             agent.enabled = true;
             agent.destination = exitAnchor.position;
+            animator.CrossFade("Move", 0.5f);
+            animator.SetFloat("X", 0);
+            animator.SetFloat("Z", 1);
             StartCoroutine(ExitCoroutine());
         }
 

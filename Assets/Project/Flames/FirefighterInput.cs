@@ -12,7 +12,7 @@ namespace Project.Flames
     {
         #region Inspector
 
-        public FirefighterMovement firefighterMovement;
+        public FirefighterMovement movement;
 
         public ParticleSystem extinguisherParticleSystem;
 
@@ -28,12 +28,12 @@ namespace Project.Flames
         private void OnDisable()
         {
             interactore.enabled = false;
-            firefighterMovement.Move(new Vector2(0, 0));
+            movement.Move(new Vector2(0, 0));
         }
 
         private void Update()
         {
-            firefighterMovement.Move(new Vector2(
+            movement.Move(new Vector2(
                 Input.GetAxis("Horizontal") * 2,
                 Input.GetAxis("Vertical") * 2
             ));

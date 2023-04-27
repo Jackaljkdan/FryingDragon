@@ -1847,7 +1847,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f274020d7845394abc61e9699f3b0cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firefighterMovement: {fileID: 7143162459236915358}
+  movement: {fileID: 7143162459236915358}
   extinguisherParticleSystem: {fileID: 2129856533312100134}
   interactore: {fileID: 4326236578885633409}
 --- !u!114 &2224744768708992921
@@ -1879,6 +1879,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f228fe351c2b0f448804ae1df0b7b413, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 8888892721434103668}
   input: {fileID: 6759358304728985591}
   movement: {fileID: 7143162459236915358}
   agent: {fileID: 874309519250222702}
@@ -1910,7 +1911,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8888892721426773448}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.3
   m_Speed: 3.5
