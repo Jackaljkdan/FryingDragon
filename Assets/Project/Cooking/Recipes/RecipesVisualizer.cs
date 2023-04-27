@@ -23,18 +23,14 @@ namespace Project.Cooking.Recipes
         public List<IngredientTypeValue> neededValueList = new();
 
         public new RectTransform animation;
-        public Slider slider;
-        public Image sliderBackgroundArea;
-        public Image sliderFillArea;
+
+        public UICookingSlider cookingSlider;
+        public UIBurned burnedImg;
 
         public Image bgImage;
 
         public Color bgColor = Color.white;
         public Color cookingBgColor = new Color(246, 158, 71);
-
-        public Color sliderBackgroundColor = new Color(63, 63, 63);
-        public Color sliderCookingColor = Color.white;
-        public Color sliderOvercookingColor = Color.red;
 
         [RuntimeField]
         public List<IngredientTypeValue> availableIngredients = new();
@@ -58,7 +54,6 @@ namespace Project.Cooking.Recipes
         private void Awake()
         {
             Inject();
-            slider.GetComponent<RectTransform>().localScale = Vector3.zero;
         }
 
         private void Start()
@@ -146,25 +141,24 @@ namespace Project.Cooking.Recipes
             return animation.DOLocalMoveY(50, 1).SetEase(Ease.InElastic).OnComplete(
                 () =>
                 {
-                    slider.GetComponent<RectTransform>().DOScale(Vector3.one, 0.5f).SetEase(Ease.OutElastic);
+                    cookingSlider.DoScaleup();
 
                 });
         }
 
         private void StartOvercooking(float cookingTime)
         {
-            slider.value = 0;
-            sliderBackgroundArea.color = sliderCookingColor;
-            sliderFillArea.color = sliderOvercookingColor;
-            slider.DOValue(1f, cookingTime).SetEase(Ease.Linear);
+            cookingSlider.DOOverfill(cookingTime).OnComplete(StartBurn);
         }
 
         private void StartCooking(float cookingTime)
         {
-            slider.value = 0;
-            sliderBackgroundArea.color = sliderBackgroundColor;
-            sliderFillArea.color = sliderCookingColor;
-            slider.DOValue(1f, cookingTime).SetEase(Ease.Linear).OnComplete(() => StartOvercooking(cookingTime));
+            cookingSlider.DOFill(cookingTime).OnComplete(() => StartOvercooking(cookingTime));
+        }
+
+        private void StartBurn()
+        {
+            burnedImg.DOShow();
         }
 
         public bool IsRecipeCooking(List<IngredientTypeValue> ingredients, float recipeCookingTime)

@@ -2,6 +2,7 @@ using CartoonFX;
 using DG.Tweening;
 using JK.Injection;
 using JK.Utils.DGTweening;
+using Project.Cooking.Recipes;
 using Project.Items;
 using Project.Items.Ingredients;
 using System;
@@ -32,13 +33,7 @@ namespace Project.Cooking
 
         public CFXR_ParticleText dynamicParticleText;
 
-        public Slider slider;
-        public Image sliderBackgroundArea;
-        public Image sliderFillArea;
-
-        public Color backgroundColor = new Color(63, 63, 63);
-        public Color cookingColor = Color.white;
-        public Color overcookingColor = Color.red;
+        public UICookingSlider cookingSlider;
 
         [Injected]
         private SignalBus signalBus;
@@ -83,7 +78,6 @@ namespace Project.Cooking
             Inject();
         }
 
-
         public bool IsCooking => cookingTween.IsActiveAndPlaying();
 
         private Tween cookingTween;
@@ -91,32 +85,29 @@ namespace Project.Cooking
         public void StartCooking()
         {
             readyParticles.gameObject.SetActive(false);
-            SetCookingColors();
             particles.gameObject.SetActive(true);
-            slider.transform.DOScale(1, 1f).SetEase(Ease.OutBounce);
-            cookingTween = slider.DOValue(1f, cookingTime).SetEase(Ease.Linear);
+
+            cookingTween = cookingSlider.DOFillWithScale(cookingTime);
 
             ingredients = brazier.bowl.ingredients.Select(el => el.ingredientTypeValue).ToList();
 
             signalBus.Invoke(new CookingStartedSignal() { cookingTime = cookingTime, ingredients = ingredients });
 
-            cookingTween.OnComplete(() =>
-            {
-                StartOvercooking();
-            });
+            cookingTween.OnComplete(StartOvercooking);
         }
 
         public void StartOvercooking()
         {
             readyParticles.gameObject.SetActive(true);
             readyParticles.Play();
-            SetOvercookingColors();
-            slider.DOValue(1f, cookingTime).SetEase(Ease.Linear).OnComplete(BurnedRecipe);
+            cookingTween = cookingSlider.DOOverfill(cookingTime);
+
+            cookingTween.OnComplete(BurnedRecipe);
         }
 
         public void BurnedRecipe()
         {
-            slider.transform.DOScale(0, 1f).SetEase(Ease.InElastic);
+            cookingSlider.DOScaledown();
             dynamicParticleText.UpdateText(burnedText);
             textParticles.Play(true);
         }
@@ -124,22 +115,8 @@ namespace Project.Cooking
         public void StopCooking()
         {
             particles.Stop();
-            slider.transform.DOScale(0, .5f).SetEase(Ease.InElastic);
             cookingTween?.Kill();
-        }
-
-        private void SetCookingColors()
-        {
-            slider.value = 0;
-            sliderBackgroundArea.color = backgroundColor;
-            sliderFillArea.color = cookingColor;
-        }
-
-        private void SetOvercookingColors()
-        {
-            slider.value = 0;
-            sliderBackgroundArea.color = cookingColor;
-            sliderFillArea.color = overcookingColor;
+            cookingSlider.DOScaledown();
         }
     }
 }

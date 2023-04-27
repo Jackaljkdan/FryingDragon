@@ -92,18 +92,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cookingTime: 10
+  burnedText: Burned
   brazier: {fileID: 8712741712626338}
   particles: {fileID: 8022481610342416062}
   smokeParticles: {fileID: 8928624203355022718}
   readyParticles: {fileID: 670272222372582579}
   textParticles: {fileID: 9091312623323489036}
   dynamicParticleText: {fileID: 3571314086496056921}
-  slider: {fileID: 8234989636829807358}
-  sliderBackgroundArea: {fileID: 588999870740578153}
-  sliderFillArea: {fileID: 2634178043407377247}
-  backgroundColor: {r: 0.24705882, g: 0.24705882, b: 0.24705882, a: 1}
-  cookingColor: {r: 1, g: 1, b: 1, a: 1}
-  overcookingColor: {r: 1, g: 0, b: 0, a: 1}
+  cookingSlider: {fileID: 6167614293906309397}
 --- !u!114 &3103310176968642591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -926,6 +922,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7695856366753203524}
   - component: {fileID: 8234989636829807358}
+  - component: {fileID: 6167614293906309397}
   m_Layer: 0
   m_Name: Slider
   m_TagString: Untagged
@@ -1006,6 +1003,24 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6167614293906309397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7424294491924540044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e40e0b31e1abf0b48865c9a0504aeb37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 8234989636829807358}
+  sliderBackgroundArea: {fileID: 588999870740578153}
+  sliderFillArea: {fileID: 2634178043407377247}
+  backgroundColor: {r: 0.24705882, g: 0.24705882, b: 0.24705882, a: 1}
+  fillingColor: {r: 1, g: 1, b: 1, a: 1}
+  overFillingColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &9091312623323489035
 GameObject:
   m_ObjectHideFlags: 0

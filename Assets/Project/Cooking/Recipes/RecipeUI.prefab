@@ -107,6 +107,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1180496541312621652}
   - component: {fileID: 2914634706886277232}
+  - component: {fileID: 1871870442408534717}
   m_Layer: 0
   m_Name: Slider
   m_TagString: Untagged
@@ -187,6 +188,24 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1871870442408534717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3995419588995934637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e40e0b31e1abf0b48865c9a0504aeb37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 2914634706886277232}
+  sliderBackgroundArea: {fileID: 807570529175789199}
+  sliderFillArea: {fileID: 5730691453012288437}
+  backgroundColor: {r: 0.24705882, g: 0.24705882, b: 0.24705882, a: 1}
+  fillingColor: {r: 1, g: 1, b: 1, a: 1}
+  overFillingColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &5638443139597468934
 GameObject:
   m_ObjectHideFlags: 0
@@ -300,6 +319,93 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &6507027436139041126
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1647577598883825010}
+  - component: {fileID: 7489574044942397584}
+  - component: {fileID: 8007215897768703979}
+  - component: {fileID: 707017265703485847}
+  m_Layer: 0
+  m_Name: Burned
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1647577598883825010
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6507027436139041126}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7888248687451612849}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &7489574044942397584
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6507027436139041126}
+  m_CullTransparentMesh: 1
+--- !u!114 &8007215897768703979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6507027436139041126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 2800000, guid: 159e4e26e2d1f8d43947bb5f91bf3695, type: 3}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+--- !u!114 &707017265703485847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6507027436139041126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abc65eb2d9569f24ca8e866701dac648, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myRectTransform: {fileID: 1647577598883825010}
 --- !u!1 &7828784147172344985
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,6 +580,7 @@ RectTransform:
   m_Children:
   - {fileID: 6405274334084485988}
   - {fileID: 1180496541312621652}
+  - {fileID: 1647577598883825010}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -497,16 +604,13 @@ MonoBehaviour:
   imagesList: []
   neededValueList: 
   animation: {fileID: 6405274334084485988}
-  slider: {fileID: 2914634706886277232}
-  sliderBackgroundArea: {fileID: 807570529175789199}
-  sliderFillArea: {fileID: 5730691453012288437}
+  cookingSlider: {fileID: 1871870442408534717}
+  burnedImg: {fileID: 707017265703485847}
   bgImage: {fileID: 2843839404319169858}
   bgColor: {r: 1, g: 1, b: 1, a: 1}
   cookingBgColor: {r: 0.9339623, g: 0.67260987, b: 0.3568441, a: 1}
-  sliderBackgroundColor: {r: 0.24705882, g: 0.24705882, b: 0.24705882, a: 1}
-  sliderCookingColor: {r: 1, g: 1, b: 1, a: 1}
-  sliderOvercookingColor: {r: 1, g: 0, b: 0, a: 1}
   availableIngredients: 
+  holder: {fileID: 0}
 --- !u!1001 &2631651750927385920
 PrefabInstance:
   m_ObjectHideFlags: 0
