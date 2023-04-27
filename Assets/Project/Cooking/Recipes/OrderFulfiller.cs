@@ -49,7 +49,13 @@ namespace Project.Cooking.Recipes
         }
         #endregion
 
-        public void RequestNewRecipe()
+        public void TryRequestNewRecipe()
+        {
+            if (recipes.Count < maxRecipes)
+                RequestNewRecipe();
+        }
+
+        private void RequestNewRecipe()
         {
             if (recipes.Count >= maxRecipes)
                 return;
