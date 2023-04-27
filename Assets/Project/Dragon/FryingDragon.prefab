@@ -1938,11 +1938,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57349c97ce1fbd44abba6c4ad6096a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 0
+  stress: 0
+  ingredientLostStress: 0.1
+  fireStressRelief: 0.25
+  dragonAnimator: {fileID: 6142508412747029055}
   dragonInput: {fileID: 365722623747555029}
   dragonMovement: {fileID: 6142508412747029040}
   dragonFireAnimation: {fileID: 4489904668856326921}
   dragonInteractore: {fileID: 6544867737126421830}
+  onFrenzy:
+    m_PersistentCalls:
+      m_Calls: []
+  isInFrenzy: 0
+  isEmbarassed: 0
   isFiring: 0
   chosenFlammable: {fileID: 0}
   distanceToChosen: 0

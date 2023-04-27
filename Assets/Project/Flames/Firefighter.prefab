@@ -1763,6 +1763,7 @@ GameObject:
   - component: {fileID: 7143162459236915358}
   - component: {fileID: 6759358304728985591}
   - component: {fileID: 2224744768708992921}
+  - component: {fileID: 1478285804688941656}
   - component: {fileID: 8548467145901124414}
   - component: {fileID: 6968228773344088949}
   m_Layer: 0
@@ -1865,6 +1866,21 @@ MonoBehaviour:
   input: {fileID: 6759358304728985591}
   movement: {fileID: 7143162459236915358}
   ikWeight: 0
+--- !u!114 &1478285804688941656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8888892721426773448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f228fe351c2b0f448804ae1df0b7b413, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  input: {fileID: 6759358304728985591}
+  movement: {fileID: 7143162459236915358}
+  flammableList: {fileID: 0}
 --- !u!143 &8548467145901124414
 CharacterController:
   m_ObjectHideFlags: 0
