@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2300000}
   - component: {fileID: 5476396291704882420}
   - component: {fileID: -788257420803302468}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sandwich
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7920248019875497841}
   - component: {fileID: 8732894050348025776}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Colliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
