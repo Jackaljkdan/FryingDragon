@@ -28,6 +28,8 @@ namespace Project.Cooking.Recipes
 
         #endregion
 
+        private Tween tween;
+
         private void Awake()
         {
             GetComponent<RectTransform>().localScale = Vector3.zero;
@@ -36,30 +38,36 @@ namespace Project.Cooking.Recipes
         public Tween DOFill(float fillTime)
         {
             SetFillingColors();
-            return slider.DOValue(1f, fillTime).SetEase(Ease.Linear);
+            tween = slider.DOValue(1f, fillTime).SetEase(Ease.Linear);
+            return tween;
         }
 
         public Tween DOFillWithScale(float fillTime)
         {
             SetFillingColors();
             slider.transform.DOScale(1, 1f).SetEase(Ease.OutBounce);
-            return slider.DOValue(1f, fillTime).SetEase(Ease.Linear);
+            tween = slider.DOValue(1f, fillTime).SetEase(Ease.Linear);
+            return tween;
         }
 
         public Tween DOOverfill(float fillTime)
         {
             SetOverfillingColors();
-            return slider.DOValue(1f, fillTime).SetEase(Ease.Linear);
+            tween = slider.DOValue(1f, fillTime).SetEase(Ease.Linear);
+            return tween;
         }
 
         public Tween DOScaledown()
         {
-            return slider.transform.DOScale(0, 1f).SetEase(Ease.InBack);
+            tween?.Kill(false);
+            tween = slider.transform.DOScale(0, 1f).SetEase(Ease.InBack);
+            return tween;
         }
 
         public Tween DoScaleup()
         {
-            return slider.transform.DOScale(1, 1f).SetEase(Ease.OutBounce);
+            tween = slider.transform.DOScale(1, 1f).SetEase(Ease.OutBounce);
+            return tween;
         }
 
         private void SetFillingColors()

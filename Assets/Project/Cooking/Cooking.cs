@@ -114,8 +114,11 @@ namespace Project.Cooking
 
         public void StopCooking()
         {
+            if (!IsCooking)
+                return;
+            signalBus.Invoke(new CookingInterruptedSignal() { ingredients = ingredients });
             particles.Stop();
-            cookingTween?.Kill();
+            cookingTween?.Kill(false);
             cookingSlider.DOScaledown();
         }
     }

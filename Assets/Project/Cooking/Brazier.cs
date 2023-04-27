@@ -83,6 +83,7 @@ namespace Project.Cooking
                     bowl.transform.position = bowlAnchor.position;
                     bowl.transform.rotation = bowlAnchor.rotation;
                     dragonItemHolder.holdedItem = bowl.gameObject;
+                    signalBus.Invoke(new ItemAddedSignal());
                 },
                 onRetrieveEnd: () =>
                 {

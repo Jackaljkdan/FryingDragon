@@ -42,12 +42,14 @@ namespace Project.Cooking.Recipes
         {
             signalBus.AddListener<NewRecipeSignal>(OnNewRecipe);
             signalBus.AddListener<CookingStartedSignal>(OnCookingStarted);
+            signalBus.AddListener<CookingInterruptedSignal>(OnCookingInterrupted);
         }
 
         private void OnDestroy()
         {
             signalBus.RemoveListener<NewRecipeSignal>(OnNewRecipe);
             signalBus.RemoveListener<CookingStartedSignal>(OnCookingStarted);
+            signalBus.RemoveListener<CookingInterruptedSignal>(OnCookingInterrupted);
         }
 
         private void OnNewRecipe(NewRecipeSignal arg)
@@ -63,6 +65,16 @@ namespace Project.Cooking.Recipes
             foreach (RecipesVisualizer recipesVisualizer in spawnedRecipes)
             {
                 if (recipesVisualizer.IsRecipeCooking(arg.ingredients, arg.cookingTime))
+                    break;
+            }
+        }
+
+        private void OnCookingInterrupted(CookingInterruptedSignal args)
+        {
+
+            foreach (RecipesVisualizer recipesVisualizer in spawnedRecipes)
+            {
+                if (recipesVisualizer.ShouldRecipeStop(args.ingredients))
                     break;
             }
         }

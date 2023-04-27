@@ -11,4 +11,10 @@ namespace Project.Items
     {
         public GameObject item;
     }
+
+    [Serializable]
+    public struct ItemAddedSignal
+    {
+        public GameObject item;
+    }
 }

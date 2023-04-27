@@ -51,6 +51,8 @@ namespace Project.Cooking.Recipes
 
         #endregion
 
+        private Tween tween;
+
         private void Awake()
         {
             Inject();
@@ -58,12 +60,14 @@ namespace Project.Cooking.Recipes
 
         private void Start()
         {
+            signalBus.AddListener<ItemAddedSignal>(OnItemAdded);
             signalBus.AddListener<IngredientTakenSignal>(OnIngredientTaken);
             signalBus.AddListener<IngredientLostSignal>(OnIngredientLost);
         }
 
         private void OnDestroy()
         {
+            signalBus.RemoveListener<ItemAddedSignal>(OnItemAdded);
             signalBus.RemoveListener<IngredientTakenSignal>(OnIngredientTaken);
             signalBus.RemoveListener<IngredientLostSignal>(OnIngredientLost);
         }
@@ -80,6 +84,11 @@ namespace Project.Cooking.Recipes
                 imagesList[i].SetImage(ingredient);
             }
 
+            GetStartingIngredients();
+        }
+
+        private void OnItemAdded(ItemAddedSignal arg)
+        {
             GetStartingIngredients();
         }
 
@@ -144,21 +153,46 @@ namespace Project.Cooking.Recipes
                     cookingSlider.DoScaleup();
 
                 });
+
         }
 
-        private void StartOvercooking(float cookingTime)
+        private Tween StartOvercooking(float cookingTime)
         {
-            cookingSlider.DOOverfill(cookingTime).OnComplete(StartBurn);
+            return cookingSlider.DOOverfill(cookingTime).OnComplete(StartBurn);
         }
 
-        private void StartCooking(float cookingTime)
+        private Tween StartCooking(float cookingTime)
         {
-            cookingSlider.DOFill(cookingTime).OnComplete(() => StartOvercooking(cookingTime));
+            return cookingSlider.DOFill(cookingTime).OnComplete(() => StartOvercooking(cookingTime));
+        }
+
+        private void StopCooking()
+        {
+            tween?.Kill();
+            cookingSlider.DOScaledown().OnComplete(() =>
+            {
+                bgImage.color = bgColor;
+                animation.DOLocalMoveY(0, 1).SetEase(Ease.OutElastic);
+            });
+
         }
 
         private void StartBurn()
         {
-            burnedImg.DOShow();
+            tween = burnedImg.DOShow();
+        }
+
+        public bool ShouldRecipeStop(List<IngredientTypeValue> ingredients)
+        {
+            if (ingredients.Count != neededValueList.Count)
+                return false;
+            bool areEqual = ingredients.OrderBy(x => x).SequenceEqual(neededValueList.OrderBy(x => x));
+
+            if (!areEqual)
+                return false;
+
+            StopCooking();
+            return true;
         }
 
         public bool IsRecipeCooking(List<IngredientTypeValue> ingredients, float recipeCookingTime)
@@ -171,7 +205,8 @@ namespace Project.Cooking.Recipes
             if (!areEqual)
                 return false;
 
-            StartCooking(recipeCookingTime);
+            tween?.Kill();
+            tween = StartCooking(recipeCookingTime);
             DOStartCookingAnimation();
 
             return true;

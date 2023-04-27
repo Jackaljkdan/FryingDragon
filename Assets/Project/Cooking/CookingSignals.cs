@@ -14,4 +14,10 @@ namespace Project.Cooking
         public float cookingTime;
         public List<IngredientTypeValue> ingredients;
     }
+
+    public struct CookingInterruptedSignal
+    {
+        public float cookingTime;
+        public List<IngredientTypeValue> ingredients;
+    }
 }
