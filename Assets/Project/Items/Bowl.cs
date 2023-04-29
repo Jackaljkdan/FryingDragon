@@ -18,6 +18,7 @@ namespace Project.Items
         public GameObject ingredientLostTrigger;
 
         public Transform spawnAnchor;
+        public Transform boxSpawnAnchor;
         public Rigidbody rb;
 
         public Transform dropForceAnchor;
@@ -64,8 +65,17 @@ namespace Project.Items
             AddIngredient(spawned.GetComponent<Ingredient>());
         }
 
+        public void TryAddBox(GameObject prefab)
+        {
+            GameObject spawned = Instantiate(prefab, boxSpawnAnchor.position, Quaternion.identity, transform);
+            AddIngredient(spawned.GetComponent<Ingredient>());
+        }
+
         public void AddIngredient(Ingredient ingredient)
         {
+            if (ingredients.Contains(ingredient))
+                return;
+
             ingredients.Add(ingredient);
             signalBus.Invoke(new IngredientTakenSignal() { ingredient = ingredient });
         }
@@ -77,10 +87,19 @@ namespace Project.Items
             signalBus.Invoke(new IngredientLostSignal() { ingredient = ingredient.GetComponent<Ingredient>(), availableIngredients = ingredients });
         }
 
+        public void RemoveAllIngedients()
+        {
+            for (int i = ingredients.Count - 1; i >= 0; i--)
+            {
+                Ingredient ingredient = ingredients[i];
+                ingredients.RemoveAt(i);
+                Destroy(ingredient.gameObject);
+            }
+        }
+
         public void GlueIngredients()
         {
             ingredientLostTrigger.SetActive(false);
-
             foreach (Ingredient ingredient in ingredients)
             {
                 ingredient.transform.SetParent(transform);

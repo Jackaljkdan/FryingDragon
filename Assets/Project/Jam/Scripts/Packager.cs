@@ -1,6 +1,7 @@
 using DG.Tweening;
 using JK.Injection;
 using JK.Interaction;
+using JK.Utils;
 using Project.Dragon;
 using Project.Items;
 using Project.Jam.Characters;
@@ -9,6 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace Project.Jam
 {
@@ -17,14 +19,20 @@ namespace Project.Jam
     {
         #region Inspector
 
+        public float packingSeconds = 10f;
+
         public Transform bowlAnchor;
 
-        public Bowl bowl;
+        public GameObject item;
+        public GameObject box;
 
         public UnityEvent onBowlRemoved;
 
         public GameObject coverParticles;
         public FarmerAnimator farmerAnimator;
+
+
+        public Slider slider;
 
         [Injected]
         public DragonItemHolder dragonItemHolder;
@@ -33,6 +41,7 @@ namespace Project.Jam
         private SignalBus signalBus;
 
         #endregion
+        private Bowl bowl;
 
         [InjectMethod]
         public void Inject()
@@ -45,30 +54,38 @@ namespace Project.Jam
         private void Awake()
         {
             Inject();
+            slider.transform.localScale = Vector3.zero;
         }
 
         protected override void InteractProtected(RaycastHit hit)
         {
-            if (dragonItemHolder.holdedItem == bowl)
+            if (dragonItemHolder.holdedItem == item)
                 return;
 
-            if (bowl != null)
+            if (item != null)
             {
                 RetrieveBowl();
                 return;
             }
 
-            Transform heldTransform = dragonItemHolder.holdedItem.transform;
+            item = dragonItemHolder.holdedItem;
 
-            if (!heldTransform.TryGetComponent(out bowl))
+            if (!item)
                 return;
 
-            bowl.GlueIngredients();
+            Transform heldTransform = item.transform;
+
+            if (item.TryGetComponent<Bowl>(out bowl))
+            {
+                bowl.GlueIngredients();
+            }
 
             dragonItemHolder.AnimatePutItem(onPutItemRelease: () =>
             {
+                if (bowl)
+                    bowl.enabled = false;
+
                 signalBus.Invoke(new ItemRemovedSignal());
-                bowl.enabled = false;
                 heldTransform.SetParent(dragonItemHolder.transform.parent, worldPositionStays: true);
                 heldTransform.DOMove(bowlAnchor.position, 0.2f);
                 heldTransform.DORotate(bowlAnchor.eulerAngles, 0.2f);
@@ -79,28 +96,49 @@ namespace Project.Jam
 
         private void StartPacking()
         {
-            farmerAnimator.PlayPack(5f);
+            slider.transform.DOScale(Vector3.one, 0.5f);
+            farmerAnimator.PlayPack(packingSeconds);
             coverParticles.SetActive(true);
+            slider.DOValue(1f, packingSeconds).OnComplete(() =>
+            {
+                InstantiateBox();
+                slider.transform.DOScale(Vector3.zero, 0.5f);
+                coverParticles.SetActive(false);
+                farmerAnimator.PlayIdle();
+            });
+        }
+
+        private void InstantiateBox()
+        {
+            if (bowl)
+            {
+                bowl.RemoveAllIngedients();
+                bowl.TryAddBox(box);
+            }
         }
 
         private void RetrieveBowl()
         {
             dragonItemHolder.AnimateRetriveItem(
-                onRetrieveItemRelease: () =>
-                {
-                    onBowlRemoved.Invoke();
+            onRetrieveItemRelease: () =>
+            {
+                if (bowl)
                     bowl.enabled = true;
-                    bowl.transform.SetParent(transform.root, worldPositionStays: true);
-                    bowl.transform.position = bowlAnchor.position;
-                    bowl.transform.rotation = bowlAnchor.rotation;
-                    dragonItemHolder.holdedItem = bowl.gameObject;
-                    signalBus.Invoke(new ItemAddedSignal());
-                },
-                onRetrieveEnd: () =>
-                {
+
+                onBowlRemoved.Invoke();
+                item.transform.SetParent(transform.root, worldPositionStays: true);
+                item.transform.position = bowlAnchor.position;
+                item.transform.rotation = bowlAnchor.rotation;
+                dragonItemHolder.holdedItem = item.gameObject;
+                signalBus.Invoke(new ItemAddedSignal());
+            },
+            onRetrieveEnd: () =>
+            {
+                if (bowl)
                     bowl.UnGlueIngredients();
-                    bowl = null;
-                });
+
+                item = null;
+            });
         }
     }
 }
