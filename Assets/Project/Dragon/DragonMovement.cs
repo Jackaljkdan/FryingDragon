@@ -62,7 +62,7 @@ namespace Project.Character
         private int xHash;
         private int zHash;
 
-        private Vector2 input;
+        private Vector3 input;
 
         private void Start()
         {
@@ -75,11 +75,11 @@ namespace Project.Character
             characterControllerTransform.SetParent(transform.parent);
         }
 
-        public void Move(Vector2 input)
+        public void Move(Vector3 input)
         {
             this.input = input;
-            animator.SetFloat(xHash, input.x);
-            animator.SetFloat(zHash, input.y);
+            animator.SetFloat(xHash, input.x != 0 ? input.x : input.y);
+            animator.SetFloat(zHash, input.z);
         }
 
         private void OnAnimatorMove()
@@ -89,14 +89,14 @@ namespace Project.Character
             deltaPosition = animator.deltaPosition;
             float magnitude = deltaPosition.magnitude;
 
-            localDelta = myTransform.InverseTransformDirection(deltaPosition).WithX(0);
-            if (input.y == 0)
-                localDelta.z = 0;
+            localDelta = myTransform.InverseTransformDirection(deltaPosition);
+            if (input.x == 0)
+                localDelta.x = 0;
 
             adjustedDelta = myTransform.TransformDirection(localDelta).WithY(0).normalized * magnitude * speed;
             characterController.Move(adjustedDelta.WithY(-9));
 
-            deltaRotation *= Quaternion.Euler(0, input.x * Mathf.Sign(input.y) * TimeUtils.AdjustToFrameRate(rotationSpeed), 0);
+            deltaRotation *= Quaternion.Euler(0, input.y * TimeUtils.AdjustToFrameRate(rotationSpeed), 0);
 
             input = Vector2.zero;
         }

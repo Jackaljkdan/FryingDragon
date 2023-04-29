@@ -1894,7 +1894,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f0a6df1e04b51742a5e0bf290e0cead, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mouseInertiaLerp: 0.06
+  mouseMultiplier: 4
+  shiftMultiplier: 2
   dragonMovement: {fileID: 6142508412747029040}
+  inertia: 0
 --- !u!114 &4229203199805098585
 MonoBehaviour:
   m_ObjectHideFlags: 0
