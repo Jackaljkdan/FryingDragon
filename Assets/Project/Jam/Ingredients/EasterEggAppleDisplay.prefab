@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7729758286664943400, guid: 715fe56e571a69f408af8111ce156968, type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8089980354584405757, guid: 715fe56e571a69f408af8111ce156968, type: 3}
       propertyPath: m_Name
       value: EasterEggAppleDisplay
