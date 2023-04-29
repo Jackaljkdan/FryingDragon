@@ -18,4 +18,10 @@ namespace Project.Items.Ingredients
     {
         public Ingredient ingredient;
     }
+
+    [Serializable]
+    public struct IngredientFallenSignal
+    {
+        public Ingredient ingredient;
+    }
 }

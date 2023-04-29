@@ -106,15 +106,15 @@ namespace Project.Dragon
 
         private void OnEnable()
         {
-            signalBus.AddListener<IngredientLostSignal>(OnIngredientLost);
+            signalBus.AddListener<IngredientFallenSignal>(OnIngredientFallen);
         }
 
         private void OnDisable()
         {
-            signalBus.RemoveListener<IngredientLostSignal>(OnIngredientLost);
+            signalBus.RemoveListener<IngredientFallenSignal>(OnIngredientFallen);
         }
 
-        private void OnIngredientLost(IngredientLostSignal signal)
+        private void OnIngredientFallen(IngredientFallenSignal signal)
         {
             IncrementStress(ingredientLostStress);
         }
