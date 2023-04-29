@@ -25,10 +25,11 @@ namespace Project.Jam
 
         public GameObject item;
         public GameObject box;
+        public GameObject coverParticles;
+        public ParticleSystem readyParticles;
 
         public UnityEvent onBowlRemoved;
 
-        public GameObject coverParticles;
         public FarmerAnimator farmerAnimator;
 
 
@@ -96,6 +97,7 @@ namespace Project.Jam
 
         private void StartPacking()
         {
+            slider.value = 0;
             slider.transform.DOScale(Vector3.one, 0.5f);
             farmerAnimator.PlayPack(packingSeconds);
             coverParticles.SetActive(true);
@@ -105,7 +107,7 @@ namespace Project.Jam
                 slider.transform.DOScale(Vector3.zero, 0.5f);
                 coverParticles.SetActive(false);
                 farmerAnimator.PlayIdle();
-            });
+            }).SetEase(Ease.Linear);
         }
 
         private void InstantiateBox()
@@ -114,6 +116,8 @@ namespace Project.Jam
             {
                 bowl.RemoveAllIngedients();
                 bowl.TryAddBox(box);
+                readyParticles.gameObject.SetActive(true);
+                readyParticles.Play();
             }
         }
 
