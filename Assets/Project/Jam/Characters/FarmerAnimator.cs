@@ -28,21 +28,24 @@ namespace Project.Jam.Characters
 
         public void StopPack()
         {
-            animator.CrossFade("PackStop", 0.1f);
+            animator.CrossFade("PackEnd", 0.1f);
         }
 
         public void PlayHorrorLoop()
         {
+            CancelInvoke(nameof(StopPack));
             animator.CrossFade("HorrorLoop", 0.1f);
         }
 
         public void PlayHorrorQuick()
         {
+            CancelInvoke(nameof(StopPack));
             animator.CrossFade("HorrorQuick", 0.1f);
         }
 
         public void PlayIdle()
         {
+            CancelInvoke(nameof(StopPack));
             animator.CrossFade("Idle", 0.1f);
         }
     }
