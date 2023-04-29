@@ -71,7 +71,7 @@ namespace Project.Cooking.Recipes
 
             for (int i = 0; i < count; i++)
             {
-                int randomIndex = UnityEngine.Random.Range(0, Enum.GetValues(typeof(IngredientTypeValue)).Length);
+                int randomIndex = UnityEngine.Random.Range(0, 3);
                 IngredientTypeValue randomIngredient = (IngredientTypeValue)randomIndex;
                 ingredients.Add(randomIngredient);
             }
