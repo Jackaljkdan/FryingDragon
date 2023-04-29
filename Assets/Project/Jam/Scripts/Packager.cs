@@ -83,7 +83,10 @@ namespace Project.Jam
                 bool areEqual = recipe.ingredients.OrderBy(x => x).SequenceEqual(bowlIngredients.OrderBy(x => x));
 
                 if (areEqual)
+                {
+                    signalBus.Invoke(new OrderFulfilledSignal() { recipe = recipe, ingredients = recipe.ingredients });
                     return true;
+                }
             }
             return false;
         }
@@ -136,6 +139,7 @@ namespace Project.Jam
 
         private void StartPacking()
         {
+            signalBus.Invoke(new ItemAddedSignal());
             isPacking = true;
             slider.value = 0;
             slider.transform.DOScale(Vector3.one, 0.5f);

@@ -1,6 +1,7 @@
 using JK.Injection;
 using JK.Utils;
 using Project.Items.Ingredients;
+using Project.Jam;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -46,6 +47,22 @@ namespace Project.Cooking.Recipes
         private void Awake()
         {
             Inject();
+        }
+
+        private void Start()
+        {
+            signalBus.AddListener<OrderFulfilledSignal>(FulfillRecipe);
+        }
+
+        private void OnDestroy()
+        {
+            signalBus.RemoveListener<OrderFulfilledSignal>(FulfillRecipe);
+        }
+
+        private void FulfillRecipe(OrderFulfilledSignal signal)
+        {
+            if (recipes.Contains(signal.recipe))
+                recipes.Remove(signal.recipe);
         }
 
         public void TryRequestNewRecipe()

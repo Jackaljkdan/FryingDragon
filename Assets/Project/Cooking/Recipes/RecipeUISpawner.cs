@@ -2,9 +2,11 @@ using DG.Tweening;
 using JK.Injection;
 using JK.Utils;
 using Project.Items.Ingredients;
+using Project.Jam;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -43,6 +45,7 @@ namespace Project.Cooking.Recipes
             signalBus.AddListener<NewRecipeSignal>(OnNewRecipe);
             signalBus.AddListener<CookingStartedSignal>(OnCookingStarted);
             signalBus.AddListener<CookingInterruptedSignal>(OnCookingInterrupted);
+            signalBus.AddListener<OrderFulfilledSignal>(OnCookingStartedSignal);
         }
 
         private void OnDestroy()
@@ -50,6 +53,23 @@ namespace Project.Cooking.Recipes
             signalBus.RemoveListener<NewRecipeSignal>(OnNewRecipe);
             signalBus.RemoveListener<CookingStartedSignal>(OnCookingStarted);
             signalBus.RemoveListener<CookingInterruptedSignal>(OnCookingInterrupted);
+            signalBus.RemoveListener<OrderFulfilledSignal>(OnCookingStartedSignal);
+        }
+
+        private void OnCookingStartedSignal(OrderFulfilledSignal signal)
+        {
+            foreach (RecipesVisualizer recipesVisualizer in spawnedRecipes)
+            {
+                if (recipesVisualizer.IsRecipeFulfilled(signal.ingredients))
+                {
+                    recipesVisualizer.DOExit().OnComplete(() =>
+                    {
+                        spawnedRecipes.Remove(recipesVisualizer);
+                        Destroy(recipesVisualizer.gameObject);
+                    });
+                    break;
+                }
+            }
         }
 
         private void OnNewRecipe(NewRecipeSignal arg)

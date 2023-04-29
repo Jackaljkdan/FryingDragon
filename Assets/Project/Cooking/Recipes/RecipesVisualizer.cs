@@ -72,6 +72,11 @@ namespace Project.Cooking.Recipes
             signalBus.RemoveListener<IngredientLostSignal>(OnIngredientLost);
         }
 
+        public bool IsRecipeFulfilled(List<IngredientTypeValue> ingredients)
+        {
+            return ingredients.OrderBy(x => x).SequenceEqual(neededValueList.OrderBy(x => x));
+        }
+
         public void ShowRecipe(Recipe recipe)
         {
             List<IngredientTypeValue> ingredients = recipe.ingredients;
@@ -142,6 +147,11 @@ namespace Project.Cooking.Recipes
         {
             animation.position = animation.position.WithY(animation.position.y + 20);
             return animation.DOLocalMoveY(0, 1).SetEase(Ease.OutElastic);
+        }
+
+        public Tween DOExit()
+        {
+            return animation.DOLocalMoveY(20, 1).SetEase(Ease.InElastic);
         }
 
         public Tween DOStartCookingAnimation()
