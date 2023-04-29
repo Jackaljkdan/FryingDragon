@@ -1396,11 +1396,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _: 0
   boxTodo: 12
+  leaveEveryN: 2
+  leaveDistance: 20
+  leaveSeconds: 5
   boxDone:
     _value: 0
     onChange:
       m_PersistentCalls:
         m_Calls: []
+  boxesSinceLeft: 0
   dragonItemHolder: {fileID: 0}
 --- !u!114 &8185584905319266282
 MonoBehaviour:
