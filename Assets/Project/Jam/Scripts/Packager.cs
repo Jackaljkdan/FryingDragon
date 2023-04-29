@@ -4,6 +4,7 @@ using JK.Interaction;
 using JK.Utils;
 using Project.Cooking.Recipes;
 using Project.Dragon;
+using Project.Flames;
 using Project.Items;
 using Project.Items.Ingredients;
 using Project.Jam.Characters;
@@ -44,9 +45,14 @@ namespace Project.Jam
         public OrderFulfiller orderFulfiller;
 
         [Injected]
+        public DragonStress dragonStress;
+
+        [Injected]
         private SignalBus signalBus;
 
         #endregion
+        private Tween tween;
+
         private Bowl bowl;
 
         private bool isPacking = false;
@@ -58,12 +64,40 @@ namespace Project.Jam
             dragonItemHolder = context.Get<DragonItemHolder>(this);
             signalBus = context.Get<SignalBus>(this);
             orderFulfiller = context.Get<OrderFulfiller>(this);
+            dragonStress = context.Get<DragonStress>(this);
         }
 
         private void Awake()
         {
             Inject();
             slider.transform.localScale = Vector3.zero;
+        }
+
+        protected override void Start()
+        {
+            base.Start();
+
+            signalBus.AddListener<FirefighterExitSignal>(OnFirefighterExit);
+            dragonStress.onFrenzy.AddListener(OnDragonStartingFrenzy);
+        }
+
+        private void OnDestroy()
+        {
+            signalBus.RemoveListener<FirefighterExitSignal>(OnFirefighterExit);
+            dragonStress.onFrenzy.RemoveListener(OnDragonStartingFrenzy);
+        }
+
+        private void OnDragonStartingFrenzy()
+        {
+            coverParticles.transform.DOScale(Vector3Utils.Create(0.7f), 0.5f);
+            tween.Pause();
+        }
+
+        private void OnFirefighterExit(FirefighterExitSignal _)
+        {
+            coverParticles.transform.DOScale(Vector3.one, 0.5f);
+
+            tween.Play();
         }
 
         private bool CanDepositBowl(Bowl bowl)
@@ -145,7 +179,8 @@ namespace Project.Jam
             slider.transform.DOScale(Vector3.one, 0.5f);
             farmerAnimator.PlayPack(packingSeconds);
             coverParticles.SetActive(true);
-            slider.DOValue(1f, packingSeconds).OnComplete(() =>
+            tween?.Kill();
+            tween = slider.DOValue(1f, packingSeconds).OnComplete(() =>
             {
                 InstantiateBox();
                 slider.transform.DOScale(Vector3.zero, 0.5f);
