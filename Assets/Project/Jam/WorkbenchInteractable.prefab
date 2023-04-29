@@ -1601,11 +1601,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6071761139791569832, guid: bd9efe48d70438848a6a48714b69e810, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.633
+      value: 0.321
       objectReference: {fileID: 0}
     - target: {fileID: 6071761139791569832, guid: bd9efe48d70438848a6a48714b69e810, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.644
+      value: 1.409
       objectReference: {fileID: 0}
     - target: {fileID: 6071761139791569832, guid: bd9efe48d70438848a6a48714b69e810, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1641,11 +1641,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6071761139809920744, guid: bd9efe48d70438848a6a48714b69e810, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.6
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 6071761139809920744, guid: bd9efe48d70438848a6a48714b69e810, type: 3}
       propertyPath: InitialModule.startSize.minScalar
-      value: 0.5
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6071761139809920744, guid: bd9efe48d70438848a6a48714b69e810, type: 3}
       propertyPath: InitialModule.startColor.maxColor.a

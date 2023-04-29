@@ -44,6 +44,8 @@ namespace Project.Jam
         #endregion
         private Bowl bowl;
 
+        private bool isPacking = false;
+
         [InjectMethod]
         public void Inject()
         {
@@ -60,12 +62,14 @@ namespace Project.Jam
 
         protected override void InteractProtected(RaycastHit hit)
         {
-            if (dragonItemHolder.holdedItem == item)
+            if (dragonItemHolder.holdedItem != null && item != null)
                 return;
 
-            if (item != null)
+            if (item != null && dragonItemHolder.holdedItem == null)
             {
-                RetrieveBowl();
+                if (!isPacking)
+                    RetrieveBowl();
+
                 return;
             }
 
@@ -97,6 +101,7 @@ namespace Project.Jam
 
         private void StartPacking()
         {
+            isPacking = true;
             slider.value = 0;
             slider.transform.DOScale(Vector3.one, 0.5f);
             farmerAnimator.PlayPack(packingSeconds);
@@ -107,6 +112,7 @@ namespace Project.Jam
                 slider.transform.DOScale(Vector3.zero, 0.5f);
                 coverParticles.SetActive(false);
                 farmerAnimator.PlayIdle();
+                isPacking = false;
             }).SetEase(Ease.Linear);
         }
 
