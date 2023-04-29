@@ -2,12 +2,15 @@ using DG.Tweening;
 using JK.Injection;
 using JK.Interaction;
 using JK.Utils;
+using Project.Cooking.Recipes;
 using Project.Dragon;
 using Project.Items;
+using Project.Items.Ingredients;
 using Project.Jam.Characters;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -32,11 +35,13 @@ namespace Project.Jam
 
         public FarmerAnimator farmerAnimator;
 
-
         public Slider slider;
 
         [Injected]
         public DragonItemHolder dragonItemHolder;
+
+        [Injected]
+        public OrderFulfiller orderFulfiller;
 
         [Injected]
         private SignalBus signalBus;
@@ -52,6 +57,7 @@ namespace Project.Jam
             Context context = Context.Find(this);
             dragonItemHolder = context.Get<DragonItemHolder>(this);
             signalBus = context.Get<SignalBus>(this);
+            orderFulfiller = context.Get<OrderFulfiller>(this);
         }
 
         private void Awake()
@@ -60,16 +66,39 @@ namespace Project.Jam
             slider.transform.localScale = Vector3.zero;
         }
 
+        private bool CanDepositBowl(Bowl bowl)
+        {
+
+            List<IngredientTypeValue> bowlIngredients = new();
+            foreach (Ingredient ingredient in bowl.ingredients)
+            {
+                bowlIngredients.Add(ingredient.ingredientTypeValue);
+            }
+
+            if (bowlIngredients.Count == 0)
+                return false;
+
+            foreach (Recipe recipe in orderFulfiller.recipes)
+            {
+                bool areEqual = recipe.ingredients.OrderBy(x => x).SequenceEqual(bowlIngredients.OrderBy(x => x));
+
+                if (areEqual)
+                    return true;
+            }
+            return false;
+        }
+
         protected override void InteractProtected(RaycastHit hit)
         {
+            if (isPacking)
+                return;
+
             if (dragonItemHolder.holdedItem != null && item != null)
                 return;
 
             if (item != null && dragonItemHolder.holdedItem == null)
             {
-                if (!isPacking)
-                    RetrieveBowl();
-
+                RetrieveBowl();
                 return;
             }
 
@@ -82,6 +111,12 @@ namespace Project.Jam
 
             if (item.TryGetComponent<Bowl>(out bowl))
             {
+                if (!CanDepositBowl(bowl))
+                {
+                    item = null;
+                    return;
+                }
+
                 bowl.GlueIngredients();
             }
 
