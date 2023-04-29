@@ -18,6 +18,8 @@ namespace Project.Cooking.Recipes
         public int maxRecipes = 3;
         public List<Recipe> recipes = new();
 
+        public UnityEvent onRecipeFulfilled;
+
         [Injected]
         private SignalBus signalBus;
 
@@ -61,8 +63,11 @@ namespace Project.Cooking.Recipes
 
         private void FulfillRecipe(OrderFulfilledSignal signal)
         {
-            if (recipes.Contains(signal.recipe))
-                recipes.Remove(signal.recipe);
+            if (!recipes.Contains(signal.recipe))
+                return;
+
+            onRecipeFulfilled.Invoke();
+            recipes.Remove(signal.recipe);
         }
 
         public void TryRequestNewRecipe()
