@@ -34,6 +34,9 @@ namespace Project.Flames
         [Injected]
         public Transform exitAnchor;
 
+        [Injected]
+        private SignalBus signalBus;
+
         [ContextMenu("Exit")]
         private void ExitInEditMode()
         {
@@ -50,6 +53,7 @@ namespace Project.Flames
             flammableList = context.Get<FlammableList>(this);
             dragonStress = context.Get<DragonStress>(this);
             exitAnchor = context.Get<Transform>(this, "firefighter.exit");
+            signalBus = context.Get<SignalBus>(this);
         }
 
         private void Awake()
@@ -90,6 +94,7 @@ namespace Project.Flames
             StartCoroutine(ExitCoroutine());
 
             onExit.Invoke();
+            signalBus.Invoke(new FirefighterExitSignal());
         }
 
         private IEnumerator ExitCoroutine()
