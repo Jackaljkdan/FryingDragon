@@ -58,11 +58,16 @@ namespace Project.Items
             rb.MoveRotation(anchorTransform.rotation);
         }
 
-        public void TryAddIngredient(GameObject ingredient)
+        public void TryAddIngredient(GameObject prefab)
         {
-            GameObject spawned = Instantiate(ingredient, spawnAnchor.position, UnityEngine.Random.rotation, transform.root);
-            ingredients.Add(spawned.GetComponent<Ingredient>());
-            signalBus.Invoke(new IngredientTakenSignal() { ingredient = spawned.GetComponent<Ingredient>() });
+            GameObject spawned = Instantiate(prefab, spawnAnchor.position, UnityEngine.Random.rotation, transform.root);
+            AddIngredient(spawned.GetComponent<Ingredient>());
+        }
+
+        public void AddIngredient(Ingredient ingredient)
+        {
+            ingredients.Add(ingredient);
+            signalBus.Invoke(new IngredientTakenSignal() { ingredient = ingredient });
         }
 
         public void RemoveIngredient(Ingredient ingredient)

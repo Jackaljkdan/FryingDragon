@@ -20,12 +20,16 @@ namespace Project.Items.Ingredients
         }
         #endregion
 
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.TryGetComponentInParent(out Ingredient ingredient))
+                bowl.AddIngredient(ingredient);
+        }
+
         private void OnTriggerExit(Collider other)
         {
-            if (other.TryGetComponentInParent<Ingredient>(out Ingredient ingredient))
-            {
+            if (other.TryGetComponentInParent(out Ingredient ingredient))
                 bowl.RemoveIngredient(ingredient);
-            }
         }
     }
 }
