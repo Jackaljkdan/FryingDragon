@@ -3,9 +3,12 @@ using JK.Interaction;
 using JK.Observables;
 using JK.Utils;
 using Project.Dragon;
+using Project.Items;
+using Project.Items.Ingredients;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -49,11 +52,16 @@ namespace Project.Jam
             if (dragonItemHolder.holdedItem == null)
                 return;
 
-            if (!dragonItemHolder.holdedItem.TryGetComponent(out Box box))
+            if (!dragonItemHolder.holdedItem.TryGetComponent(out Bowl bowl))
                 return;
 
-            Destroy(box.gameObject);
+            Ingredient box = bowl.ingredients.FirstOrDefault(ingredient => ingredient.ingredientTypeValue == IngredientTypeValue.box);
 
+            if (box == null)
+                return;
+
+            bowl.RemoveIngredient(box);
+            Destroy(box.gameObject);
             boxDone.Value++;
         }
     }
