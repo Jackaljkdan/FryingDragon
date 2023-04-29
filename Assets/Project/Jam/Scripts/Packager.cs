@@ -89,6 +89,7 @@ namespace Project.Jam
 
         private void OnDragonStartingFrenzy()
         {
+            farmerAnimator.PlayHorrorLoop();
             coverParticles.transform.DOScale(Vector3Utils.Create(0.7f), 0.5f);
             tween.Pause();
         }
@@ -97,7 +98,10 @@ namespace Project.Jam
         {
             coverParticles.transform.DOScale(Vector3.one, 0.5f);
 
-            tween.Play();
+            if (tween.IsActive())
+                tween.Play();
+            else
+                farmerAnimator.PlayIdle();
         }
 
         private bool CanDepositBowl(Bowl bowl)
@@ -175,19 +179,23 @@ namespace Project.Jam
         {
             signalBus.Invoke(new ItemAddedSignal());
             isPacking = true;
+
             slider.value = 0;
             slider.transform.DOScale(Vector3.one, 0.5f);
-            farmerAnimator.PlayPack(packingSeconds);
+
             coverParticles.SetActive(true);
+
             tween?.Kill();
-            tween = slider.DOValue(1f, packingSeconds).OnComplete(() =>
+            tween = slider.DOValue(1f, packingSeconds).SetEase(Ease.Linear);
+            tween.OnPlay(farmerAnimator.PlayPack);
+            tween.OnComplete(() =>
             {
                 InstantiateBox();
                 slider.transform.DOScale(Vector3.zero, 0.5f);
                 coverParticles.SetActive(false);
                 farmerAnimator.PlayIdle();
                 isPacking = false;
-            }).SetEase(Ease.Linear);
+            });
         }
 
         private void InstantiateBox()
