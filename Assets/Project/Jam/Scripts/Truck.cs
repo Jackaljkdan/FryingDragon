@@ -1,3 +1,4 @@
+using DG.Tweening;
 using JK.Injection;
 using JK.Interaction;
 using JK.Observables;
@@ -21,13 +22,31 @@ namespace Project.Jam
 
         public int boxTodo = 12;
 
+        public int leaveEveryN = 2;
+
+        public float leaveDistance = 20f;
+
+        public float leaveSeconds = 5f;
+
         [RuntimeField]
         public ObservableProperty<int> boxDone = new ObservableProperty<int>();
+
+        [RuntimeField]
+        public int boxesSinceLeft;
 
         [Injected]
         public DragonItemHolder dragonItemHolder;
 
+        [ContextMenu("Leave")]
+        private void LeaveInEditMode()
+        {
+            if (Application.isPlaying)
+                DOLeave();
+        }
+
         #endregion
+
+        private Vector3 initialPosition;
 
         [InjectMethod]
         public void Inject()
@@ -45,6 +64,8 @@ namespace Project.Jam
         {
             base.Start();
             boxDone.SetSilently(0);
+            boxesSinceLeft = 0;
+            initialPosition = transform.position;
         }
 
         protected override void InteractProtected(RaycastHit hit)
@@ -63,6 +84,28 @@ namespace Project.Jam
             bowl.RemoveIngredient(box);
             Destroy(box.gameObject);
             boxDone.Value++;
+
+            boxesSinceLeft++;
+
+            if (boxesSinceLeft >= leaveEveryN)
+            {
+                boxesSinceLeft = 0;
+                DOLeave();
+            }
+        }
+
+        public Tween DOLeave()
+        {
+            Transform myTransform = transform;
+
+            var seq = DOTween.Sequence();
+
+            seq.Append(myTransform.DOMove(myTransform.TransformPoint(0, 0, leaveDistance), leaveSeconds / 2));
+            seq.Append(myTransform.DOMove(initialPosition, leaveSeconds / 2));
+
+            seq.SetEase(Ease.InOutQuad);
+
+            return seq;
         }
     }
 }
