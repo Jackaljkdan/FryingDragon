@@ -28,7 +28,7 @@ namespace Project.Jam.Characters
 
         public void StopPack()
         {
-            animator.CrossFade("PackStop", 0.1f);
+            animator.CrossFade("PackEnd", 0.1f);
         }
 
         public void PlayHorrorLoop()
