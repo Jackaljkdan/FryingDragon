@@ -25,6 +25,20 @@ namespace Project.Jam
         [Injected]
         public Truck truck;
 
+        [ContextMenu("Trigger Time Up")]
+        private void TriggerTimeUpInEditMode()
+        {
+            if (Application.isPlaying)
+                onTimeUp.Invoke();
+        }
+
+        [ContextMenu("Trigger Level Win")]
+        private void TriggerLevelWinInEditMode()
+        {
+            if (Application.isPlaying)
+                onLevelWin.Invoke();
+        }
+
         #endregion
 
         [InjectMethod]
