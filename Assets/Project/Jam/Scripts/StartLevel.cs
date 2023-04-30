@@ -1,4 +1,5 @@
 using DG.Tweening;
+using JK.Injection;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,6 +18,17 @@ namespace Project.Jam
         public Image image;
         public TextMeshProUGUI text;
 
+
+        [Injected]
+        public LevelSettings levelSetting;
+
+        [InjectMethod]
+        public void Inject()
+        {
+            Context context = Context.Find(this);
+            levelSetting = context.Get<LevelSettings>(this);
+        }
+
         private void Reset()
         {
             image = GetComponentInChildren<Image>();
@@ -24,6 +36,11 @@ namespace Project.Jam
         }
 
         #endregion
+        private void Awake()
+        {
+            Inject();
+            text.text = $"Day {levelSetting.level}";
+        }
 
         private void Start()
         {
