@@ -12,7 +12,8 @@ namespace Project.Items.Ingredients
         Apple,
         Sandwich,
         Steak,
-        box,
+        DragonEgg,
+        box
     }
 
     [DisallowMultipleComponent]
