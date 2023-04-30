@@ -34,7 +34,8 @@ namespace Project.Jam
         public ParticleSystem readyParticles;
         public Flammable flammable;
 
-        public UnityEvent onBowlRemoved;
+        public UnityEvent onBowlRemoved = new UnityEvent();
+        public UnityEvent onMakeBox = new UnityEvent();
 
         public FarmerAnimator farmerAnimator;
 
@@ -337,6 +338,7 @@ namespace Project.Jam
                 bowl.TryAddBox(box);
                 readyParticles.gameObject.SetActive(true);
                 readyParticles.Play();
+                onMakeBox.Invoke();
             }
         }
 
