@@ -51,6 +51,7 @@ namespace Project.Jam.Workbench
         private void OnEnable()
         {
             packager.isSleeping.onChange.AddListener(OnSleepingChange);
+            packager.isPacking.onChange.AddListener(OnPackingChange);
             dragonItemHolder.heldItem.onChange.AddListener(OnHeldItemChange);
             StopHighlightProtected();
         }
@@ -58,6 +59,7 @@ namespace Project.Jam.Workbench
         private void OnDisable()
         {
             packager.isSleeping.onChange.RemoveListener(OnSleepingChange);
+            packager.isPacking.onChange.RemoveListener(OnPackingChange);
             dragonItemHolder.heldItem.onChange.RemoveListener(OnHeldItemChange);
             StopHighlightProtected();
         }
@@ -70,18 +72,20 @@ namespace Project.Jam.Workbench
             RefreshHighlighting();
         }
 
+        private void OnPackingChange(ObservableProperty<bool>.Changed arg0)
+        {
+            if (!IsHighlighting)
+                return;
+
+            RefreshHighlighting();
+        }
+
         public void RefreshHighlighting()
         {
-            if (dragonItemHolder.heldItem.Value != null)
-            {
-                workbenchOutline.enabled = true;
-                farmerOutline.enabled = false;
-            }
-            else
-            {
-                workbenchOutline.enabled = !packager.isSleeping.Value;
-                farmerOutline.enabled = packager.isSleeping.Value;
-            }
+            bool withWorkbench = packager.ShouldInteractWithWorkbench();
+
+            workbenchOutline.enabled = withWorkbench;
+            farmerOutline.enabled = !withWorkbench;
         }
 
         private void OnHeldItemChange(ObservableProperty<GameObject>.Changed arg)
