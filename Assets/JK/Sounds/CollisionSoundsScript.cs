@@ -56,7 +56,7 @@ namespace JK.Sounds
             if (Time.time - lastClipTime < secondsBetweenClips)
                 return;
 
-            audioSource.PlayAssetAsyncAs(RandomUtils.Choose(clipAssets), oneShot: true, volumeScale);
+            audioSource.PlayAssetSafelyAsyncAs(RandomUtils.Choose(clipAssets), oneShot: true, volumeScale);
 
             lastClipTime = Time.time;
         }
