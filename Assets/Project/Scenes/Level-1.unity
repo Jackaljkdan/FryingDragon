@@ -557,17 +557,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82aa4b876f6d9df4c8a9f6b25cc27d00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1484836806 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 564553181651869069, guid: 0d7e3789ecef9144c883b28e65ed74ce, type: 3}
-  m_PrefabInstance: {fileID: 1211267616}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94580bc348ab80e44a01e4e1c88424b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1485403532 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5625892243345013875, guid: 0909d87f06a894745ba92ba7392cafec, type: 3}
@@ -1148,6 +1137,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7841658434659532822, guid: a8e0a9c91f52fbd4490c0e24ab47ebcc, type: 3}
+      propertyPath: list.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7841658434659532822, guid: a8e0a9c91f52fbd4490c0e24ab47ebcc, type: 3}
       propertyPath: list.Array.data[0]
       value: 
       objectReference: {fileID: 4632407214746413217}
@@ -1162,15 +1155,15 @@ PrefabInstance:
     - target: {fileID: 7841658434659532822, guid: a8e0a9c91f52fbd4490c0e24ab47ebcc, type: 3}
       propertyPath: list.Array.data[3]
       value: 
-      objectReference: {fileID: 1484836806}
+      objectReference: {fileID: 2049041223}
     - target: {fileID: 7841658434659532822, guid: a8e0a9c91f52fbd4490c0e24ab47ebcc, type: 3}
       propertyPath: list.Array.data[4]
       value: 
-      objectReference: {fileID: 2049041223}
+      objectReference: {fileID: 923689963}
     - target: {fileID: 7841658434659532822, guid: a8e0a9c91f52fbd4490c0e24ab47ebcc, type: 3}
       propertyPath: list.Array.data[5]
       value: 
-      objectReference: {fileID: 923689963}
+      objectReference: {fileID: 1158767988}
     - target: {fileID: 7841658434659532822, guid: a8e0a9c91f52fbd4490c0e24ab47ebcc, type: 3}
       propertyPath: list.Array.data[6]
       value: 
