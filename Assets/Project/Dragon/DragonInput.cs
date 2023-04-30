@@ -63,8 +63,8 @@ namespace Project.Dragon
             if (dropButton.GetAxisDown())
                 dragonItemHolder.DropItem();
 
-            Vector3 dragonScreenPosition = camera.WorldToScreenPoint(dragonMovement.transform.position);
-            Vector3 targetForward = (Input.mousePosition - dragonScreenPosition).normalized;
+            Vector3 dragonScreenPosition = camera.WorldToScreenPoint(dragonMovement.transform.position).WithZ(0);
+            Vector2 targetForward = (Input.mousePosition - dragonScreenPosition).normalized;
 
             float run = 1 + Input.GetAxis("Run");
 

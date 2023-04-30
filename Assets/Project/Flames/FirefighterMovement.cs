@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UIElements;
 
 namespace Project.Flames
 {
@@ -46,7 +47,10 @@ namespace Project.Flames
         private int xHash;
         private int zHash;
 
-        private Vector2 input;
+        [RuntimeField]
+        public Vector2 movementInput;
+        [RuntimeField]
+        public Vector2 rotationInput;
 
         private void Awake()
         {
@@ -61,11 +65,13 @@ namespace Project.Flames
 
         }
 
-        public void Move(Vector2 input)
+        public void Move(Vector2 movementInput, Vector2 rotationInput)
         {
-            this.input = input;
-            animator.SetFloat(xHash, input.x);
-            animator.SetFloat(zHash, input.y);
+            this.movementInput = movementInput;
+            this.rotationInput = rotationInput;
+
+            animator.SetFloat(xHash, movementInput.x);
+            animator.SetFloat(zHash, movementInput.y);
         }
 
         private void OnAnimatorMove()
@@ -73,16 +79,16 @@ namespace Project.Flames
             deltaPosition = animator.deltaPosition;
             float magnitude = deltaPosition.magnitude;
 
-            localDelta = characterControllerTransform.InverseTransformDirection(deltaPosition).WithX(0);
-            if (input.y == 0)
-                localDelta.z = 0;
-
-            characterControllerTransform.Rotate(0, input.x * Mathf.Sign(input.y) * TimeUtils.AdjustToFrameRate(rotationSpeed), 0);
+            localDelta = characterControllerTransform.InverseTransformDirection(deltaPosition);
+            if (movementInput.x == 0)
+                localDelta.x = 0;
 
             adjustedDelta = characterControllerTransform.TransformDirection(localDelta).WithY(0).normalized * magnitude * speed;
             characterController.Move(adjustedDelta.WithY(-9));
 
-            input = Vector2.zero;
+            characterControllerTransform.rotation = Quaternion.LookRotation(new Vector3(rotationInput.x, 0, rotationInput.y));
+
+            movementInput = Vector2.zero;
         }
 
         private void OnAnimatorIK(int layerIndex)
