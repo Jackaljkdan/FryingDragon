@@ -19,7 +19,6 @@ namespace Project.Jam
         [DebugField]
         public Vector3 offset;
 
-
         #endregion
 
         private void Awake()
@@ -29,7 +28,7 @@ namespace Project.Jam
                 offset = transform.position - target.position;
             }
         }
-        private void FixedUpdate()
+        private void LateUpdate()
         {
             if (target == null) return;
 
