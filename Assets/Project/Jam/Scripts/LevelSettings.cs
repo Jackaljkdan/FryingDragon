@@ -11,6 +11,8 @@ namespace Project.Jam
     {
         #region Inspector
 
+        public int level = 1;
+
         public int boxesTodo = 12;
 
         public float minutes = 5;
