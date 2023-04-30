@@ -23,6 +23,8 @@ namespace Project.Jam
 
         public GameObject restartObject;
 
+        public GameObject win;
+
         [Injected]
         public GameOver gameOver;
 
@@ -31,6 +33,12 @@ namespace Project.Jam
         {
             Context context = Context.Find(this);
             gameOver = context.Get<GameOver>(this);
+        }
+
+        [ContextMenu("LoadNextScene")]
+        private void LoadNextSceneFromInspector()
+        {
+            LoadNextScene();
         }
 
         #endregion
@@ -93,9 +101,35 @@ namespace Project.Jam
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
+        private void HideAllText()
+        {
+            restartObject.transform.localScale = Vector3.zero;
+            win.transform.localScale = Vector3.zero;
+            negative.transform.DOScale(0f, 0.5f);
+            positive.transform.DOScale(0f, 0.5f);
+            title.transform.DOScale(0f, 0.5f);
+        }
+
+        private void StartOver()
+        {
+            HideAllText();
+            win.SetActive(true);
+            bg.DOFade(0.9f, 0.5f).OnComplete(() => { win.transform.DOScale(1f, 0.5f).SetEase(Ease.OutBack); });
+
+            Invoke(nameof(LoadFirstScene), 12f);
+        }
+
+        private void LoadFirstScene()
+        {
+            SceneManager.LoadSceneAsync(0);
+        }
+
         private void LoadNextScene()
         {
-            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+            if (SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings - 1)
+                SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+            else
+                StartOver();
         }
     }
 }

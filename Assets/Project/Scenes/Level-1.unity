@@ -992,6 +992,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 199443152}
     m_Modifications:
     - target: {fileID: 8846544876487587203, guid: 800e30fd0be2bad4da36e7ed1c5f7185, type: 3}
+      propertyPath: win
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8846544876487587203, guid: 800e30fd0be2bad4da36e7ed1c5f7185, type: 3}
       propertyPath: gameOver
       value: 
       objectReference: {fileID: 1413439079}
