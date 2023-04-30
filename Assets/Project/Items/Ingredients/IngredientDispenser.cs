@@ -18,10 +18,10 @@ namespace Project.Items.Ingredients
 
         protected override void InteractProtected(RaycastHit hit)
         {
-            if (!holder.holdedItem)
+            if (!holder.heldItem.Value)
                 return;
 
-            if (holder.holdedItem.TryGetComponent<Bowl>(out Bowl bowl))
+            if (holder.heldItem.Value.TryGetComponent<Bowl>(out Bowl bowl))
                 bowl.TryAddIngredient(grabbableItem);
         }
     }

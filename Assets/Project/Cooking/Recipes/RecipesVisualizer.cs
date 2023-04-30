@@ -99,10 +99,10 @@ namespace Project.Cooking.Recipes
 
         private void GetStartingIngredients()
         {
-            if (!holder.holdedItem)
+            if (!holder.heldItem.Value)
                 return;
 
-            if (holder.holdedItem.TryGetComponentInChildren<Bowl>(out Bowl bowl))
+            if (holder.heldItem.Value.TryGetComponentInChildren<Bowl>(out Bowl bowl))
                 foreach (Ingredient ingredient in bowl.ingredients)
                 {
                     ShowCheckmark(ingredient.ingredientTypeValue);

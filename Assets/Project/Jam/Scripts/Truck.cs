@@ -68,10 +68,10 @@ namespace Project.Jam
 
         protected override void InteractProtected(RaycastHit hit)
         {
-            if (dragonItemHolder.holdedItem == null)
+            if (dragonItemHolder.heldItem.Value == null)
                 return;
 
-            if (!dragonItemHolder.holdedItem.TryGetComponent(out Bowl bowl))
+            if (!dragonItemHolder.heldItem.Value.TryGetComponent(out Bowl bowl))
                 return;
 
             Ingredient box = bowl.ingredients.FirstOrDefault(ingredient => ingredient.ingredientTypeValue == IngredientTypeValue.box);
