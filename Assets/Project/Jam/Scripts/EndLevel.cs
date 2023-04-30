@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Project.Jam
@@ -70,7 +71,10 @@ namespace Project.Jam
         {
             DOEnter().OnComplete(() =>
             {
-                positive.transform.DOScale(1f, 0.5f).SetEase(Ease.OutBack);
+                positive.transform.DOScale(1f, 0.5f).SetEase(Ease.OutBack).OnComplete(() =>
+                {
+                    Invoke(nameof(LoadNextScene), 2f);
+                });
             });
         }
 
@@ -86,7 +90,12 @@ namespace Project.Jam
         }
         public void RestartScene()
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        private void LoadNextScene()
+        {
+            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 }
