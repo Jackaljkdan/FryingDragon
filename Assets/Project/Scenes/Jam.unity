@@ -874,6 +874,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 199443152}
     m_Modifications:
+    - target: {fileID: 7841658434002840757, guid: a8e0a9c91f52fbd4490c0e24ab47ebcc, type: 3}
+      propertyPath: minutes
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7841658434002840757, guid: a8e0a9c91f52fbd4490c0e24ab47ebcc, type: 3}
+      propertyPath: secondsUntilSleep
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7841658434448798122, guid: a8e0a9c91f52fbd4490c0e24ab47ebcc, type: 3}
       propertyPath: m_Name
       value: Systems

@@ -26,8 +26,6 @@ namespace Project.Jam
 
         public float packingSeconds = 10f;
 
-        public float secondsUntilSleep = 5f;
-
         public Transform bowlAnchor;
 
         public GameObject item;
@@ -44,6 +42,9 @@ namespace Project.Jam
 
         [RuntimeField]
         public ObservableProperty<bool> isSleeping = new ObservableProperty<bool>();
+
+        [RuntimeField]
+        public ObservableProperty<bool> isPacking = new ObservableProperty<bool>();
 
         [Injected]
         public DragonInput dragonInput;
@@ -78,7 +79,7 @@ namespace Project.Jam
 
         private Tween tween;
 
-        private bool isPacking = false;
+        public float secondsUntilSleep => levelSettings.secondsUntilSleep;
 
         [InjectMethod]
         public void Inject()
@@ -99,13 +100,13 @@ namespace Project.Jam
             slider.transform.localScale = Vector3.zero;
 
             packingSeconds = levelSettings.packingSeconds;
-            secondsUntilSleep = levelSettings.secondsUntilSleep;
         }
 
         protected override void Start()
         {
             base.Start();
 
+            isPacking.SetSilently(false);
             isSleeping.SetSilently(false);
             ScheduleFallAsleep();
 
@@ -169,7 +170,7 @@ namespace Project.Jam
             tween?.Kill();
             Destroy(item);
             item = null;
-            isPacking = false;
+            isPacking.Value = false;
             coverParticles.GetComponent<ParticleSystem>().Stop();
             slider.transform.DOScale(Vector3.zero, 0.5f);
         }
@@ -198,9 +199,25 @@ namespace Project.Jam
             return false;
         }
 
+        public bool ShouldInteractWithWorkbench()
+        {
+            bool isDragonHolding = dragonItemHolder.heldItem.Value != null;
+
+            if (isDragonHolding)
+                return true;
+
+            if (!isPacking.Value && item != null)
+                return true;
+
+            if (!isSleeping.Value)
+                return true;
+
+            return false;
+        }
+
         protected override void InteractProtected(RaycastHit hit)
         {
-            if (dragonItemHolder.heldItem.Value != null || !isSleeping.Value)
+            if (ShouldInteractWithWorkbench())
                 InteractWorkbench();
             else
                 InteractAlseep();
@@ -208,7 +225,7 @@ namespace Project.Jam
 
         public void InteractWorkbench()
         {
-            if (isPacking)
+            if (isPacking.Value)
                 return;
 
             if (dragonItemHolder.heldItem.Value != null && item != null)
@@ -250,14 +267,14 @@ namespace Project.Jam
                 heldTransform.DORotate(bowlAnchor.eulerAngles, 0.2f);
                 dragonItemHolder.heldItem.Value = null;
 
-                if (!isSleeping.Value)
-                    StartPacking();
+                StartPacking();
             });
         }
 
         public void InteractAlseep()
         {
             dragonInput.enabled = false;
+            dragonInput.dragonMovement.enabled = false;
 
             Vector3 rotationEuler = Quaternion.LookRotation((farmerAnimator.transform.position - dragonFireAnimation.transform.position).normalized).eulerAngles;
             dragonFireAnimation.transform.DORotate(rotationEuler, 0.2f).OnComplete(() =>
@@ -265,6 +282,9 @@ namespace Project.Jam
                 dragonFireAnimation.PlayFireAnimation(onBreathFireEnd: () =>
                 {
                     dragonInput.enabled = true;
+                    dragonInput.dragonMovement.enabled = true;
+                    dragonInput.dragonMovement.Move(Vector2.zero);
+
                     isSleeping.Value = false;
                     ScheduleFallAsleep();
 
@@ -285,7 +305,10 @@ namespace Project.Jam
         private void StartPacking()
         {
             signalBus.Invoke(new ItemAddedSignal());
-            isPacking = true;
+            isPacking.Value = true;
+
+            if (isSleeping.Value)
+                return;
 
             slider.value = 0;
             slider.transform.DOScale(Vector3.one, 0.5f);
@@ -302,7 +325,7 @@ namespace Project.Jam
                 slider.transform.DOScale(Vector3.zero, 0.5f);
                 coverParticles.SetActive(false);
                 farmerAnimator.PlayIdle();
-                isPacking = false;
+                isPacking.Value = false;
             });
         }
 

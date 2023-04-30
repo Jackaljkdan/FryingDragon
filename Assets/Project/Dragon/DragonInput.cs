@@ -26,7 +26,10 @@ namespace Project.Dragon
         public Vector2 inertia;
 
         [Injected]
-        public new Transform camera;
+        public new Camera camera;
+
+        [Injected]
+        public Transform cameraTransform;
 
         private void Reset()
         {
@@ -40,7 +43,8 @@ namespace Project.Dragon
         public void Inject()
         {
             Context context = Context.Find(this);
-            camera = context.Get<Transform>(this, "camera");
+            camera = context.Get<Camera>(this);
+            cameraTransform = context.Get<Transform>(this, "camera");
         }
 
         private void Awake()
@@ -59,12 +63,15 @@ namespace Project.Dragon
             if (dropButton.GetAxisDown())
                 dragonItemHolder.DropItem();
 
-            inertia = (inertia + (new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")) * mouseInertiaLerp)).normalized;
+            Vector3 dragonScreenPosition = camera.WorldToScreenPoint(dragonMovement.transform.position).WithZ(0);
+            Vector2 targetForward = (Input.mousePosition - dragonScreenPosition).normalized;
 
             float run = 1 + Input.GetAxis("Run");
 
-            Vector3 cameraRelative = Input.GetAxis("Vertical") * run * camera.forward.WithY(0).normalized;
-            cameraRelative += Input.GetAxis("Horizontal") * run * camera.right.WithY(0).normalized;
+            inertia = Vector2.Lerp(inertia, targetForward, mouseInertiaLerp * run);
+
+            Vector3 cameraRelative = Input.GetAxis("Vertical") * run * cameraTransform.forward.WithY(0).normalized;
+            cameraRelative += Input.GetAxis("Horizontal") * run * cameraTransform.right.WithY(0).normalized;
 
             Vector3 dragonRelative = dragonMovement.characterControllerTransform.InverseTransformDirection(cameraRelative);
 

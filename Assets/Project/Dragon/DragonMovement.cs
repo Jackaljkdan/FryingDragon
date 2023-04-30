@@ -89,11 +89,11 @@ namespace Project.Character
             this.movementInput = movementInput;
             this.rotationInput = rotationInput;
 
-            Transform myTransform = transform;
             Vector3 rotationInput3 = new Vector3(rotationInput.x, 0, rotationInput.y);
-            float rightDot = Vector3.Dot(myTransform.right, rotationInput3);
+            float rightDot = Vector3.Dot(transform.right, rotationInput3);
+            rightDot = Mathf.Min(1, Mathf.Max(-1, rightDot * 100));
 
-            animator.SetFloat(xHash, movementInput.x != 0 ? movementInput.x : rightDot * 10);
+            animator.SetFloat(xHash, movementInput.x != 0 ? movementInput.x : rightDot);
             animator.SetFloat(zHash, movementInput.y);
         }
 
