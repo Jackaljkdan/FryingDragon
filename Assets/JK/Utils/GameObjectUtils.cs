@@ -38,7 +38,7 @@ namespace JK.Utils
             return component;
         }
 
-        public static T GetComponenetSafely<T>(this GameObject self)
+        public static T GetComponentSafely<T>(this GameObject self)
         {
             if (self == null)
                 return default;

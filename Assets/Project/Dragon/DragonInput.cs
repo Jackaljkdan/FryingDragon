@@ -14,6 +14,8 @@ namespace Project.Dragon
     {
         #region Inspector
 
+        public AxisAsButtonClass dropButton = new AxisAsButtonClass("Drop");
+
         public DragonMovement dragonMovement;
         public DragonItemHolder dragonItemHolder;
 
@@ -25,8 +27,6 @@ namespace Project.Dragon
 
         #endregion
 
-        private AxisAsButtonClass axisAsButton = new AxisAsButtonClass("Drop");
-
         private void Update()
         {
             dragonMovement.Move(new Vector2(
@@ -34,7 +34,7 @@ namespace Project.Dragon
                 Input.GetAxis("Vertical")
             ));
 
-            if (axisAsButton.GetAxisDown())
+            if (dropButton.GetAxisDown())
                 dragonItemHolder.DropItem();
         }
     }

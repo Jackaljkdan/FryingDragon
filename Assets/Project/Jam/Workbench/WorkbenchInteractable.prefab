@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 2260860930074727802}
   - component: {fileID: 2260860930074727798}
   - component: {fileID: 2260860930074727801}
-  - component: {fileID: 2260860930074727800}
   - component: {fileID: 2260860930074727803}
+  - component: {fileID: 4116089041320091681}
   m_Layer: 8
   m_Name: DragonInteractionTrigger
   m_TagString: Untagged
@@ -62,20 +62,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collider: {fileID: 2260860930074727798}
   gizmoColor: {r: 0, g: 1, b: 0, a: 1}
---- !u!114 &2260860930074727800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2260860930074727805}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9272d5be0c4a8a440baa67287b42382d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <IsHighlighting>k__BackingField: 0
-  target: {fileID: 2260860930753304547}
 --- !u!114 &2260860930074727803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,6 +76,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _: 0
   target: {fileID: 82044000463237096}
+--- !u!114 &4116089041320091681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2260860930074727805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cf1ccfdcdfd61842ba75ffc101b5105, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <IsHighlighting>k__BackingField: 0
+  packager: {fileID: 82044000463237096}
+  workbenchOutline: {fileID: 2260860930859325392}
+  farmerOutline: {fileID: 4744021158210649726}
+  dragonItemHolder: {fileID: 0}
 --- !u!1 &2260860930157396285
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,6 +263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _: 0
   packingSeconds: 10
+  secondsUntilSleep: 5
   bowlAnchor: {fileID: 2260860930781190877}
   item: {fileID: 0}
   box: {fileID: 8946983510993671989, guid: 3bbd70b34c1fb8040bd16a6aaebf42b4, type: 3}
@@ -271,6 +275,11 @@ MonoBehaviour:
       m_Calls: []
   farmerAnimator: {fileID: 1583597092815585971}
   slider: {fileID: 6104264620489645309}
+  isSleeping:
+    _value: 0
+    onChange:
+      m_PersistentCalls:
+        m_Calls: []
   dragonItemHolder: {fileID: 0}
   orderFulfiller: {fileID: 0}
   dragonStress: {fileID: 0}
@@ -1300,7 +1309,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 582182734352747311, guid: c0c58ce8df076124294dba0f15a4f7dd, type: 3}
   m_PrefabInstance: {fileID: 2156737372671920540}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2155634329655941418}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3647d7a0d77e6a24eae2e5ec70f53cfc, type: 3}
@@ -1311,6 +1320,29 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4049357556114238, guid: c0c58ce8df076124294dba0f15a4f7dd, type: 3}
   m_PrefabInstance: {fileID: 2156737372671920540}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2155634329655941418 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1160220439793846, guid: c0c58ce8df076124294dba0f15a4f7dd, type: 3}
+  m_PrefabInstance: {fileID: 2156737372671920540}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4744021158210649726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2155634329655941418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 5
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1001 &2260860930164522768
 PrefabInstance:
   m_ObjectHideFlags: 0
