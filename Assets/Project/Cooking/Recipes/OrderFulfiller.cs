@@ -91,7 +91,7 @@ namespace Project.Cooking.Recipes
             if (recipes.Count >= maxRecipes)
                 return;
 
-            Recipe newRecipe = new(GetRandomIngredients(UnityEngine.Random.Range(minIngredients, maxIngredients)));
+            Recipe newRecipe = new(GetRandomIngredients(UnityEngine.Random.Range(minIngredients, maxIngredients + 1)));
             recipes.Add(newRecipe);
             signalBus.Invoke(new NewRecipeSignal() { recipe = newRecipe });
 
