@@ -45,7 +45,7 @@ namespace Project.Cooking
 
         protected override void InteractProtected(RaycastHit hit)
         {
-            if (dragonItemHolder.holdedItem == bowl)
+            if (dragonItemHolder.heldItem.Value == bowl)
                 return;
 
             if (bowl != null)
@@ -54,7 +54,7 @@ namespace Project.Cooking
                 return;
             }
 
-            Transform heldTransform = dragonItemHolder.holdedItem.transform;
+            Transform heldTransform = dragonItemHolder.heldItem.Value.transform;
 
             if (!heldTransform.TryGetComponent(out bowl))
                 return;
@@ -68,7 +68,7 @@ namespace Project.Cooking
                 heldTransform.SetParent(dragonItemHolder.transform.parent, worldPositionStays: true);
                 heldTransform.DOMove(bowlAnchor.position, 0.2f);
                 heldTransform.DORotate(bowlAnchor.eulerAngles, 0.2f);
-                dragonItemHolder.holdedItem = null;
+                dragonItemHolder.heldItem.Value = null;
             });
         }
 
@@ -82,7 +82,7 @@ namespace Project.Cooking
                     bowl.transform.SetParent(transform.root, worldPositionStays: true);
                     bowl.transform.position = bowlAnchor.position;
                     bowl.transform.rotation = bowlAnchor.rotation;
-                    dragonItemHolder.holdedItem = bowl.gameObject;
+                    dragonItemHolder.heldItem.Value = bowl.gameObject;
                     signalBus.Invoke(new ItemAddedSignal());
                 },
                 onRetrieveEnd: () =>

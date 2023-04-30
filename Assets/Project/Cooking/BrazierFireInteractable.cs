@@ -53,7 +53,7 @@ namespace Project.Cooking
             if (cooking.IsCooking)
                 return;
 
-            if (dragonItemHolder.holdedItem != null)
+            if (dragonItemHolder.heldItem.Value != null)
                 return;
 
             animation.PlayFireAnimation();

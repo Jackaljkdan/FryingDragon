@@ -1,4 +1,5 @@
 using JK.Interaction;
+using JK.Observables;
 using Project.Items;
 using System;
 using System.Collections;
@@ -16,13 +17,13 @@ namespace Project.Dragon
         public Animator animator;
 
         public Transform itemPositionAnchor;
-        public GameObject holdedItem;
+        public ObservableProperty<GameObject> heldItem = new ObservableProperty<GameObject>();
 
         #endregion
 
         public void TryAddItem(GameObject objectToAdd)
         {
-            if (holdedItem != null)
+            if (heldItem.Value != null)
                 return;
 
             AnimateRetriveItem(
@@ -31,7 +32,7 @@ namespace Project.Dragon
 
         private void SpawnItem(GameObject item)
         {
-            holdedItem = Instantiate(item, itemPositionAnchor.position, itemPositionAnchor.rotation, transform.root);
+            heldItem.Value = Instantiate(item, itemPositionAnchor.position, itemPositionAnchor.rotation, transform.root);
         }
 
         private UnityAction onPutItemRelease;
@@ -72,23 +73,23 @@ namespace Project.Dragon
 
         public void DropItem()
         {
-            if (holdedItem == null)
+            if (heldItem.Value == null)
                 return;
 
-            holdedItem.transform.SetParent(transform.parent, worldPositionStays: true);
+            heldItem.Value.transform.SetParent(transform.parent, worldPositionStays: true);
 
-            if (holdedItem.TryGetComponent(out Bowl bowl))
+            if (heldItem.Value.TryGetComponent(out Bowl bowl))
             {
                 bowl.Drop();
             }
-            else if (holdedItem.TryGetComponent(out Rigidbody rb))
+            else if (heldItem.Value.TryGetComponent(out Rigidbody rb))
             {
                 rb.useGravity = true;
                 rb.isKinematic = false;
                 rb.AddForce(transform.TransformDirection(Vector3.forward) * 3, ForceMode.Impulse);
             }
 
-            holdedItem = null;
+            heldItem.Value = null;
         }
     }
 }

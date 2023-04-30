@@ -125,7 +125,6 @@ namespace Project.Jam
 
         private bool CanDepositBowl(Bowl bowl)
         {
-
             List<IngredientTypeValue> bowlIngredients = new();
             foreach (Ingredient ingredient in bowl.ingredients)
             {
@@ -153,16 +152,16 @@ namespace Project.Jam
             if (isPacking)
                 return;
 
-            if (dragonItemHolder.holdedItem != null && item != null)
+            if (dragonItemHolder.heldItem.Value != null && item != null)
                 return;
 
-            if (item != null && dragonItemHolder.holdedItem == null)
+            if (item != null && dragonItemHolder.heldItem.Value == null)
             {
                 RetrieveBowl();
                 return;
             }
 
-            item = dragonItemHolder.holdedItem;
+            item = dragonItemHolder.heldItem.Value;
 
             if (!item)
                 return;
@@ -189,7 +188,7 @@ namespace Project.Jam
                 heldTransform.SetParent(dragonItemHolder.transform.parent, worldPositionStays: true);
                 heldTransform.DOMove(bowlAnchor.position, 0.2f);
                 heldTransform.DORotate(bowlAnchor.eulerAngles, 0.2f);
-                dragonItemHolder.holdedItem = null;
+                dragonItemHolder.heldItem.Value = null;
                 StartPacking();
             });
         }
@@ -240,7 +239,7 @@ namespace Project.Jam
                 item.transform.SetParent(transform.root, worldPositionStays: true);
                 item.transform.position = bowlAnchor.position;
                 item.transform.rotation = bowlAnchor.rotation;
-                dragonItemHolder.holdedItem = item.gameObject;
+                dragonItemHolder.heldItem.Value = item.gameObject;
                 signalBus.Invoke(new ItemAddedSignal());
             },
             onRetrieveEnd: () =>
