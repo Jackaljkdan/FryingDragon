@@ -1895,6 +1895,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragonMovement: {fileID: 6142508412747029040}
+  dragonItemHolder: {fileID: 4229203199805098585}
 --- !u!114 &4229203199805098585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1909,7 +1910,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 6142508412747029055}
   itemPositionAnchor: {fileID: 8719980326431405833}
-  holdedItem: {fileID: 0}
+  heldItem:
+    _value: {fileID: 0}
+    onChange:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!95 &6142508412747029055
 Animator:
   serializedVersion: 5

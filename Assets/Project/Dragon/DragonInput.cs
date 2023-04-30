@@ -15,13 +15,17 @@ namespace Project.Dragon
         #region Inspector
 
         public DragonMovement dragonMovement;
+        public DragonItemHolder dragonItemHolder;
 
         private void Reset()
         {
             dragonMovement = GetComponent<DragonMovement>();
+            dragonItemHolder = GetComponent<DragonItemHolder>();
         }
 
         #endregion
+
+        private AxisAsButtonClass axisAsButton = new AxisAsButtonClass("Drop");
 
         private void Update()
         {
@@ -29,6 +33,9 @@ namespace Project.Dragon
                 Input.GetAxis("Horizontal"),
                 Input.GetAxis("Vertical")
             ));
+
+            if (axisAsButton.GetAxisDown())
+                dragonItemHolder.DropItem();
         }
     }
 }

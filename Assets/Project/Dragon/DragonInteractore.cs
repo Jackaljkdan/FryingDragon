@@ -14,20 +14,20 @@ namespace Project.Dragon
     {
         #region Inspector
 
-        public KeyCode primaryKey = KeyCode.E;
-        public KeyCode secondaryKey = KeyCode.F;
-
         #endregion
+
+        private AxisAsButtonClass primary = new AxisAsButtonClass("Interact");
+        private AxisAsButtonClass secondary = new AxisAsButtonClass("InteractSecondary");
 
         private void Update()
         {
             if (highlighting == null)
                 return;
 
-            if (Input.GetKeyDown(primaryKey))
+            if (primary.GetAxisDown())
                 highlighting.Interact();
 
-            if (Input.GetKeyDown(secondaryKey) && highlighting is MultipleInteractionForwarder multiple)
+            if (secondary.GetAxisDown() && highlighting is MultipleInteractionForwarder multiple)
                 multiple.SecondaryInteract();
         }
     }
