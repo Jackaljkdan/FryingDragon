@@ -13,7 +13,7 @@ namespace Project.Items.Ingredients
         Sandwich,
         Steak,
         DragonEgg,
-        box
+        box = 1000,
     }
 
     [DisallowMultipleComponent]
