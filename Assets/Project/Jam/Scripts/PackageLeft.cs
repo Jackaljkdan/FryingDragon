@@ -1,3 +1,4 @@
+using JK.Injection;
 using JK.Observables;
 using JK.Utils;
 using System;
@@ -14,10 +15,13 @@ namespace Project.Jam
     {
         #region Inspector
 
-        public LevelSettings levelSettings;
-        public Truck truck;
-
         public TextMeshProUGUI text;
+
+        [Injected]
+        public LevelSettings levelSettings;
+
+        [Injected]
+        public Truck truck;
 
         [DebugField]
         public int boxesToShip = 0;
@@ -28,6 +32,19 @@ namespace Project.Jam
         }
 
         #endregion
+
+        [InjectMethod]
+        public void Inject()
+        {
+            Context context = Context.Find(this);
+            levelSettings = context.Get<LevelSettings>(this);
+            truck = context.Get<Truck>(this);
+        }
+
+        private void Awake()
+        {
+            Inject();
+        }
 
         private void Start()
         {
