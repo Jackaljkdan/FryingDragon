@@ -22,6 +22,9 @@ namespace Project.Cooking.Recipes
 
         public UnityEvent onRecipeFulfilled;
 
+        [DebugField]
+        public List<IngredientTypeValue> availableIngredients = new();
+
         [Injected]
         private SignalBus signalBus;
 
@@ -56,6 +59,11 @@ namespace Project.Cooking.Recipes
         private void Start()
         {
             signalBus.AddListener<OrderFulfilledSignal>(FulfillRecipe);
+
+            foreach (IDispenser dispenser in transform.root.GetComponentsInChildren<IDispenser>())
+            {
+                availableIngredients.Add(dispenser.ingredientType);
+            }
         }
 
         private void OnDestroy()
@@ -95,9 +103,8 @@ namespace Project.Cooking.Recipes
 
             for (int i = 0; i < count; i++)
             {
-                int randomIndex = UnityEngine.Random.Range(0, 3);
-                IngredientTypeValue randomIngredient = (IngredientTypeValue)randomIndex;
-                ingredients.Add(randomIngredient);
+                int randomIndex = UnityEngine.Random.Range(0, availableIngredients.Count);
+                ingredients.Add(availableIngredients[randomIndex]);
             }
 
             return ingredients;
