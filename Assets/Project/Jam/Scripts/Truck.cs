@@ -26,7 +26,6 @@ namespace Project.Jam
 
         public float leaveSeconds = 5f;
 
-        [RuntimeField]
         public ObservableProperty<int> boxDone = new ObservableProperty<int>();
 
         [RuntimeField]
