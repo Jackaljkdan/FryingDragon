@@ -56,6 +56,11 @@ namespace Project.Cooking.Recipes
         private void Awake()
         {
             Inject();
+
+            foreach (IngredientImage image in imagesList)
+            {
+                image.gameObject.SetActive(false);
+            }
         }
 
         private void Start()
@@ -87,7 +92,12 @@ namespace Project.Cooking.Recipes
             {
                 IngredientTypeValue ingredient = ingredients[i];
                 imagesList[i].SetImage(ingredient);
+                imagesList[i].gameObject.SetActive(true);
             }
+
+            LayoutRebuilder.ForceRebuildLayoutImmediate(animation);
+            //LayoutRebuilder.ForceRebuildLayoutImmediate(animation.parent as RectTransform);
+            (animation.parent as RectTransform).SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, (animation as RectTransform).rect.width);
 
             GetStartingIngredients();
         }

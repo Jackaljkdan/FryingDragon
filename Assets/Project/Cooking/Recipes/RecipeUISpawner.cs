@@ -76,8 +76,8 @@ namespace Project.Cooking.Recipes
         {
             RecipesVisualizer spawned = Instantiate(prefab, parent);
             spawnedRecipes.Add(spawned);
-            spawned.DOEnter();
             spawned.ShowRecipe(arg.recipe);
+            spawned.DOEnter();
         }
 
         private void OnCookingStarted(CookingStartedSignal arg)
