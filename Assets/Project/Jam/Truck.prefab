@@ -1528,6 +1528,9 @@ MonoBehaviour:
   leaveEveryN: 2
   leaveDistance: 20
   leaveSeconds: 5
+  leaveClip: {fileID: 8300000, guid: 17f2ce3f1340d7243b86e25f1901498a, type: 3}
+  returnClip: {fileID: 8300000, guid: af7c271f967b32345a7792e6e718f8bb, type: 3}
+  audioSource: {fileID: 4007175128788725170}
   boxDone:
     _value: 0
     onChange:

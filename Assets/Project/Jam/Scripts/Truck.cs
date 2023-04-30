@@ -26,6 +26,11 @@ namespace Project.Jam
 
         public float leaveSeconds = 5f;
 
+        public AudioClip leaveClip;
+        public AudioClip returnClip;
+
+        public AudioSource audioSource;
+
         public ObservableProperty<int> boxDone = new ObservableProperty<int>();
 
         [RuntimeField]
@@ -97,8 +102,10 @@ namespace Project.Jam
 
             var seq = DOTween.Sequence();
 
+            seq.AppendCallback(() => audioSource.PlayOneShot(leaveClip));
             seq.Append(myTransform.DOMove(myTransform.TransformPoint(0, 0, leaveDistance), leaveSeconds / 2));
             seq.Append(myTransform.DOMove(initialPosition, leaveSeconds / 2));
+            seq.InsertCallback(leaveSeconds - returnClip.length, () => audioSource.PlayOneShot(returnClip));
 
             seq.SetEase(Ease.InOutQuad);
 
