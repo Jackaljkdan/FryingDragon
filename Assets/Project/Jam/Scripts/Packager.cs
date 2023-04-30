@@ -1,6 +1,7 @@
 using DG.Tweening;
 using JK.Injection;
 using JK.Interaction;
+using JK.Observables;
 using JK.Utils;
 using Project.Cooking.Recipes;
 using Project.Dragon;
@@ -25,6 +26,8 @@ namespace Project.Jam
 
         public float packingSeconds = 10f;
 
+        public float secondsUntilSleep = 5f;
+
         public Transform bowlAnchor;
 
         public GameObject item;
@@ -39,6 +42,12 @@ namespace Project.Jam
 
         public Slider slider;
 
+        [RuntimeField]
+        public ObservableProperty<bool> isSleeping = new ObservableProperty<bool>();
+
+        [Injected]
+        public DragonInput dragonInput;
+
         [Injected]
         public DragonItemHolder dragonItemHolder;
 
@@ -49,12 +58,21 @@ namespace Project.Jam
         public DragonStress dragonStress;
 
         [Injected]
+        public DragonFireAnimation dragonFireAnimation;
+
+        [Injected]
         private SignalBus signalBus;
 
-        #endregion
-        private Tween tween;
+        [ContextMenu("Fall Asleep")]
+        private void FallAsleepInEditMode()
+        {
+            if (Application.isPlaying)
+                FallAsleep();
+        }
 
-        private Bowl bowl;
+        #endregion
+
+        private Tween tween;
 
         private bool isPacking = false;
 
@@ -62,10 +80,12 @@ namespace Project.Jam
         public void Inject()
         {
             Context context = Context.Find(this);
+            dragonInput = context.Get<DragonInput>(this);
             dragonItemHolder = context.Get<DragonItemHolder>(this);
             signalBus = context.Get<SignalBus>(this);
             orderFulfiller = context.Get<OrderFulfiller>(this);
             dragonStress = context.Get<DragonStress>(this);
+            dragonFireAnimation = context.Get<DragonFireAnimation>(this);
         }
 
         private void Awake()
@@ -77,6 +97,9 @@ namespace Project.Jam
         protected override void Start()
         {
             base.Start();
+
+            isSleeping.SetSilently(false);
+            ScheduleFallAsleep();
 
             signalBus.AddListener<FirefighterExitSignal>(OnFirefighterExit);
             signalBus.AddListener<FireStartSignal>(OnFireStart);
@@ -90,8 +113,26 @@ namespace Project.Jam
             dragonStress.onFrenzy.RemoveListener(OnDragonStartingFrenzy);
         }
 
+        public void FallAsleep()
+        {
+            isSleeping.Value = true;
+            CancelInvoke(nameof(FallAsleep));
+
+            farmerAnimator.PlaySleepLoop();
+
+            tween?.Pause();
+        }
+
+        public void ScheduleFallAsleep()
+        {
+            Invoke(nameof(FallAsleep), secondsUntilSleep);
+        }
+
         private void OnDragonStartingFrenzy()
         {
+            isSleeping.Value = false;
+            CancelInvoke(nameof(FallAsleep));
+
             farmerAnimator.PlayHorrorLoop();
             coverParticles.transform.DOScale(Vector3Utils.Create(0.7f), 0.5f);
             tween.Pause();
@@ -105,6 +146,8 @@ namespace Project.Jam
                 tween.Play();
             else
                 farmerAnimator.PlayIdle();
+
+            ScheduleFallAsleep();
         }
 
         private void OnFireStart(FireStartSignal signal)
@@ -149,6 +192,14 @@ namespace Project.Jam
 
         protected override void InteractProtected(RaycastHit hit)
         {
+            if (dragonItemHolder.heldItem.Value != null || !isSleeping.Value)
+                InteractWorkbench();
+            else
+                InteractAlseep();
+        }
+
+        public void InteractWorkbench()
+        {
             if (isPacking)
                 return;
 
@@ -168,7 +219,7 @@ namespace Project.Jam
 
             Transform heldTransform = item.transform;
 
-            if (item.TryGetComponent<Bowl>(out bowl))
+            if (item.TryGetComponent<Bowl>(out Bowl bowl))
             {
                 if (!CanDepositBowl(bowl))
                 {
@@ -185,11 +236,41 @@ namespace Project.Jam
                     bowl.enabled = false;
 
                 signalBus.Invoke(new ItemRemovedSignal());
+
                 heldTransform.SetParent(dragonItemHolder.transform.parent, worldPositionStays: true);
                 heldTransform.DOMove(bowlAnchor.position, 0.2f);
                 heldTransform.DORotate(bowlAnchor.eulerAngles, 0.2f);
                 dragonItemHolder.heldItem.Value = null;
-                StartPacking();
+
+                if (!isSleeping.Value)
+                    StartPacking();
+            });
+        }
+
+        public void InteractAlseep()
+        {
+            dragonInput.enabled = false;
+
+            Vector3 rotationEuler = Quaternion.LookRotation((farmerAnimator.transform.position - dragonFireAnimation.transform.position).normalized).eulerAngles;
+            dragonFireAnimation.transform.DORotate(rotationEuler, 0.2f).OnComplete(() =>
+            {
+                dragonFireAnimation.PlayFireAnimation(onBreathFireEnd: () =>
+                {
+                    dragonInput.enabled = true;
+                    isSleeping.Value = false;
+                    ScheduleFallAsleep();
+
+                    if (tween.IsActive())
+                    {
+                        tween.Play();
+                        return;
+                    }
+
+                    if (item != null && item.TryGetComponent(out Bowl bowl))
+                        StartPacking();
+                    else
+                        farmerAnimator.PlayIdle();
+                });
             });
         }
 
@@ -218,7 +299,7 @@ namespace Project.Jam
 
         private void InstantiateBox()
         {
-            if (bowl)
+            if (item != null && item.TryGetComponent(out Bowl bowl))
             {
                 bowl.RemoveAllIngedients();
                 bowl.TryAddBox(box);
@@ -229,26 +310,29 @@ namespace Project.Jam
 
         private void RetrieveBowl()
         {
+            Bowl bowl = item.GetComponentSafely<Bowl>();
+
             dragonItemHolder.AnimateRetriveItem(
-            onRetrieveItemRelease: () =>
-            {
-                if (bowl)
-                    bowl.enabled = true;
+                onRetrieveItemRelease: () =>
+                {
+                    if (bowl)
+                        bowl.enabled = true;
 
-                onBowlRemoved.Invoke();
-                item.transform.SetParent(transform.root, worldPositionStays: true);
-                item.transform.position = bowlAnchor.position;
-                item.transform.rotation = bowlAnchor.rotation;
-                dragonItemHolder.heldItem.Value = item.gameObject;
-                signalBus.Invoke(new ItemAddedSignal());
-            },
-            onRetrieveEnd: () =>
-            {
-                if (bowl)
-                    bowl.UnGlueIngredients();
+                    onBowlRemoved.Invoke();
+                    item.transform.SetParent(transform.root, worldPositionStays: true);
+                    item.transform.position = bowlAnchor.position;
+                    item.transform.rotation = bowlAnchor.rotation;
+                    dragonItemHolder.heldItem.Value = item.gameObject;
+                    signalBus.Invoke(new ItemAddedSignal());
+                },
+                onRetrieveEnd: () =>
+                {
+                    if (bowl)
+                        bowl.UnGlueIngredients();
 
-                item = null;
-            });
+                    item = null;
+                }
+            );
         }
     }
 }

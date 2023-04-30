@@ -40,6 +40,11 @@ namespace Project.Jam.Characters
             animator.CrossFade("HorrorQuick", 0.1f);
         }
 
+        public void PlaySleepLoop()
+        {
+            animator.CrossFade("SleepLoop", 0.1f);
+        }
+
         public void PlayIdle()
         {
             animator.CrossFade("Idle", 0.1f);
