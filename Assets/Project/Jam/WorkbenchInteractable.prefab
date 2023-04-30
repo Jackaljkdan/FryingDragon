@@ -265,6 +265,7 @@ MonoBehaviour:
   box: {fileID: 8946983510993671989, guid: 3bbd70b34c1fb8040bd16a6aaebf42b4, type: 3}
   coverParticles: {fileID: 230603018768831800}
   readyParticles: {fileID: 6175088539733399310}
+  flammable: {fileID: 564553181651869069}
   onBowlRemoved:
     m_PersistentCalls:
       m_Calls: []

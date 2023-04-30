@@ -31,6 +31,7 @@ namespace Project.Jam
         public GameObject box;
         public GameObject coverParticles;
         public ParticleSystem readyParticles;
+        public Flammable flammable;
 
         public UnityEvent onBowlRemoved;
 
@@ -78,12 +79,14 @@ namespace Project.Jam
             base.Start();
 
             signalBus.AddListener<FirefighterExitSignal>(OnFirefighterExit);
+            signalBus.AddListener<FireStartSignal>(OnFireStart);
             dragonStress.onFrenzy.AddListener(OnDragonStartingFrenzy);
         }
 
         private void OnDestroy()
         {
             signalBus.RemoveListener<FirefighterExitSignal>(OnFirefighterExit);
+            signalBus.RemoveListener<FireStartSignal>(OnFireStart);
             dragonStress.onFrenzy.RemoveListener(OnDragonStartingFrenzy);
         }
 
@@ -98,6 +101,22 @@ namespace Project.Jam
             coverParticles.transform.DOScale(Vector3.one, 0.5f);
 
             tween.Play();
+        }
+
+        private void OnFireStart(FireStartSignal signal)
+        {
+            if (signal.flammable != flammable)
+                return;
+
+            if (!item)
+                return;
+
+            tween?.Kill();
+            Destroy(item);
+            item = null;
+            isPacking = false;
+            coverParticles.GetComponent<ParticleSystem>().Stop();
+            slider.transform.DOScale(Vector3.zero, 0.5f);
         }
 
         private bool CanDepositBowl(Bowl bowl)
