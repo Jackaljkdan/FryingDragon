@@ -7,6 +7,12 @@ using UnityEngine.Events;
 namespace Project.Flames
 {
     [Serializable]
+    public struct FirefighterSpawnSignal
+    {
+        public FirefighterExit firefighter;
+    }
+
+    [Serializable]
     public struct FirefighterExitSignal
     {
     }

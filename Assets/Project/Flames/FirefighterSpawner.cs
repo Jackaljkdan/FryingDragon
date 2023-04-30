@@ -17,22 +17,17 @@ namespace Project.Flames
 
         public AssetReferenceComponent<FirefighterExit> firefighterAsset;
 
-        public Transform parent;
-        public Transform anchor;
-
         [RuntimeField]
         public FirefighterExit spawned;
 
         [Injected]
+        public Transform anchor;
+
+        [Injected]
         public DragonStress dragonStress;
 
-        [RuntimeField]
+        [Injected]
         private SignalBus signalBus;
-
-        private void Reset()
-        {
-            parent = transform.root;
-        }
 
         [ContextMenu("Spawn")]
         private void SpawnInEditMode()
@@ -47,6 +42,7 @@ namespace Project.Flames
         public void Inject()
         {
             Context context = Context.Find(this);
+            anchor = context.Get<Transform>(this, "firefighter.spawn");
             dragonStress = context.Get<DragonStress>(this);
             signalBus = context.Get<SignalBus>(this);
         }
@@ -85,10 +81,12 @@ namespace Project.Flames
 
         public void Spawn()
         {
-            firefighterAsset.InstantiateAsync(anchor.position, anchor.rotation, parent).Completed += handle =>
+            firefighterAsset.InstantiateAsync(anchor.position, anchor.rotation, transform.root).Completed += handle =>
             {
                 spawned = handle.Result;
                 spawned.onExit.AddListener(OnSpawnedExit);
+
+                signalBus.Invoke(new FirefighterSpawnSignal() { firefighter = spawned });
             };
         }
 
