@@ -1994,6 +1994,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   components:
   - {fileID: 6142508412747029055}
+  - {fileID: 6142508412747029042}
   targetGameObject: {fileID: 0}
   id: dragon
   injectionType: 0
