@@ -21,6 +21,9 @@ namespace Project.Jam
 
         public float packingSeconds = 10;
 
+        public int minEggPerRecipe = 2;
+        public int maxEggPerRecipe = 3;
+
 
         #endregion
     }

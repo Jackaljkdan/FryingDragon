@@ -16,8 +16,6 @@ namespace Project.Cooking.Recipes
         #region Inspector
 
         public int maxRecipes = 3;
-        public int minIngredients = 2;
-        public int maxIngredients = 5;
         public List<Recipe> recipes = new();
 
         public UnityEvent onRecipeFulfilled;
@@ -25,8 +23,17 @@ namespace Project.Cooking.Recipes
         [DebugField]
         public List<IngredientTypeValue> availableIngredients = new();
 
+        [DebugField]
+        public int minIngredients = 2;
+
+        [DebugField]
+        public int maxIngredients = 5;
+
         [Injected]
         private SignalBus signalBus;
+
+        [Injected]
+        public LevelSettings levelSettings;
 
         [ContextMenu("Request Recipe")]
         public void RequestRecipeFromInspector()
@@ -49,6 +56,7 @@ namespace Project.Cooking.Recipes
         {
             Context context = Context.Find(this);
             signalBus = context.Get<SignalBus>(this);
+            levelSettings = context.Get<LevelSettings>(this);
         }
 
         private void Awake()
@@ -64,6 +72,9 @@ namespace Project.Cooking.Recipes
             {
                 availableIngredients.Add(dispenser.ingredientType);
             }
+
+            minIngredients = levelSettings.minEggPerRecipe;
+            maxIngredients = levelSettings.maxEggPerRecipe;
         }
 
         private void OnDestroy()
@@ -94,7 +105,6 @@ namespace Project.Cooking.Recipes
             Recipe newRecipe = new(GetRandomIngredients(UnityEngine.Random.Range(minIngredients, maxIngredients + 1)));
             recipes.Add(newRecipe);
             signalBus.Invoke(new NewRecipeSignal() { recipe = newRecipe });
-
         }
 
         private List<IngredientTypeValue> GetRandomIngredients(int count)
