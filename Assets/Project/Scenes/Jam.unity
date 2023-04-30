@@ -338,8 +338,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc14efa80beeecc4e8d0797c05bd5c69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fulfiller: {fileID: 1092178855}
+  levelSettings: {fileID: 140533899}
+  truck: {fileID: 4680264786074736}
   text: {fileID: 23005837}
+  boxesToShip: 0
 --- !u!1001 &34851309
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7451,7 +7453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelSettings: {fileID: 140533899}
   timeLimit: {fileID: 2079783855}
-  truck: {fileID: 0}
+  truck: {fileID: 4680264786074736}
 --- !u!114 &1899671597
 MonoBehaviour:
   m_ObjectHideFlags: 0
