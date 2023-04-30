@@ -20,8 +20,6 @@ namespace Project.Jam
     {
         #region Inspector
 
-        public int boxTodo = 12;
-
         public int leaveEveryN = 2;
 
         public float leaveDistance = 20f;

@@ -300,7 +300,6 @@ GameObject:
   - component: {fileID: 4049357556114238}
   - component: {fileID: 95311695241237188}
   - component: {fileID: 582182734352747311}
-  - component: {fileID: 5072163993837498355}
   m_Layer: 0
   m_Name: FarmerMale01
   m_TagString: Untagged
@@ -363,20 +362,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 95311695241237188}
---- !u!114 &5072163993837498355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1160220439793846}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4055fcf1d075d614eba02ce9b0d47cfc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 582182734352747311}
-  dragonStress: {fileID: 0}
 --- !u!1 &1160325747902098
 GameObject:
   m_ObjectHideFlags: 0
