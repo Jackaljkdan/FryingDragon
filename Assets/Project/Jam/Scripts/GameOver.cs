@@ -13,6 +13,9 @@ namespace Project.Jam
     {
         #region Inspector
 
+        public UnityEvent onTimeUp = new UnityEvent();
+        public UnityEvent onLevelWin = new UnityEvent();
+
         [Injected]
         public LevelSettings levelSettings;
 
@@ -52,13 +55,13 @@ namespace Project.Jam
 
         private void OnTimeUp()
         {
-            Debug.Log("Time up!");
+            onTimeUp.Invoke();
         }
 
         private void OnBoxDoneChange(ObservableProperty<int>.Changed arg)
         {
             if (arg.updated == levelSettings.boxesTodo)
-                Debug.Log("Win!");
+                onLevelWin.Invoke();
         }
     }
 }

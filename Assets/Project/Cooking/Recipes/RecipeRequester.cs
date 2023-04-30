@@ -26,13 +26,18 @@ namespace Project.Cooking.Recipes
 
         private void Start()
         {
-            ScheduleNextRequest();
+            Invoke(nameof(ScheduleFirstRequest), 2f);
             orderFulfiller.onRecipeFulfilled.AddListener(ScheduleNextRequest);
         }
 
         private void OnDestroy()
         {
             orderFulfiller.onRecipeFulfilled.RemoveListener(ScheduleNextRequest);
+        }
+
+        private void ScheduleFirstRequest()
+        {
+            ScheduleNextRequest();
         }
 
         private void ScheduleNextRequest()
@@ -42,6 +47,9 @@ namespace Project.Cooking.Recipes
 
         private void Update()
         {
+            if (nextRecipeTime == 0f)
+                return;
+
             if (Time.time < nextRecipeTime)
                 return;
 
