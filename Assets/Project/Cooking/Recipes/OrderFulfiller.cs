@@ -16,6 +16,8 @@ namespace Project.Cooking.Recipes
         #region Inspector
 
         public int maxRecipes = 3;
+        public int minIngredients = 2;
+        public int maxIngredients = 5;
         public List<Recipe> recipes = new();
 
         public UnityEvent onRecipeFulfilled;
@@ -81,7 +83,7 @@ namespace Project.Cooking.Recipes
             if (recipes.Count >= maxRecipes)
                 return;
 
-            Recipe newRecipe = new Recipe(GetRandomIngredients(3));
+            Recipe newRecipe = new(GetRandomIngredients(UnityEngine.Random.Range(minIngredients, maxIngredients)));
             recipes.Add(newRecipe);
             signalBus.Invoke(new NewRecipeSignal() { recipe = newRecipe });
 
