@@ -62,7 +62,8 @@ namespace Project.Character
         private int xHash;
         private int zHash;
 
-        private Vector3 input;
+        private Vector2 movementInput;
+        private Vector2 rotationInput;
 
         private void Start()
         {
@@ -70,16 +71,32 @@ namespace Project.Character
             zHash = Animator.StringToHash("Z");
 
             deltaRotation = Quaternion.identity;
+            Vector3 fwd = transform.forward;
+            rotationInput = new Vector2(fwd.x, fwd.z);
 
             characterControllerTransform = characterController.transform;
-            characterControllerTransform.SetParent(transform.parent);
+            characterControllerTransform.SetParent(transform.parent, worldPositionStays: true);
         }
 
-        public void Move(Vector3 input)
+        public void Move(Vector2 movementInput)
         {
-            this.input = input;
-            animator.SetFloat(xHash, input.x != 0 ? input.x : input.y);
-            animator.SetFloat(zHash, input.z);
+            Vector3 fwd = transform.forward;
+            Move(movementInput, new Vector2(fwd.x, fwd.z));
+        }
+
+        public void Move(Vector2 movementInput, Vector2 rotationInput)
+        {
+            this.movementInput = movementInput;
+            this.rotationInput = rotationInput;
+
+            Transform myTransform = transform;
+            Vector3 rotationInput3 = new Vector3(rotationInput.x, 0, rotationInput.y);
+            float rightDot = Vector3.Dot(myTransform.right, rotationInput3);
+
+            Debug.Log($"right dot {rightDot}");
+
+            animator.SetFloat(xHash, movementInput.x != 0 ? movementInput.x : rightDot * 10);
+            animator.SetFloat(zHash, movementInput.y);
         }
 
         private void OnAnimatorMove()
@@ -90,20 +107,23 @@ namespace Project.Character
             float magnitude = deltaPosition.magnitude;
 
             localDelta = myTransform.InverseTransformDirection(deltaPosition);
-            if (input.x == 0)
+            if (movementInput.x == 0)
                 localDelta.x = 0;
 
             adjustedDelta = myTransform.TransformDirection(localDelta).WithY(0).normalized * magnitude * speed;
             characterController.Move(adjustedDelta.WithY(-9));
 
-            deltaRotation *= Quaternion.Euler(0, input.y * TimeUtils.AdjustToFrameRate(rotationSpeed), 0);
+            //deltaRotation *= Quaternion.Euler(0, input.y * TimeUtils.AdjustToFrameRate(rotationSpeed), 0);
+            //targetRotation = Quaternion.LookRotation(new Vector3(rotationInput.x, 0, rotationInput.y));
 
-            input = Vector2.zero;
+            movementInput = Vector2.zero;
+            //rotationInput = Vector2.zero;
         }
 
         private void FixedUpdate()
         {
-            rb.MoveRotation(rb.rotation * deltaRotation);
+            //rb.MoveRotation(rb.rotation * deltaRotation);
+            rb.MoveRotation(Quaternion.LookRotation(new Vector3(rotationInput.x, 0, rotationInput.y)));
             rb.MovePosition(characterControllerTransform.position);
             characterControllerTransform.rotation = rb.rotation;
 

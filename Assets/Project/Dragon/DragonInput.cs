@@ -24,7 +24,7 @@ namespace Project.Dragon
         public DragonMovement dragonMovement;
 
         [RuntimeField]
-        public float inertia;
+        public Vector2 inertia;
 
         [Injected]
         public new Transform camera;
@@ -48,22 +48,25 @@ namespace Project.Dragon
             Inject();
         }
 
+        private void Start()
+        {
+            Vector3 fwd = dragonMovement.transform.forward;
+            inertia = new Vector2(fwd.x, fwd.z);
+        }
+
         private void Update()
         {
-            inertia = Mathf.Lerp(inertia, Input.GetAxis("Mouse X"), mouseInertiaLerp);
+            inertia = (inertia + (new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")) * mouseInertiaLerp)).normalized;
 
             float run = 1 + Input.GetAxis("Run");
 
+            Vector3 cameraRelative = Input.GetAxis("Vertical") * run * camera.forward.WithY(0).normalized;
+            cameraRelative += Input.GetAxis("Horizontal") * run * camera.right.WithY(0).normalized;
 
-            dragonMovement.Move(
-                camera.TransformDirection(new Vector3(
-                    Input.GetAxis("Horizontal") * run,
-                    0,
-                    Input.GetAxis("Vertical") * run
-                ))
-                .WithY(0)
-                .WithY(mouseMultiplier * run * inertia)
-            );
+            Vector3 dragonRelative = dragonMovement.characterControllerTransform.InverseTransformDirection(cameraRelative);
+
+            //dragonMovement.Move(dragonRelative.WithY(mouseMultiplier * run * inertia));
+            dragonMovement.Move(new Vector2(dragonRelative.x, dragonRelative.z), inertia);
 
             if (Input.GetKeyDown(KeyCode.G))
                 GetComponent<DragonItemHolder>().DropItem();
