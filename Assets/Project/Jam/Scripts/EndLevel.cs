@@ -61,7 +61,7 @@ namespace Project.Jam
         {
             Sequence seq = DOTween.Sequence();
 
-            seq.Insert(0f, bg.DOFade(1, 0.5f));
+            seq.Insert(0f, bg.DOFade(0.9f, 0.5f));
             seq.Insert(0.4f, title.transform.DOScale(1f, 0.5f).SetEase(Ease.OutBack));
 
             return seq;
