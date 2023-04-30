@@ -69,7 +69,6 @@ namespace Project.Flames
         {
             Vector3 myScreenPosition = camera.WorldToScreenPoint(movement.transform.position).WithZ(0);
             Vector2 targetForward = (Input.mousePosition - myScreenPosition).normalized;
-            Debug.Log($"tf {targetForward} fs {myScreenPosition} m {Input.mousePosition}");
 
             float run = 2;
 

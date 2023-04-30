@@ -58,6 +58,9 @@ namespace Project.Flames
             zHash = Animator.StringToHash("Z");
 
             characterControllerTransform = characterController.transform;
+
+            Vector3 fwd = transform.forward;
+            rotationInput = new Vector2(fwd.x, fwd.z);
         }
 
         private void Start()
