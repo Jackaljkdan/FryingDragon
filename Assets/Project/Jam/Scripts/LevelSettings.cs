@@ -17,6 +17,11 @@ namespace Project.Jam
 
         public float minutes = 5;
 
+        public float secondsUntilSleep = 20;
+
+        public float packingSeconds = 10;
+
+
         #endregion
     }
 }

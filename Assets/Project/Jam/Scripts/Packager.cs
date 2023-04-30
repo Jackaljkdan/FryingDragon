@@ -63,6 +63,10 @@ namespace Project.Jam
         [Injected]
         private SignalBus signalBus;
 
+
+        [Injected]
+        public LevelSettings levelSettings;
+
         [ContextMenu("Fall Asleep")]
         private void FallAsleepInEditMode()
         {
@@ -86,12 +90,16 @@ namespace Project.Jam
             orderFulfiller = context.Get<OrderFulfiller>(this);
             dragonStress = context.Get<DragonStress>(this);
             dragonFireAnimation = context.Get<DragonFireAnimation>(this);
+            levelSettings = context.Get<LevelSettings>(this);
         }
 
         private void Awake()
         {
             Inject();
             slider.transform.localScale = Vector3.zero;
+
+            packingSeconds = levelSettings.packingSeconds;
+            secondsUntilSleep = levelSettings.secondsUntilSleep;
         }
 
         protected override void Start()
@@ -283,6 +291,7 @@ namespace Project.Jam
             slider.transform.DOScale(Vector3.one, 0.5f);
 
             coverParticles.SetActive(true);
+            float packingSecondsWithIngredients = packingSeconds + (item.TryGetComponent(out Bowl bowl) ? bowl.ingredients.Count * 2 : 0);
 
             tween?.Kill();
             tween = slider.DOValue(1f, packingSeconds).SetEase(Ease.Linear);
