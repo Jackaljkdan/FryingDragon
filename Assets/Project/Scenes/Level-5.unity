@@ -123,6 +123,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: 25d5094290113dc4ca325006db26e30b, type: 2}
+--- !u!114 &199138896 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7841658434002840757, guid: a8e0a9c91f52fbd4490c0e24ab47ebcc, type: 3}
+  m_PrefabInstance: {fileID: 7841658434139130942}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5af2f5d6d0bfed6499a7523c3abb666a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &199443150
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,8 +185,8 @@ Transform:
   - {fileID: 630733359}
   - {fileID: 704992784}
   - {fileID: 1948094535}
-  - {fileID: 1053970756}
   - {fileID: 1267418503}
+  - {fileID: 1053970756}
   - {fileID: 329139488}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -298,7 +309,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8520588785389861002, guid: ad0007b2a7025f04ebe4612d5ffbe257, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8520588785389861002, guid: ad0007b2a7025f04ebe4612d5ffbe257, type: 3}
       propertyPath: m_LocalPosition.x
@@ -468,7 +479,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8520588785389861002, guid: 78ef30e52f201f9469baab0c79f5ae39, type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8520588785389861002, guid: 78ef30e52f201f9469baab0c79f5ae39, type: 3}
       propertyPath: m_LocalPosition.x
@@ -740,6 +751,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02688acb02459734d92a1aa43551b494, type: 3}
+--- !u!114 &1714257884 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5649052663208900037, guid: 0909d87f06a894745ba92ba7392cafec, type: 3}
+  m_PrefabInstance: {fileID: 5625892244830358015}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a3f23dc822a1c147815da715ac5c205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1865843660 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5625892243342132482, guid: 0909d87f06a894745ba92ba7392cafec, type: 3}
@@ -1245,7 +1267,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4416190829173420066, guid: b7ba82e8b646e7f429c7f1de958673e2, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4416190829173420066, guid: b7ba82e8b646e7f429c7f1de958673e2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1476,6 +1498,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8846544877709912824, guid: 800e30fd0be2bad4da36e7ed1c5f7185, type: 3}
+      propertyPath: truck
+      value: 
+      objectReference: {fileID: 1714257884}
+    - target: {fileID: 8846544877709912824, guid: 800e30fd0be2bad4da36e7ed1c5f7185, type: 3}
+      propertyPath: levelSettings
+      value: 
+      objectReference: {fileID: 199138896}
     - target: {fileID: 8846544877709912827, guid: 800e30fd0be2bad4da36e7ed1c5f7185, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

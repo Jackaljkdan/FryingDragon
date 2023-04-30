@@ -1674,6 +1674,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 8846544877709912826}
+  animationDuration: 1
+  scaleMultiplier: 1.5
+  targetColor: {r: 0, g: 1, b: 0, a: 1}
+  wiggleCount: 4
+  wiggleAngle: 5
+  boxImage: {fileID: 8846544877574393919}
   levelSettings: {fileID: 0}
   truck: {fileID: 0}
   boxesToShip: 0

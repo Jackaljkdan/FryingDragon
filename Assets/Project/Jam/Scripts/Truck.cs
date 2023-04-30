@@ -46,6 +46,13 @@ namespace Project.Jam
                 DOLeave();
         }
 
+        [ContextMenu("AddBox")]
+        private void AddBoxInEditMode()
+        {
+            if (Application.isPlaying)
+                boxDone.Value++;
+        }
+
         #endregion
 
         private Vector3 initialPosition;
