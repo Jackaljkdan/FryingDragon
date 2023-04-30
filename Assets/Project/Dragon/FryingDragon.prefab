@@ -1799,7 +1799,7 @@ GameObject:
   - component: {fileID: 9116571236514239554}
   - component: {fileID: 5550925280635440886}
   m_Layer: 0
-  m_Name: FryingDragon
+  m_Name: FryingDragon 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
