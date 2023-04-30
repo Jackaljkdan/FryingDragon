@@ -21,6 +21,14 @@ MonoBehaviour:
     m_Address: Assets/Project/Flames/Firefighter.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 18ee5925a2f9fed479ca6daba8f4dafb
+    m_Address: Assets/Project/Jam/Sounds/egg_impact1.ogg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 39a35191affb05c40a46a7796c97cb55
+    m_Address: Assets/Project/Jam/Sounds/egg_impact2.ogg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 873293cb24b41d94ea8a0391e86446f7, type: 2}
   m_SchemaSet:

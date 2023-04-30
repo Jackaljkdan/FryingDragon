@@ -155,6 +155,17 @@ namespace Project.Dragon
             dragonInteractore.enabled = true;
         }
 
+        private Flammable ChooseRandomFlammable()
+        {
+            ListUtils.ShuffleInPlace(flammableList.list);
+
+            foreach (var flammable in flammableList.list)
+                if (flammable != null && flammable.isActiveAndEnabled)
+                    return flammable;
+
+            return null;
+        }
+
         private void Update()
         {
             if (isEmbarassed && flammableList.fires.Value == 0)
@@ -170,7 +181,7 @@ namespace Project.Dragon
                 return;
 
             if (chosenFlammable == null)
-                chosenFlammable = RandomUtils.Choose(flammableList.list);
+                chosenFlammable = ChooseRandomFlammable();
 
             Transform dragonTransform = dragonMovement.transform;
 
