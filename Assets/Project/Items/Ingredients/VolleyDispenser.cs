@@ -1,4 +1,5 @@
 using JK.Interaction;
+using Project.Jam;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using UnityEngine.Events;
 namespace Project.Items.Ingredients
 {
     [DisallowMultipleComponent]
-    public class VolleyDispenser : AbstractInteractable
+    public class VolleyDispenser : AbstractInteractable, IDispenser
     {
         #region Inspector
 
@@ -18,6 +19,8 @@ namespace Project.Items.Ingredients
 
         public Transform spawnAnchor;
         public Transform volleyDirection;
+
+        public IngredientTypeValue ingredientType => prefab.GetComponent<Ingredient>().ingredientTypeValue;
 
         private void Reset()
         {
