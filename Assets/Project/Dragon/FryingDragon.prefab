@@ -1799,7 +1799,7 @@ GameObject:
   - component: {fileID: 9116571236514239554}
   - component: {fileID: 5550925280635440886}
   m_Layer: 0
-  m_Name: FryingDragon 1
+  m_Name: FryingDragon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1894,8 +1894,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f0a6df1e04b51742a5e0bf290e0cead, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dropButton:
+    axis: Drop
+    isDown: 0
+  mouseInertiaLerp: 0.003
   dragonMovement: {fileID: 6142508412747029040}
   dragonItemHolder: {fileID: 4229203199805098585}
+  inertia: {x: 0, y: 0}
+  camera: {fileID: 0}
+  cameraTransform: {fileID: 0}
 --- !u!114 &4229203199805098585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2111,8 +2118,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   available: []
   highlighting: {fileID: 0}
-  primaryKey: 101
-  secondaryKey: 102
 --- !u!114 &2798513521177060015
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -182,22 +182,23 @@ namespace Project.Dragon
             float dot = Vector3.Dot(dragonTransform.forward, direction);
             bool isFacing = dot >= 0.999f;
 
-            Vector2 movementInput = new Vector2(0, 0);
+            Vector3 fwd = dragonMovement.transform.forward;
+            Vector2 fwd2 = new Vector2(fwd.x, fwd.z);
 
-            if (!isFacing)
-            {
-                float rightDot = Vector3.Dot(dragonTransform.right, direction);
-                float rightDotSign = Mathf.Sign(rightDot);
-                movementInput.x = Mathf.Lerp(1 * rightDotSign, 0.6f * rightDotSign, dot);
-            }
+            Vector2 movementInput = new Vector2(0, 0);
+            Vector2 rotationInput = Vector2.Lerp(fwd2, new Vector2(direction.x, direction.z), 0.1f);
 
             if (isTooFar || !isFacing)
             {
                 if (isTooFar && dot >= 0.1f)
                     movementInput.y = 1;
+
+                dragonMovement.Move(movementInput, rotationInput);
             }
             else if (!isFiring)
             {
+                dragonMovement.Move(Vector2.zero);
+
                 dragonFireAnimation.PlayFireAnimation(onBreathFireEnd: () => Invoke(nameof(StopFiring), 2));
                 chosenFlammable.StartFire();
 
@@ -208,8 +209,6 @@ namespace Project.Dragon
                 if (stress.Value <= 0)
                     StopFrenzy();
             }
-
-            dragonMovement.Move(movementInput);
         }
 
         private void LateUpdate()
