@@ -10,7 +10,7 @@ using UnityEngine.Events;
 namespace Project.Dragon
 {
     [DisallowMultipleComponent]
-    public class DragonStepSounds : MonoBehaviour
+    public class SimpleStepSounds : MonoBehaviour
     {
         #region Inspector
 
@@ -70,7 +70,13 @@ namespace Project.Dragon
 
             stateNormalizedTime = state.normalizedTime;
 
-            if (state.shortNameHash != moveHash || !IsThereEnoughInput())
+            if (state.shortNameHash != moveHash)
+            {
+                lastPlayNormalizedTime = 0;
+                return;
+            }
+
+            if (!IsThereEnoughInput())
             {
                 lastPlayNormalizedTime = state.normalizedTime;
                 return;
