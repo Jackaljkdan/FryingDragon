@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: 25d5094290113dc4ca325006db26e30b, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 54e21a8aac2a7a3409d9dd5a25ca70e4, type: 2}
 --- !u!4 &3068766 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8520588785389861002, guid: d60cff025e550ac49a23599d7b1f9bf0, type: 3}
@@ -1100,7 +1100,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8846544876487587204, guid: 800e30fd0be2bad4da36e7ed1c5f7185, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8846544876528820103, guid: 800e30fd0be2bad4da36e7ed1c5f7185, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1136,7 +1136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8846544877361287910, guid: 800e30fd0be2bad4da36e7ed1c5f7185, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8846544877400741606, guid: 800e30fd0be2bad4da36e7ed1c5f7185, type: 3}
       propertyPath: m_AnchorMax.x

@@ -67,6 +67,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SandswichEggDispenser
       objectReference: {fileID: 0}
+    - target: {fileID: 6988714206567986766, guid: 98248cb4ab4e83f408b781a7c39867e7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98248cb4ab4e83f408b781a7c39867e7, type: 3}
 --- !u!4 &1356877173284845144 stripped
