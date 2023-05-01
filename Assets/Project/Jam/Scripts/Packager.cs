@@ -259,7 +259,11 @@ namespace Project.Jam
             dragonItemHolder.AnimatePutItem(onPutItemRelease: () =>
             {
                 if (bowl)
+                {
                     bowl.enabled = false;
+                    if (bowl.TryGetComponent(out BowlSounds sounds))
+                        sounds.PlayPut();
+                }
 
                 signalBus.Invoke(new ItemRemovedSignal());
 
@@ -350,7 +354,11 @@ namespace Project.Jam
                 onRetrieveItemRelease: () =>
                 {
                     if (bowl)
+                    {
                         bowl.enabled = true;
+                        if (bowl.TryGetComponent(out BowlSounds sounds))
+                            sounds.PlayTake();
+                    }
 
                     onBowlRemoved.Invoke();
                     item.transform.SetParent(transform.root, worldPositionStays: true);

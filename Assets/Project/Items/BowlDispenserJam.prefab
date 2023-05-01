@@ -391,6 +391,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4338363715330861873, guid: 6c96b14ab69cd174baa3594f90027372, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4557304887982568404, guid: 6c96b14ab69cd174baa3594f90027372, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -463,9 +467,14 @@ PrefabInstance:
       propertyPath: bowl
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8502753534900595611, guid: 6c96b14ab69cd174baa3594f90027372, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1009923789983941946, guid: 6c96b14ab69cd174baa3594f90027372, type: 3}
     - {fileID: 7631859004352335781, guid: 6c96b14ab69cd174baa3594f90027372, type: 3}
+    - {fileID: 5767944425805375067, guid: 6c96b14ab69cd174baa3594f90027372, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6c96b14ab69cd174baa3594f90027372, type: 3}
 --- !u!4 &4597715413018662239 stripped
 Transform:
