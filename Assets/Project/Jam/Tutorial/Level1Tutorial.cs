@@ -28,6 +28,9 @@ namespace Project.Jam.Tutorial
         [Injected]
         public Truck truck;
 
+        [Injected]
+        public DragonStress dragonStress;
+
         #endregion
 
         [InjectMethod]
@@ -37,6 +40,7 @@ namespace Project.Jam.Tutorial
             popup = context.Get<TutorialPopup>(this);
             dragonItemHolder = context.Get<DragonItemHolder>(this);
             truck = context.Get<Truck>(this);
+            dragonStress = context.Get<DragonStress>(this);
         }
 
         private void Awake()
@@ -53,6 +57,8 @@ namespace Project.Jam.Tutorial
                 packager.onMakeBox.AddListener(OnMakeBox);
 
             truck.boxDone.onChange.AddListener(OnBoxDone);
+
+            dragonStress.onFrenzy.AddListener(OnFrenzy);
         }
 
         private void OnDestroy()
@@ -63,6 +69,8 @@ namespace Project.Jam.Tutorial
                 packager.onMakeBox.RemoveListener(OnMakeBox);
 
             truck.boxDone.onChange.RemoveListener(OnBoxDone);
+
+            dragonStress.onFrenzy.RemoveListener(OnFrenzy);
         }
 
         List<UnityAction> listeners = new List<UnityAction>();
@@ -122,6 +130,12 @@ namespace Project.Jam.Tutorial
             truck.boxDone.onChange.RemoveListener(OnBoxDone);
 
             popup.Show("Wonderful! You can take more eggs now on the same bowl, but if you want you can drop it by pressing G. Like gone. Get it? So intuitive.", autoHide: true);
+        }
+
+        private void OnFrenzy()
+        {
+            dragonStress.onFrenzy.RemoveListener(OnFrenzy);
+            popup.Show("Oh no, not again! Stooop! Quick Mr. Firefighter, we need your help!", autoHide: true);
         }
     }
 }
