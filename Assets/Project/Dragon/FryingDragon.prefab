@@ -1907,7 +1907,9 @@ MonoBehaviour:
   isEmbarassed: 0
   isFiring: 0
   chosenFlammable: {fileID: 0}
-  distanceToChosen: 0
+  remainingDistance: 0
+  stoppingDistance: 0
+  dot: 0
   flammableList: {fileID: 0}
 --- !u!114 &6142508412747029040
 MonoBehaviour:
@@ -1929,6 +1931,8 @@ MonoBehaviour:
   lerpSpeed: 0.6
   rotationSpeed: 1.5
   xLerp: 0.1
+  xHash: 0
+  zHash: 0
   xInertia: 0
   deltaPosition: {x: 0, y: 0, z: 0}
   deltaRotation: {x: 0, y: 0, z: 0, w: 0}
@@ -1988,8 +1992,8 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: c869acf0f32d55340b4dd39f39cc49f3, type: 3}
   m_Controller: {fileID: 9100000, guid: 8acedbdaed7f9a9439bb777423567e7f, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
+  m_CullingMode: 0
+  m_UpdateMode: 1
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
