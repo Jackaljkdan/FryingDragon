@@ -25,6 +25,9 @@ namespace Project.Jam.Tutorial
         [Injected]
         public DragonItemHolder dragonItemHolder;
 
+        [Injected]
+        public Truck truck;
+
         #endregion
 
         [InjectMethod]
@@ -33,6 +36,7 @@ namespace Project.Jam.Tutorial
             Context context = Context.Find(this);
             popup = context.Get<TutorialPopup>(this);
             dragonItemHolder = context.Get<DragonItemHolder>(this);
+            truck = context.Get<Truck>(this);
         }
 
         private void Awake()
@@ -47,6 +51,8 @@ namespace Project.Jam.Tutorial
 
             foreach (var packager in transform.root.GetComponentsInChildren<Packager>())
                 packager.onMakeBox.AddListener(OnMakeBox);
+
+            truck.boxDone.onChange.AddListener(OnBoxDone);
         }
 
         private void OnDestroy()
@@ -55,6 +61,8 @@ namespace Project.Jam.Tutorial
 
             foreach (var packager in transform.root.GetComponentsInChildren<Packager>())
                 packager.onMakeBox.RemoveListener(OnMakeBox);
+
+            truck.boxDone.onChange.RemoveListener(OnBoxDone);
         }
 
         List<UnityAction> listeners = new List<UnityAction>();
@@ -104,6 +112,11 @@ namespace Project.Jam.Tutorial
                 packager.onMakeBox.RemoveListener(OnMakeBox);
 
             popup.Show("Ok now take the box to the the truck on the top left. And be careful! We know your temper, we don't want you running around like a mad dragon lighting everything on fire like the last time.", autoHide: true);
+        }
+
+        private void OnBoxDone(ObservableProperty<int>.Changed arg)
+        {
+            popup.Show("Wonderful! You can take more eggs now on the same bowl, but if you want you can drop it by pressing G. ", autoHide: true);
         }
     }
 }
