@@ -954,6 +954,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7841658434002840757, guid: a8e0a9c91f52fbd4490c0e24ab47ebcc, type: 3}
+      propertyPath: packingSeconds
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7841658434002840757, guid: a8e0a9c91f52fbd4490c0e24ab47ebcc, type: 3}
       propertyPath: secondsUntilSleep
       value: 520
       objectReference: {fileID: 0}

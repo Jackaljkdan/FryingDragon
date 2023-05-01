@@ -1173,6 +1173,10 @@ PrefabInstance:
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 7841658434002840757, guid: a8e0a9c91f52fbd4490c0e24ab47ebcc, type: 3}
+      propertyPath: packingSeconds
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7841658434002840757, guid: a8e0a9c91f52fbd4490c0e24ab47ebcc, type: 3}
       propertyPath: maxEggPerRecipe
       value: 4
       objectReference: {fileID: 0}
