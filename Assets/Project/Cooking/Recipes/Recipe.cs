@@ -19,12 +19,21 @@ namespace Project.Cooking.Recipes
             public int myCount;
             public int theirCount;
 
-            public void IncreaseCount(int value, bool asMine)
+            public TypeCount WithIncreasedCount(int value, bool asMine)
             {
+                TypeCount copy = new TypeCount()
+                {
+                    type = type,
+                    myCount = myCount,
+                    theirCount = theirCount,
+                };
+
                 if (asMine)
-                    myCount += value;
+                    copy.myCount += value;
                 else
-                    theirCount += value;
+                    copy.theirCount += value;
+
+                return copy;
             }
         }
 
@@ -85,8 +94,36 @@ namespace Project.Cooking.Recipes
                     index = count.Count - 1;
                 }
 
-                count[index].IncreaseCount(1, asMine);
+                count[index] = count[index].WithIncreasedCount(1, asMine);
             }
+        }
+
+        public static bool TryFindBestMatch(List<IngredientTypeValue> ingredients, List<Recipe> list, out Recipe bestMatch)
+        {
+            return TryFindBestMatch(new Recipe(ingredients), list, out bestMatch);
+        }
+
+        public static bool TryFindBestMatch(Recipe recipe, List<Recipe> list, out Recipe bestMatch)
+        {
+            var index = list.IndexOf(recipe);
+
+            if (index >= 0)
+            {
+                bestMatch = list[index];
+                return true;
+            }
+
+            foreach (var el in list)
+            {
+                if (el.CanMakeWith(recipe.ingredients))
+                {
+                    bestMatch = el;
+                    return true;
+                }
+            }
+
+            bestMatch = null;
+            return false;
         }
     }
 }
