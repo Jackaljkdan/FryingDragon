@@ -26,8 +26,7 @@ namespace Project.Dragon
 
             if (primary.GetAxisDown())
                 highlighting.Interact();
-
-            if (secondary.GetAxisDown() && highlighting is MultipleInteractionForwarder multiple)
+            else if (secondary.GetAxisDown() && highlighting is MultipleInteractionForwarder multiple)
                 multiple.SecondaryInteract();
         }
     }
