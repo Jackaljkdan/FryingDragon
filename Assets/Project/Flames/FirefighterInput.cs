@@ -21,6 +21,8 @@ namespace Project.Flames
 
         public ParticleSystem extinguisherParticleSystem;
 
+        public AudioSource extinguisherAudioSource;
+
         public DragonInteractore interactore;
 
         [RuntimeField]

@@ -95,6 +95,7 @@ namespace Project.Flames
 
             var firefighterInput = firefighterSpawner.spawned.input;
 
+            firefighterInput.extinguisherAudioSource.Play();
             firefighterInput.extinguisherParticleSystem.Play();
             firefighterInput.enabled = false;
 
