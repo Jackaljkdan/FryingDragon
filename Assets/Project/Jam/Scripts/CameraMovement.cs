@@ -93,7 +93,7 @@ namespace Project.Jam
 
             Vector3 desiredPosition = target.position + offset;
             desiredPosition.z = Mathf.Max(desiredPosition.z, minZPosition);
-            Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition.WithY(cameraY), smoothSpeed);
+            Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition.WithY(cameraY), TimeUtils.AdjustToFrameRate(smoothSpeed));
             transform.position = smoothedPosition;
         }
     }
