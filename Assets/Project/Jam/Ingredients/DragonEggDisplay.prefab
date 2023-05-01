@@ -59,4 +59,6 @@ PrefabInstance:
     - {fileID: 2277550391155225108, guid: 810fb829d59afb14d91ccbb86714d59e, type: 3}
     - {fileID: 7266556721706598032, guid: 810fb829d59afb14d91ccbb86714d59e, type: 3}
     - {fileID: 5442430322883996771, guid: 810fb829d59afb14d91ccbb86714d59e, type: 3}
+    - {fileID: 8962571615691577458, guid: 810fb829d59afb14d91ccbb86714d59e, type: 3}
+    - {fileID: 5164667087491864301, guid: 810fb829d59afb14d91ccbb86714d59e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 810fb829d59afb14d91ccbb86714d59e, type: 3}
