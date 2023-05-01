@@ -239,7 +239,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winClipAssets:
-  - m_AssetGUID: 4e8443be2d021d24e803e6c10eb0ec51
+  - m_AssetGUID: ba9ea54a0e4e0fc43b9ffad77db55088
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: dfd70e7c2bb73594384aa1b64df67de3
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 73934cfb380eb30438590c75880f299b
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
