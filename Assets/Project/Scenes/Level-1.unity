@@ -295,6 +295,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 199443152}
     m_Modifications:
+    - target: {fileID: 5097790792733314705, guid: 2bc0d2ba394134143a09f5c227ebe60c, type: 3}
+      propertyPath: ingredientLostStress
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 6142508412747029042, guid: 2bc0d2ba394134143a09f5c227ebe60c, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -679,6 +683,7 @@ MonoBehaviour:
   popup: {fileID: 1945685578}
   dragonItemHolder: {fileID: 0}
   truck: {fileID: 0}
+  dragonStress: {fileID: 0}
 --- !u!4 &1917476379 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2260860930753304549, guid: 0d7e3789ecef9144c883b28e65ed74ce, type: 3}

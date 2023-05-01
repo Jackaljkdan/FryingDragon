@@ -295,6 +295,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 199443152}
     m_Modifications:
+    - target: {fileID: 5097790792733314705, guid: 2bc0d2ba394134143a09f5c227ebe60c, type: 3}
+      propertyPath: ingredientLostStress
+      value: 0.125
+      objectReference: {fileID: 0}
     - target: {fileID: 6142508412747029042, guid: 2bc0d2ba394134143a09f5c227ebe60c, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -892,7 +896,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7841658434002840757, guid: a8e0a9c91f52fbd4490c0e24ab47ebcc, type: 3}
       propertyPath: minutes
-      value: 11
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7841658434002840757, guid: a8e0a9c91f52fbd4490c0e24ab47ebcc, type: 3}
       propertyPath: boxesTodo
@@ -900,11 +904,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7841658434002840757, guid: a8e0a9c91f52fbd4490c0e24ab47ebcc, type: 3}
       propertyPath: packingSeconds
-      value: 15
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7841658434002840757, guid: a8e0a9c91f52fbd4490c0e24ab47ebcc, type: 3}
       propertyPath: maxEggPerRecipe
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7841658434002840757, guid: a8e0a9c91f52fbd4490c0e24ab47ebcc, type: 3}
+      propertyPath: secondsUntilSleep
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 7841658434448798122, guid: a8e0a9c91f52fbd4490c0e24ab47ebcc, type: 3}
       propertyPath: m_Name
