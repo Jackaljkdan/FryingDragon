@@ -20,7 +20,8 @@ namespace Project.Cooking.Recipes
         #region Inspector
 
         public List<IngredientImage> imagesList = new();
-        public List<IngredientTypeValue> neededValueList = new();
+
+        public Recipe recipe;
 
         public new RectTransform animation;
 
@@ -77,20 +78,14 @@ namespace Project.Cooking.Recipes
             signalBus.RemoveListener<IngredientLostSignal>(OnIngredientLost);
         }
 
-        public bool IsRecipeFulfilled(List<IngredientTypeValue> ingredients)
-        {
-            return ingredients.OrderBy(x => x).SequenceEqual(neededValueList.OrderBy(x => x));
-        }
-
         public void ShowRecipe(Recipe recipe)
         {
-            List<IngredientTypeValue> ingredients = recipe.ingredients;
-            neededValueList.AddRange(ingredients);
+            this.recipe = recipe.Clone();
             GetComponentsInChildren(includeInactive: true, imagesList);
 
-            for (int i = 0; i < ingredients.Count; i++)
+            for (int i = 0; i < recipe.ingredients.Count; i++)
             {
-                IngredientTypeValue ingredient = ingredients[i];
+                IngredientTypeValue ingredient = recipe.ingredients[i];
                 imagesList[i].SetImage(ingredient);
                 imagesList[i].gameObject.SetActive(true);
             }
@@ -202,34 +197,34 @@ namespace Project.Cooking.Recipes
             tween = burnedImg.DOShow();
         }
 
-        public bool ShouldRecipeStop(List<IngredientTypeValue> ingredients)
-        {
-            if (ingredients.Count != neededValueList.Count)
-                return false;
-            bool areEqual = ingredients.OrderBy(x => x).SequenceEqual(neededValueList.OrderBy(x => x));
+        //public bool ShouldRecipeStop(List<IngredientTypeValue> ingredients)
+        //{
+        //    if (ingredients.Count != neededValueList.Count)
+        //        return false;
+        //    bool areEqual = ingredients.OrderBy(x => x).SequenceEqual(neededValueList.OrderBy(x => x));
 
-            if (!areEqual)
-                return false;
+        //    if (!areEqual)
+        //        return false;
 
-            StopCooking();
-            return true;
-        }
+        //    StopCooking();
+        //    return true;
+        //}
 
-        public bool IsRecipeCooking(List<IngredientTypeValue> ingredients, float recipeCookingTime)
-        {
-            if (ingredients.Count != neededValueList.Count)
-                return false;
+        //public bool IsRecipeCooking(List<IngredientTypeValue> ingredients, float recipeCookingTime)
+        //{
+        //    if (ingredients.Count != neededValueList.Count)
+        //        return false;
 
-            bool areEqual = ingredients.OrderBy(x => x).SequenceEqual(neededValueList.OrderBy(x => x));
+        //    bool areEqual = ingredients.OrderBy(x => x).SequenceEqual(neededValueList.OrderBy(x => x));
 
-            if (!areEqual)
-                return false;
+        //    if (!areEqual)
+        //        return false;
 
-            tween?.Kill();
-            tween = StartCooking(recipeCookingTime);
-            DOStartCookingAnimation();
+        //    tween?.Kill();
+        //    tween = StartCooking(recipeCookingTime);
+        //    DOStartCookingAnimation();
 
-            return true;
-        }
+        //    return true;
+        //}
     }
 }

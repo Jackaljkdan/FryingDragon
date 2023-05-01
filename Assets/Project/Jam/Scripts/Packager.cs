@@ -189,11 +189,9 @@ namespace Project.Jam
 
             foreach (Recipe recipe in orderFulfiller.recipes)
             {
-                bool areEqual = recipe.ingredients.OrderBy(x => x).SequenceEqual(bowlIngredients.OrderBy(x => x));
-
-                if (areEqual)
+                if (recipe.CanMakeWith(bowlIngredients))
                 {
-                    signalBus.Invoke(new OrderFulfilledSignal() { recipe = recipe, ingredients = recipe.ingredients });
+                    signalBus.Invoke(new OrderFulfilledSignal() { recipe = recipe, actualIngredients = recipe.ingredients });
                     return true;
                 }
             }

@@ -12,6 +12,6 @@ namespace Project.Jam
     public struct OrderFulfilledSignal
     {
         public Recipe recipe;
-        public List<IngredientTypeValue> ingredients;
+        public List<IngredientTypeValue> actualIngredients;
     }
 }

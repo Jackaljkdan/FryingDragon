@@ -43,24 +43,24 @@ namespace Project.Cooking.Recipes
         private void Start()
         {
             signalBus.AddListener<NewRecipeSignal>(OnNewRecipe);
-            signalBus.AddListener<CookingStartedSignal>(OnCookingStarted);
-            signalBus.AddListener<CookingInterruptedSignal>(OnCookingInterrupted);
-            signalBus.AddListener<OrderFulfilledSignal>(OnCookingStartedSignal);
+            //signalBus.AddListener<CookingStartedSignal>(OnCookingStarted);
+            //signalBus.AddListener<CookingInterruptedSignal>(OnCookingInterrupted);
+            signalBus.AddListener<OrderFulfilledSignal>(OnOrderFulfilled);
         }
 
         private void OnDestroy()
         {
             signalBus.RemoveListener<NewRecipeSignal>(OnNewRecipe);
-            signalBus.RemoveListener<CookingStartedSignal>(OnCookingStarted);
-            signalBus.RemoveListener<CookingInterruptedSignal>(OnCookingInterrupted);
-            signalBus.RemoveListener<OrderFulfilledSignal>(OnCookingStartedSignal);
+            //signalBus.RemoveListener<CookingStartedSignal>(OnCookingStarted);
+            //signalBus.RemoveListener<CookingInterruptedSignal>(OnCookingInterrupted);
+            signalBus.RemoveListener<OrderFulfilledSignal>(OnOrderFulfilled);
         }
 
-        private void OnCookingStartedSignal(OrderFulfilledSignal signal)
+        private void OnOrderFulfilled(OrderFulfilledSignal signal)
         {
             foreach (RecipesVisualizer recipesVisualizer in spawnedRecipes)
             {
-                if (recipesVisualizer.IsRecipeFulfilled(signal.ingredients))
+                if (recipesVisualizer.recipe.Equals(signal.recipe))
                 {
                     recipesVisualizer.DOExit().OnComplete(() =>
                     {
@@ -80,23 +80,23 @@ namespace Project.Cooking.Recipes
             spawned.DOEnter();
         }
 
-        private void OnCookingStarted(CookingStartedSignal arg)
-        {
-            foreach (RecipesVisualizer recipesVisualizer in spawnedRecipes)
-            {
-                if (recipesVisualizer.IsRecipeCooking(arg.ingredients, arg.cookingTime))
-                    break;
-            }
-        }
+        //private void OnCookingStarted(CookingStartedSignal arg)
+        //{
+        //    foreach (RecipesVisualizer recipesVisualizer in spawnedRecipes)
+        //    {
+        //        if (recipesVisualizer.IsRecipeCooking(arg.ingredients, arg.cookingTime))
+        //            break;
+        //    }
+        //}
 
-        private void OnCookingInterrupted(CookingInterruptedSignal args)
-        {
+        //private void OnCookingInterrupted(CookingInterruptedSignal args)
+        //{
 
-            foreach (RecipesVisualizer recipesVisualizer in spawnedRecipes)
-            {
-                if (recipesVisualizer.ShouldRecipeStop(args.ingredients))
-                    break;
-            }
-        }
+        //    foreach (RecipesVisualizer recipesVisualizer in spawnedRecipes)
+        //    {
+        //        if (recipesVisualizer.ShouldRecipeStop(args.ingredients))
+        //            break;
+        //    }
+        //}
     }
 }
