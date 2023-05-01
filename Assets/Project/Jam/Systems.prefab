@@ -243,7 +243,11 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  loseClipAssets: []
+  loseClipAssets:
+  - m_AssetGUID: 7da3973de93639d40925449ffebdcc43
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   musicAudioSource: {fileID: 7924817967351910305}
   effectAudioSource: {fileID: 2095417546837620051}
   gameOver: {fileID: 0}
