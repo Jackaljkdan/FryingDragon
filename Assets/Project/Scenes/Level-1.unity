@@ -677,6 +677,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialDelaySeconds: 2.5
   popup: {fileID: 1945685578}
+  dragonItemHolder: {fileID: 0}
+  truck: {fileID: 0}
 --- !u!4 &1917476379 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2260860930753304549, guid: 0d7e3789ecef9144c883b28e65ed74ce, type: 3}
@@ -950,6 +952,10 @@ PrefabInstance:
     - target: {fileID: 7841658434002840757, guid: a8e0a9c91f52fbd4490c0e24ab47ebcc, type: 3}
       propertyPath: boxesTodo
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7841658434002840757, guid: a8e0a9c91f52fbd4490c0e24ab47ebcc, type: 3}
+      propertyPath: secondsUntilSleep
+      value: 520
       objectReference: {fileID: 0}
     - target: {fileID: 7841658434448798122, guid: a8e0a9c91f52fbd4490c0e24ab47ebcc, type: 3}
       propertyPath: m_Name
