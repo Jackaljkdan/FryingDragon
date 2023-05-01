@@ -116,6 +116,11 @@ namespace Project.Jam.Tutorial
 
         private void OnBoxDone(ObservableProperty<int>.Changed arg)
         {
+            foreach (var listener in listeners)
+                popup.onHidden.RemoveListener(listener);
+
+            truck.boxDone.onChange.RemoveListener(OnBoxDone);
+
             popup.Show("Wonderful! You can take more eggs now on the same bowl, but if you want you can drop it by pressing G. Like gone. Get it? So intuitive.", autoHide: true);
         }
     }
