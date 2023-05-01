@@ -116,7 +116,7 @@ namespace Project.Jam.Tutorial
 
         private void OnBoxDone(ObservableProperty<int>.Changed arg)
         {
-            popup.Show("Wonderful! You can take more eggs now on the same bowl, but if you want you can drop it by pressing G. ", autoHide: true);
+            popup.Show("Wonderful! You can take more eggs now on the same bowl, but if you want you can drop it by pressing G. Like gone. Get it? So intuitive.", autoHide: true);
         }
     }
 }
