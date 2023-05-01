@@ -25,6 +25,11 @@ namespace Project.Character
         public float lerpSpeed = 0.15f;
         public float rotationSpeed = 10.0f;
 
+        public float xLerp = 0.1f;
+
+        [RuntimeField]
+        public float xInertia;
+
         [RuntimeField]
         public Vector3 deltaPosition;
 
@@ -70,6 +75,7 @@ namespace Project.Character
             xHash = Animator.StringToHash("X");
             zHash = Animator.StringToHash("Z");
 
+            xInertia = 0;
             deltaRotation = Quaternion.identity;
             Vector3 fwd = transform.forward;
             rotationInput = new Vector2(fwd.x, fwd.z);
@@ -93,7 +99,10 @@ namespace Project.Character
             float rightDot = Vector3.Dot(transform.right, rotationInput3);
             rightDot = Mathf.Min(1, Mathf.Max(-1, rightDot * 100));
 
-            animator.SetFloat(xHash, movementInput.x != 0 ? movementInput.x : rightDot);
+            float xTarget = movementInput.x != 0 ? movementInput.x : rightDot;
+            xInertia = Mathf.Lerp(xInertia, xTarget, TimeUtils.AdjustToFrameRate(xLerp));
+
+            animator.SetFloat(xHash, xInertia);
             animator.SetFloat(zHash, movementInput.y);
         }
 

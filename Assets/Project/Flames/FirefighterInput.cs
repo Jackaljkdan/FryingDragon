@@ -69,12 +69,12 @@ namespace Project.Flames
 
         private void Update()
         {
-            Vector3 myScreenPosition = camera.WorldToScreenPoint(movement.transform.position).WithZ(0);
-            Vector2 targetForward = (Input.mousePosition - myScreenPosition).normalized;
+            Vector3 myScreenPosition = ScreenUtils.NormalizePosition(camera.WorldToScreenPoint(movement.transform.position).WithZ(0));
+            Vector2 targetForward = (ScreenUtils.NormalizePosition(Input.mousePosition) - myScreenPosition).normalized;
 
             float run = 2;
 
-            inertia = Vector2.Lerp(inertia, targetForward, mouseInertiaLerp * run);
+            inertia = Vector2.Lerp(inertia, targetForward, TimeUtils.AdjustToFrameRate(mouseInertiaLerp * run)).normalized;
 
             Vector3 cameraRelative = Input.GetAxis("Vertical") * run * cameraTransform.forward.WithY(0).normalized;
             cameraRelative += Input.GetAxis("Horizontal") * run * cameraTransform.right.WithY(0).normalized;

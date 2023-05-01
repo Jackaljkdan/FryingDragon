@@ -1976,7 +1976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f274020d7845394abc61e9699f3b0cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseInertiaLerp: 0.01
+  mouseInertiaLerp: 0.1
   movement: {fileID: 7143162459236915358}
   extinguisherParticleSystem: {fileID: 2129856533312100134}
   extinguisherAudioSource: {fileID: 6524435602954943430}
