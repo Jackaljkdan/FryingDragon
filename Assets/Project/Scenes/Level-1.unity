@@ -354,6 +354,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6142508412747029042, guid: 2bc0d2ba394134143a09f5c227ebe60c, type: 3}
   m_PrefabInstance: {fileID: 967620603}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &967620605 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5097790792733314705, guid: 2bc0d2ba394134143a09f5c227ebe60c, type: 3}
+  m_PrefabInstance: {fileID: 967620603}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57349c97ce1fbd44abba6c4ad6096a5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1053970756 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8520588785389861002, guid: ad0007b2a7025f04ebe4612d5ffbe257, type: 3}
@@ -681,9 +692,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialDelaySeconds: 2.5
   popup: {fileID: 1945685578}
-  dragonItemHolder: {fileID: 0}
-  truck: {fileID: 0}
-  dragonStress: {fileID: 0}
+  dragonItemHolder: {fileID: 1190708538}
+  truck: {fileID: 5625892244830358016}
+  dragonStress: {fileID: 967620605}
 --- !u!4 &1917476379 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2260860930753304549, guid: 0d7e3789ecef9144c883b28e65ed74ce, type: 3}
@@ -943,6 +954,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0909d87f06a894745ba92ba7392cafec, type: 3}
+--- !u!114 &5625892244830358016 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5649052663208900037, guid: 0909d87f06a894745ba92ba7392cafec, type: 3}
+  m_PrefabInstance: {fileID: 5625892244830358015}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a3f23dc822a1c147815da715ac5c205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7841658434139130942
 PrefabInstance:
   m_ObjectHideFlags: 0

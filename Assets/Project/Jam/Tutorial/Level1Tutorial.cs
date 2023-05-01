@@ -17,7 +17,7 @@ namespace Project.Jam.Tutorial
     {
         #region Inspector
 
-        public float initialDelaySeconds = 5;
+        public float initialDelaySeconds = 2.5f;
 
         [Injected]
         public TutorialPopup popup;
