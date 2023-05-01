@@ -36,6 +36,7 @@ namespace Project.Jam
 
         public UnityEvent onBowlRemoved = new UnityEvent();
         public UnityEvent onMakeBox = new UnityEvent();
+        public UnityEvent bowDepositFailed = new UnityEvent();
 
         public FarmerAnimator farmerAnimator;
 
@@ -195,6 +196,7 @@ namespace Project.Jam
                     return true;
                 }
             }
+            bowDepositFailed.Invoke();
             return false;
         }
 

@@ -89,6 +89,14 @@ MonoBehaviour:
     m_Address: Assets/Project/Jam/Sounds/Lose8.ogg
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: d3ce3568ff108534d93e98f8a4cd8b00
+    m_Address: Assets/Project/Jam/Sounds/Error_Sound_16.ogg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 73a3b70b7c08eaa4b911cfdf7e87af78
+    m_Address: Assets/Project/Jam/Sounds/Error_Sound_16b.ogg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 873293cb24b41d94ea8a0391e86446f7, type: 2}
   m_SchemaSet:
