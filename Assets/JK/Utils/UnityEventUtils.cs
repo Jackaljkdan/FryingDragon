@@ -12,7 +12,7 @@ namespace JK.Utils
 {
     public static class UnityEventUtils
     {
-        public static void AddListenerOnce(this UnityEvent unityEvent, UnityAction call)
+        public static UnityAction AddListenerOnce(this UnityEvent unityEvent, UnityAction call)
         {
             void wrapper()
             {
@@ -23,9 +23,11 @@ namespace JK.Utils
             }
 
             unityEvent.AddListener(wrapper);
+
+            return wrapper;
         }
 
-        public static void AddListenerOnce<T>(this UnityEvent<T> unityEvent, UnityAction<T> call)
+        public static UnityAction<T> AddListenerOnce<T>(this UnityEvent<T> unityEvent, UnityAction<T> call)
         {
             void wrapper(T arg0)
             {
@@ -36,9 +38,11 @@ namespace JK.Utils
             }
 
             unityEvent.AddListener(wrapper);
+
+            return wrapper;
         }
 
-        public static void AddListenerOnce<T0, T1>(this UnityEvent<T0, T1> unityEvent, UnityAction<T0, T1> call)
+        public static UnityAction<T0, T1> AddListenerOnce<T0, T1>(this UnityEvent<T0, T1> unityEvent, UnityAction<T0, T1> call)
         {
             void wrapper(T0 arg0, T1 arg1)
             {
@@ -49,6 +53,8 @@ namespace JK.Utils
             }
 
             unityEvent.AddListener(wrapper);
+
+            return wrapper;
         }
 
         public static void DrawGizmosToPersistentTargets(this UnityEvent self, Vector3 from, Color color)

@@ -47,6 +47,12 @@ namespace Project.Cooking.Recipes
             return ingredients.OrderBy(x => x).SequenceEqual(other.ingredients.OrderBy(x => x));
         }
 
+        public override int GetHashCode()
+        {
+            // TODO: hash sensato
+            return 0;
+        }
+
         public Recipe Clone()
         {
             return new Recipe(new List<IngredientTypeValue>(ingredients));
