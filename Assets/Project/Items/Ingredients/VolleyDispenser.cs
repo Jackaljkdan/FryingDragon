@@ -20,6 +20,8 @@ namespace Project.Items.Ingredients
         public Transform spawnAnchor;
         public Transform volleyDirection;
 
+        public UnityEvent onDispense = new UnityEvent();
+
         public IngredientTypeValue ingredientType => prefab.GetComponent<Ingredient>().ingredientTypeValue;
 
         private void Reset()
@@ -34,6 +36,7 @@ namespace Project.Items.Ingredients
         {
             var instance = Instantiate(prefab, spawnAnchor.position, Quaternion.identity, transform.parent);
             instance.AddForce(volleyDirection.forward * force, ForceMode.Impulse);
+            onDispense.Invoke();
         }
     }
 }

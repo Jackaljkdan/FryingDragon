@@ -29,6 +29,26 @@ MonoBehaviour:
     m_Address: Assets/Project/Jam/Sounds/egg_impact2.ogg
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 8613d15a3d00fab4896b06c2a2cf6a69
+    m_Address: Assets/Project/Jam/Sounds/UltimateSfxBundle/pop5.ogg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9036ffe1c95768e4f95da80bda880047
+    m_Address: Assets/Project/Jam/Sounds/UltimateSfxBundle/pop15.ogg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3aff6a97d924d3c48878875816b47944
+    m_Address: Assets/Project/Jam/Sounds/UltimateSfxBundle/pop12.ogg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2bceb5db1b3e5c942aff2398129a1fd6
+    m_Address: Assets/Project/Jam/Sounds/UltimateSfxBundle/pop1.ogg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 93647a284996c69429623832ba6ad0a5
+    m_Address: Assets/Project/Jam/Sounds/UltimateSfxBundle/pop16.ogg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 873293cb24b41d94ea8a0391e86446f7, type: 2}
   m_SchemaSet:
