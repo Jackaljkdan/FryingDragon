@@ -8,6 +8,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
@@ -26,9 +27,9 @@ namespace Project.Dragon
 
         public Animator dragonAnimator;
 
-        public DragonInput dragonInput;
+        public NavMeshAgent agent;
 
-        public DragonMovement dragonMovement;
+        public DragonInput dragonInput;
 
         public DragonFireAnimation dragonFireAnimation;
 
@@ -51,7 +52,13 @@ namespace Project.Dragon
         public Flammable chosenFlammable;
 
         [DebugField]
-        public float distanceToChosen;
+        public float remainingDistance;
+
+        [DebugField]
+        public float stoppingDistance;
+
+        [DebugField]
+        public float dot;
 
         [Injected]
         public FlammableList flammableList;
@@ -77,7 +84,6 @@ namespace Project.Dragon
         {
             dragonAnimator = GetComponent<Animator>();
             dragonInput = GetComponent<DragonInput>();
-            dragonMovement = GetComponent<DragonMovement>();
             dragonFireAnimation = GetComponent<DragonFireAnimation>();
             dragonInteractore = GetComponentInChildren<DragonInteractore>();
             dragonItemHolder = GetComponent<DragonItemHolder>();
@@ -132,7 +138,9 @@ namespace Project.Dragon
             stress.Value = 1;
             isInFrenzy = true;
             dragonInput.enabled = false;
+            dragonInput.dragonMovement.enabled = false;
             dragonInteractore.enabled = false;
+            agent.enabled = true;
             dragonItemHolder.DropItem();
             onFrenzy.Invoke();
         }
@@ -143,7 +151,7 @@ namespace Project.Dragon
             isInFrenzy = false;
             isFiring = false;
             isEmbarassed = true;
-            dragonMovement.Move(Vector2.zero);
+            agent.enabled = false;
             dragonAnimator.CrossFade("Confused", 0.2f);
         }
 
@@ -151,6 +159,7 @@ namespace Project.Dragon
         {
             dragonAnimator.CrossFade("Move", 0.2f);
             isEmbarassed = false;
+            dragonInput.dragonMovement.enabled = true;
             dragonInput.enabled = true;
             dragonInteractore.enabled = true;
         }
@@ -180,46 +189,52 @@ namespace Project.Dragon
             if (isFiring)
                 return;
 
+            float fireDistance = 4;
+
             if (chosenFlammable == null)
+            {
                 chosenFlammable = ChooseRandomFlammable();
+                agent.stoppingDistance = fireDistance;
+                stoppingDistance = agent.stoppingDistance;
+            }
 
-            Transform dragonTransform = dragonMovement.transform;
+            agent.SetDestination(chosenFlammable.transform.position);
 
+            remainingDistance = agent.remainingDistance;
+            bool isTooFar = agent.remainingDistance > agent.stoppingDistance;
+
+            Transform dragonTransform = agent.transform;
             Vector3 vector = (chosenFlammable.transform.position - dragonTransform.position).WithY(0);
-            distanceToChosen = vector.magnitude;
-            bool isTooFar = vector.magnitude > 4f;
-
             Vector3 direction = vector.normalized;
-            float dot = Vector3.Dot(dragonTransform.forward, direction);
-            bool isFacing = dot >= 0.999f;
+            dot = Vector3.Dot(dragonTransform.forward, direction);
+            bool isFacing = dot >= 0.99f;
 
-            Vector3 fwd = dragonMovement.transform.forward;
-            Vector2 fwd2 = new Vector2(fwd.x, fwd.z);
+            Vector3 dragonRelativeVector = Vector3.ClampMagnitude(dragonTransform.InverseTransformDirection(vector), 2);
 
-            Vector2 movementInput = new Vector2(0, 0);
-            Vector2 rotationInput = Vector2.Lerp(fwd2, new Vector2(direction.x, direction.z), 0.1f);
+            dragonAnimator.SetFloat(dragonInput.dragonMovement.xHash, dragonRelativeVector.x);
+            dragonAnimator.SetFloat(dragonInput.dragonMovement.zHash, dragonRelativeVector.z);
 
-            if (isTooFar || !isFacing)
+            if (isTooFar)
+                return;
+
+            if (!isFacing)
             {
-                if (isTooFar && dot >= 0.1f)
-                    movementInput.y = 1;
-
-                dragonMovement.Move(movementInput, rotationInput);
+                dragonTransform.rotation = Quaternion.Lerp(dragonTransform.rotation, Quaternion.LookRotation(direction), 0.1f);
+                return;
             }
-            else if (!isFiring)
-            {
-                dragonMovement.Move(Vector2.zero);
 
-                dragonFireAnimation.PlayFireAnimation(onBreathFireEnd: () => Invoke(nameof(StopFiring), 2));
-                chosenFlammable.StartFire();
+            dragonAnimator.SetFloat(dragonInput.dragonMovement.xHash, 0);
+            dragonAnimator.SetFloat(dragonInput.dragonMovement.zHash, 0);
 
-                isFiring = true;
-                chosenFlammable = null;
+            dragonFireAnimation.PlayFireAnimation(onBreathFireEnd: () => Invoke(nameof(StopFiring), 2));
+            chosenFlammable.StartFire();
 
-                stress.Value = Mathf.Clamp01(stress.Value - fireStressRelief);
-                if (stress.Value <= 0)
-                    StopFrenzy();
-            }
+            isFiring = true;
+            chosenFlammable = null;
+
+            stress.Value = Mathf.Clamp01(stress.Value - fireStressRelief);
+            if (stress.Value <= 0)
+                StopFrenzy();
         }
 
         private void LateUpdate()

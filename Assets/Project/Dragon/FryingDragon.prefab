@@ -1844,6 +1844,7 @@ GameObject:
   - component: {fileID: 6142508412747029055}
   - component: {fileID: 4489904668856326921}
   - component: {fileID: 8673198120596903400}
+  - component: {fileID: 7609567742028416854}
   - component: {fileID: 6142508412747029041}
   - component: {fileID: 9116571236514239554}
   - component: {fileID: 5550925280635440886}
@@ -1894,8 +1895,8 @@ MonoBehaviour:
   ingredientLostStress: 0.1
   fireStressRelief: 0.25
   dragonAnimator: {fileID: 6142508412747029055}
+  agent: {fileID: 7609567742028416854}
   dragonInput: {fileID: 365722623747555029}
-  dragonMovement: {fileID: 6142508412747029040}
   dragonFireAnimation: {fileID: 4489904668856326921}
   dragonInteractore: {fileID: 6544867737126421830}
   dragonItemHolder: {fileID: 4229203199805098585}
@@ -2047,6 +2048,28 @@ MonoBehaviour:
   lastPlayNormalizedTime: 0
   stateNormalizedTime: 0
   nextNormalizedTime: 0
+--- !u!195 &7609567742028416854
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6142508412747029045}
+  m_Enabled: 0
+  m_AgentTypeID: 0
+  m_Radius: 0.35
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!54 &6142508412747029041
 Rigidbody:
   m_ObjectHideFlags: 0

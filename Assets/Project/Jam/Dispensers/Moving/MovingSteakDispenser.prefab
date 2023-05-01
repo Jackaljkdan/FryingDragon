@@ -103,6 +103,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4416190829173420066}
     m_Modifications:
+    - target: {fileID: 6030400517876386627, guid: d60cff025e550ac49a23599d7b1f9bf0, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8518386586478734180, guid: d60cff025e550ac49a23599d7b1f9bf0, type: 3}
       propertyPath: m_Name
       value: SteakEggDispenser
@@ -153,6 +157,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d60cff025e550ac49a23599d7b1f9bf0, type: 3}
+--- !u!1 &5697329458161219418 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6030400517876386627, guid: d60cff025e550ac49a23599d7b1f9bf0, type: 3}
+  m_PrefabInstance: {fileID: 2062846158292384793}
+  m_PrefabAsset: {fileID: 0}
+--- !u!208 &8410165703952251328
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5697329458161219418}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.537, z: 0.42100003}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.537, z: 0.42100003}
+  m_TimeToStationary: 0.5
 --- !u!1 &7680837286003447677 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8518386586478734180, guid: d60cff025e550ac49a23599d7b1f9bf0, type: 3}

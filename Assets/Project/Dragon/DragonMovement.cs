@@ -28,6 +28,11 @@ namespace Project.Character
         public float xLerp = 0.1f;
 
         [RuntimeField]
+        public int xHash;
+        [RuntimeField]
+        public int zHash;
+
+        [RuntimeField]
         public float xInertia;
 
         [RuntimeField]
@@ -64,9 +69,6 @@ namespace Project.Character
 
         #endregion
 
-        private int xHash;
-        private int zHash;
-
         private Vector2 movementInput;
         private Vector2 rotationInput;
 
@@ -82,6 +84,17 @@ namespace Project.Character
 
             characterControllerTransform = characterController.transform;
             characterControllerTransform.SetParent(transform.parent, worldPositionStays: true);
+        }
+
+        private void OnEnable()
+        {
+            characterController.transform.position = rb.position;
+            characterController.enabled = true;
+        }
+
+        private void OnDisable()
+        {
+            characterController.enabled = false;
         }
 
         public void Move(Vector2 movementInput)

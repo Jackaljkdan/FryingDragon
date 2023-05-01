@@ -60,7 +60,12 @@ namespace Project.Dragon
             inertia = new Vector2(fwd.x, fwd.z);
         }
 
-        private Vector2 dampVelocity;
+        private void OnDisable()
+        {
+            dragonMovement.Move(Vector2.zero);
+        }
+
+        //private Vector2 dampVelocity;
 
         private void Update()
         {
