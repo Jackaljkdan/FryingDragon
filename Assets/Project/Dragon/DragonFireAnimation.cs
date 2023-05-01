@@ -16,6 +16,8 @@ namespace Project.Dragon
 
         public new ParticleSystem particleSystem;
 
+        public AudioSource audioSource;
+
         private void Reset()
         {
             animator = GetComponent<Animator>();
@@ -39,6 +41,7 @@ namespace Project.Dragon
             particleSystem.gameObject.SetActive(true);
             particleSystem.Stop();
             particleSystem.Play();
+            audioSource.Play();
         }
 
         public void OnBreathFireEnd()
