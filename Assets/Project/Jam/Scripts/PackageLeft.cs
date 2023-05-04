@@ -86,9 +86,9 @@ namespace Project.Jam
             for (int i = 0; i < wiggleCount; i++)
             {
                 float angle = i % 2 == 0 ? wiggleAngle : -wiggleAngle;
-                wiggleSequence.Append(boxImage.transform.DORotate(new Vector3(0, 0, angle), animationDuration / (wiggleCount * 2)));
+                wiggleSequence.Append(boxImage.transform.DOLocalRotate(new Vector3(0, 0, angle), animationDuration / (wiggleCount * 2)));
             }
-            wiggleSequence.Append(boxImage.transform.DORotate(Vector3.zero, animationDuration / (wiggleCount * 2)));
+            wiggleSequence.Append(boxImage.transform.DOLocalRotate(Vector3.zero, animationDuration / (wiggleCount * 2)));
             wiggleSequence.Play();
         }
 
