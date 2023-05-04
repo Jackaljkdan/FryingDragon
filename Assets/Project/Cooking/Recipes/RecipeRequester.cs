@@ -26,7 +26,7 @@ namespace Project.Cooking.Recipes
 
         private void Start()
         {
-            Invoke(nameof(ScheduleFirstRequest), 2f);
+            Invoke(nameof(RequestRecipeAndReschedule), 2f);
             orderFulfiller.onRecipeFulfilled.AddListener(ScheduleNextRequest);
         }
 
@@ -35,28 +35,22 @@ namespace Project.Cooking.Recipes
             orderFulfiller.onRecipeFulfilled.RemoveListener(ScheduleNextRequest);
         }
 
-        private void ScheduleFirstRequest()
-        {
-            ScheduleNextRequest();
-        }
-
         private void ScheduleNextRequest()
         {
-            nextRecipeTime = Time.time + UnityEngine.Random.Range(minWaitSeconds, maxWaitSeconds);
+            CancelInvoke(nameof(RequestRecipeAndReschedule));
+            ScheduleRepeatingRequestRecipe();
         }
 
-        private void Update()
+        private void RequestRecipeAndReschedule()
         {
-            if (nextRecipeTime == 0f)
-                return;
-
-            if (Time.time < nextRecipeTime)
-                return;
-
-            ScheduleNextRequest();
-
             orderFulfiller.TryRequestNewRecipe();
+            ScheduleRepeatingRequestRecipe();
         }
 
+        private void ScheduleRepeatingRequestRecipe()
+        {
+            nextRecipeTime = UnityEngine.Random.Range(minWaitSeconds, maxWaitSeconds);
+            Invoke(nameof(RequestRecipeAndReschedule), nextRecipeTime);
+        }
     }
 }
