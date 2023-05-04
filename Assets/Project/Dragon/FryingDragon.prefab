@@ -1898,7 +1898,6 @@ MonoBehaviour:
   agent: {fileID: 7609567742028416854}
   dragonInput: {fileID: 365722623747555029}
   dragonFireAnimation: {fileID: 4489904668856326921}
-  dragonInteractore: {fileID: 6544867737126421830}
   dragonItemHolder: {fileID: 4229203199805098585}
   onFrenzy:
     m_PersistentCalls:
@@ -1959,6 +1958,7 @@ MonoBehaviour:
   maxRotationSpeed: 1
   dragonMovement: {fileID: 6142508412747029040}
   dragonItemHolder: {fileID: 4229203199805098585}
+  dragonInteractore: {fileID: 6544867737126421830}
   inertia: {x: 0, y: 0}
   camera: {fileID: 0}
   cameraTransform: {fileID: 0}

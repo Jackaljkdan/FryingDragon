@@ -33,8 +33,6 @@ namespace Project.Dragon
 
         public DragonFireAnimation dragonFireAnimation;
 
-        public DragonInteractore dragonInteractore;
-
         public DragonItemHolder dragonItemHolder;
 
         public UnityEvent onFrenzy = new UnityEvent();
@@ -85,7 +83,6 @@ namespace Project.Dragon
             dragonAnimator = GetComponent<Animator>();
             dragonInput = GetComponent<DragonInput>();
             dragonFireAnimation = GetComponent<DragonFireAnimation>();
-            dragonInteractore = GetComponentInChildren<DragonInteractore>();
             dragonItemHolder = GetComponent<DragonItemHolder>();
         }
 
@@ -139,7 +136,6 @@ namespace Project.Dragon
             isInFrenzy = true;
             dragonInput.enabled = false;
             dragonInput.dragonMovement.enabled = false;
-            dragonInteractore.enabled = false;
             agent.enabled = true;
             dragonItemHolder.DropItem();
             onFrenzy.Invoke();
@@ -161,7 +157,6 @@ namespace Project.Dragon
             isEmbarassed = false;
             dragonInput.dragonMovement.enabled = true;
             dragonInput.enabled = true;
-            dragonInteractore.enabled = true;
         }
 
         private Flammable ChooseRandomFlammable()

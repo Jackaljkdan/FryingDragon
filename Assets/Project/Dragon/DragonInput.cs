@@ -23,6 +23,7 @@ namespace Project.Dragon
 
         public DragonMovement dragonMovement;
         public DragonItemHolder dragonItemHolder;
+        public DragonInteractore dragonInteractore;
 
         [RuntimeField]
         public Vector2 inertia;
@@ -60,9 +61,15 @@ namespace Project.Dragon
             inertia = new Vector2(fwd.x, fwd.z);
         }
 
+        private void OnEnable()
+        {
+            dragonInteractore.enabled = true;
+        }
+
         private void OnDisable()
         {
             dragonMovement.Move(Vector2.zero);
+            dragonInteractore.enabled = false;
         }
 
         //private Vector2 dampVelocity;
