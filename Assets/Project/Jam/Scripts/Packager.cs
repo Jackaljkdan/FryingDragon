@@ -188,14 +188,14 @@ namespace Project.Jam
             if (bowlIngredients.Count == 0)
                 return false;
 
-            foreach (Recipe recipe in orderFulfiller.recipes)
+            Recipe bowlRecipe = new Recipe(bowlIngredients);
+
+            if (Recipe.TryFindBestMatch(bowlRecipe, orderFulfiller.recipes, out Recipe bestMatch))
             {
-                if (recipe.CanMakeWith(bowlIngredients))
-                {
-                    signalBus.Invoke(new OrderFulfilledSignal() { recipe = recipe, actualIngredients = recipe.ingredients });
-                    return true;
-                }
+                signalBus.Invoke(new OrderFulfilledSignal() { recipe = bestMatch, actualIngredients = bowlIngredients });
+                return true;
             }
+
             bowDepositFailed.Invoke();
             return false;
         }
