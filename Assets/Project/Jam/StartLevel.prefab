@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6029748698683802169}
   - component: {fileID: 6029748698683802170}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: StartLevel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,6 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 6029748699352591295}
   text: {fileID: 6029748698810737982}
+  levelSetting: {fileID: 0}
 --- !u!1 &6029748698810737980
 GameObject:
   m_ObjectHideFlags: 0
@@ -64,7 +65,7 @@ GameObject:
   - component: {fileID: 6029748698810737981}
   - component: {fileID: 6029748698810737983}
   - component: {fileID: 6029748698810737982}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,7 +200,7 @@ GameObject:
   - component: {fileID: 6029748699352591294}
   - component: {fileID: 6029748699352591280}
   - component: {fileID: 6029748699352591295}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8799360570015628767}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Win
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 1154089100210485221}
   - component: {fileID: 1154089100210485223}
   - component: {fileID: 1154089100210485220}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Positive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -182,7 +182,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1154089100521739482}
   - component: {fileID: 1154089100521739485}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: EndLevel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -245,7 +245,7 @@ GameObject:
   - component: {fileID: 1154089100556951170}
   - component: {fileID: 1154089100556951172}
   - component: {fileID: 1154089100556951173}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: restart text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -380,7 +380,7 @@ GameObject:
   - component: {fileID: 1154089100880446303}
   - component: {fileID: 1154089100880446289}
   - component: {fileID: 1154089100880446302}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -516,7 +516,7 @@ GameObject:
   - component: {fileID: 1154089101683797913}
   - component: {fileID: 1154089101683797894}
   - component: {fileID: 1154089101683797895}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -646,7 +646,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1154089101738499953}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Restart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -686,7 +686,7 @@ GameObject:
   - component: {fileID: 1154089101900685147}
   - component: {fileID: 1154089101900685149}
   - component: {fileID: 1154089101900685146}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Negative
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -821,7 +821,7 @@ GameObject:
   - component: {fileID: 1154089102200758246}
   - component: {fileID: 1154089102200758264}
   - component: {fileID: 1154089102200758265}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Bg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -897,7 +897,7 @@ GameObject:
   - component: {fileID: 694693997871200940}
   - component: {fileID: 4395647463371656885}
   - component: {fileID: 429134612394274208}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
