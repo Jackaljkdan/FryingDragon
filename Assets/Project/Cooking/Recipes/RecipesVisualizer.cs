@@ -150,7 +150,7 @@ namespace Project.Cooking.Recipes
 
         public Tween DOEnter()
         {
-            animation.position = animation.position.WithY(animation.position.y + 20);
+            animation.localPosition = animation.localPosition.WithY(20);
             return animation.DOLocalMoveY(0, 1).SetEase(Ease.OutElastic);
         }
 
