@@ -1,3 +1,4 @@
+using JK.Attention;
 using JK.Utils;
 using System;
 using System.Collections;
@@ -15,11 +16,14 @@ namespace Project.Dragon
         public float speedMultiplier = 1;
         public AnimationCurve speed;
 
+        public float shakeIntensity = 0.2f;
+
         public Animator animator;
         public ParticleSystem fireParticles;
         public AudioSource audioSource;
 
         public new Transform camera;
+        public Shake cameraShake;
 
         public Transform cameraStartAnchor;
         public Transform cameraEndAnchor;
@@ -51,11 +55,13 @@ namespace Project.Dragon
             fireParticles.gameObject.SetActive(true);
             fireParticles.Play();
             audioSource.Play();
+            cameraShake.DOIntensity(shakeIntensity, 0.2f);
         }
 
         public void OnAngryFireStop()
         {
             fireParticles.Stop();
+            cameraShake.DOIntensity(0, 0.2f);
         }
 
     }
