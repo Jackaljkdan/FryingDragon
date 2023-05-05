@@ -12,16 +12,18 @@ namespace Project.Dragon
     {
         #region Inspector
 
+        public float speedMultiplier = 1;
+        public AnimationCurve speed;
+
         public Animator animator;
         public ParticleSystem fireParticles;
+        public AudioSource audioSource;
 
         public new Transform camera;
 
         public Transform cameraStartAnchor;
         public Transform cameraEndAnchor;
         public Transform cameraLookTarget;
-
-        public AnimationCurve speed;
 
         [DebugField]
         public float elapsed = 0;
@@ -35,7 +37,7 @@ namespace Project.Dragon
 
         private void Update()
         {
-            float deltaTime = Time.deltaTime * speed.Evaluate(elapsed);
+            float deltaTime = Time.deltaTime * speed.Evaluate(elapsed) * speedMultiplier;
             elapsed += deltaTime;
             //animator.speed = speed.Evaluate(elapsed);
             animator.Update(deltaTime);
@@ -48,6 +50,7 @@ namespace Project.Dragon
         {
             fireParticles.gameObject.SetActive(true);
             fireParticles.Play();
+            audioSource.Play();
         }
 
         public void OnAngryFireStop()

@@ -1776,6 +1776,10 @@ PrefabInstance:
       propertyPath: cameraShake.shakeCurve.m_Curve.Array.data[1].tangentMode
       value: 34
       objectReference: {fileID: 0}
+    - target: {fileID: 1903072992428465494, guid: 2bc0d2ba394134143a09f5c227ebe60c, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: f274165901d465f47a1aa16a839c9a21, type: 3}
     - target: {fileID: 2043025933432757273, guid: 2bc0d2ba394134143a09f5c227ebe60c, type: 3}
       propertyPath: m_Intensity
       value: 0
@@ -2534,12 +2538,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73025609c85161d4f9536c5fbc9247a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 967620605}
-  fireParticles: {fileID: 1275581324}
-  camera: {fileID: 802556340}
-  cameraStartAnchor: {fileID: 2088419083}
-  cameraEndAnchor: {fileID: 1450660036}
-  cameraLookTarget: {fileID: 882907961}
+  speedMultiplier: 2
   speed:
     serializedVersion: 2
     m_Curve:
@@ -2600,6 +2599,13 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  animator: {fileID: 967620605}
+  fireParticles: {fileID: 1275581324}
+  audioSource: {fileID: 1848687714}
+  camera: {fileID: 802556340}
+  cameraStartAnchor: {fileID: 2088419083}
+  cameraEndAnchor: {fileID: 1450660036}
+  cameraLookTarget: {fileID: 882907961}
   elapsed: 0
 --- !u!1001 &971237420
 PrefabInstance:
@@ -3726,6 +3732,11 @@ Transform:
   m_Father: {fileID: 314051163}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1848687714 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1903072992428465494, guid: 2bc0d2ba394134143a09f5c227ebe60c, type: 3}
+  m_PrefabInstance: {fileID: 967620603}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1852414462
 PrefabInstance:
   m_ObjectHideFlags: 0
