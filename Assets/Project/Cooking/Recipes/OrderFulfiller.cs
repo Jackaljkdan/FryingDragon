@@ -1,5 +1,6 @@
 using JK.Injection;
 using JK.Utils;
+using Project.Dispensers;
 using Project.Items.Ingredients;
 using Project.Jam;
 using System;
@@ -69,9 +70,10 @@ namespace Project.Cooking.Recipes
             signalBus.AddListener<OrderFulfilledSignal>(FulfillRecipe);
 
             foreach (IDispenser dispenser in transform.root.GetComponentsInChildren<IDispenser>())
-            {
-                availableIngredients.Add(dispenser.ingredientType);
-            }
+                availableIngredients.Add(dispenser.IngredientType);
+
+            if (availableIngredients.Count == 0)
+                Debug.LogWarning("no available ingredients found");
 
             minIngredients = levelSettings.minEggPerRecipe;
             maxIngredients = levelSettings.maxEggPerRecipe;
