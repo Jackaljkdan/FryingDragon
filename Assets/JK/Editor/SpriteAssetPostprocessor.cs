@@ -9,8 +9,12 @@ namespace JK.Editor
 {
     public class SpriteAssetPostprocessor : AssetPostprocessor
     {
-        void OnPostprocessTexture(Texture2D texture)
+        void OnPreprocessTexture(Texture2D texture)
         {
+            // preprocess only when imported the first time
+            if (!assetImporter.importSettingsMissing)
+                return;
+
             if (assetImporter is not TextureImporter textureImporter)
                 return;
 
