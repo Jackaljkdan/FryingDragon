@@ -47,6 +47,8 @@ namespace JK.UI
 
         public void Refresh()
         {
+            // TODO: usare il set di icone corretto
+
             iconSet.controller.Get(ButtonType).LoadAssetAsyncIfNecessary().Completed += handle =>
             {
                 image.sprite = handle.Result as Sprite;
