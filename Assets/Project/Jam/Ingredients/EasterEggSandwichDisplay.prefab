@@ -75,6 +75,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EasterEggSandwichDisplay
       objectReference: {fileID: 0}
+    - target: {fileID: 5637563127883566247, guid: edc585b221191734699e389fc964fa2b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2490516956587212088, guid: edc585b221191734699e389fc964fa2b, type: 3}
     - {fileID: 2490516956587212089, guid: edc585b221191734699e389fc964fa2b, type: 3}
@@ -82,4 +86,5 @@ PrefabInstance:
     - {fileID: 5787460493349982225, guid: edc585b221191734699e389fc964fa2b, type: 3}
     - {fileID: 8466880991643668554, guid: edc585b221191734699e389fc964fa2b, type: 3}
     - {fileID: 1141470310459525053, guid: edc585b221191734699e389fc964fa2b, type: 3}
+    - {fileID: 8933014953900925186, guid: edc585b221191734699e389fc964fa2b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: edc585b221191734699e389fc964fa2b, type: 3}

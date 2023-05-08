@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 1838798408186849806}
   - component: {fileID: 4347643421193792085}
   - component: {fileID: 5044833110469131682}
+  - component: {fileID: -5607553237684577507}
   m_Layer: 6
   m_Name: EasterEggApple
   m_TagString: Untagged
@@ -282,3 +283,19 @@ MonoBehaviour:
   zRange:
     min: 0.8
     max: 1.2
+--- !u!114 &-5607553237684577507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8089980354584405757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db2dabdebe7d4a446966b698737f6a15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitLayer:
+    serializedVersion: 2
+    m_Bits: 2147483647
+  hitObjectPrefab: {fileID: 3200138017375356602, guid: 4d998f79b72f5814db8f3efb7aa2bc24, type: 3}
