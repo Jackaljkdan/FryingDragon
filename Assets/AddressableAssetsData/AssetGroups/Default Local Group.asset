@@ -109,6 +109,22 @@ MonoBehaviour:
     m_Address: Assets/Project/Jam/Sounds/Win1 b.ogg
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 7524885d0bfe6ed4b98876020541d934
+    m_Address: Assets/JK/UI/Sprites/controller_buttons_down.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: aacb3fb8ea2eed441b4469164c1bbc45
+    m_Address: Assets/JK/UI/Sprites/controller_buttons_left.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c224da6931cf2db43bfdbe09a5e88ee0
+    m_Address: Assets/JK/UI/Sprites/controller_buttons_right.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: da9f787a6c3b6164686922a8fa001e47
+    m_Address: Assets/JK/UI/Sprites/controller_buttons_up.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 873293cb24b41d94ea8a0391e86446f7, type: 2}
   m_SchemaSet:
