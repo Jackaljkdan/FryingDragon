@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Project.UI
+namespace JK.UI
 {
     [DisallowMultipleComponent]
     public class InputEntry : MonoBehaviour

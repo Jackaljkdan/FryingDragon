@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Project.UI
+namespace JK.UI
 {
     [Serializable]
     public struct VirtualInputEntry

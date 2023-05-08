@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Project.UI
+namespace JK.UI
 {
     [DisallowMultipleComponent]
     public class InputList : MonoBehaviour
