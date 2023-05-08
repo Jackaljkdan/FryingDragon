@@ -21,12 +21,12 @@ namespace Project.Dragon
 
         private void Update()
         {
-            if (highlighting == null)
+            if (highlighting.Value == null)
                 return;
 
             if (primary.GetAxisDown())
-                highlighting.Interact();
-            else if (secondary.GetAxisDown() && highlighting is MultipleInteractionForwarder multiple)
+                highlighting.Value.Interact();
+            else if (secondary.GetAxisDown() && highlighting.Value is MultipleInteractionForwarder multiple)
                 multiple.SecondaryInteract();
         }
     }

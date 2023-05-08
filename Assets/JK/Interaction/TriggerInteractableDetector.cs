@@ -1,3 +1,4 @@
+using JK.Observables;
 using JK.Utils;
 using System;
 using System.Collections;
@@ -16,7 +17,7 @@ namespace JK.Interaction
         public List<AbstractInteractable> available = new();
 
         [RuntimeField]
-        public AbstractInteractable highlighting;
+        public ObservableProperty<AbstractInteractable> highlighting = new();
 
         #endregion
 
@@ -57,25 +58,25 @@ namespace JK.Interaction
 
         private void OnDisable()
         {
-            if (highlighting != null && highlighting.TryGetComponent(out AbstractAffordance affordance))
+            if (highlighting.Value != null && highlighting.Value.TryGetComponent(out AbstractAffordance affordance))
                 affordance.StopHighlight();
 
-            highlighting = null;
+            highlighting.Value = null;
         }
 
         private void UpdateHighlighting()
         {
             var closest = GetClosestInteractable();
 
-            if (closest == highlighting)
+            if (closest == highlighting.Value)
                 return;
 
-            if (highlighting != null && highlighting.TryGetComponent(out AbstractAffordance affordance))
+            if (highlighting.Value != null && highlighting.Value.TryGetComponent(out AbstractAffordance affordance))
                 affordance.StopHighlight();
 
-            highlighting = closest;
+            highlighting.Value = closest;
 
-            if (highlighting != null && highlighting.TryGetComponent(out affordance))
+            if (highlighting.Value != null && highlighting.Value.TryGetComponent(out affordance))
                 affordance.StartHighlight();
         }
 
