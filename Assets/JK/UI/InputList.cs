@@ -33,25 +33,26 @@ namespace JK.UI
             transform.DestroyAndDetachChildren();
         }
 
-        public void AddEntry(VirtualInputEntry entry)
+        public void AddEntry(VirtualInputEntry virtualEntry)
         {
-            list.Add(entry);
+            list.Add(virtualEntry);
 
-            entryAsset.InstantiateAsync().Completed += handle =>
+            entryAsset.InstantiateAsync(parent).Completed += handle =>
             {
                 // in the meantime the entry may have been removed
-                int index = list.FindIndex(item => item.buttonType == entry.buttonType);
+                int index = list.FindIndex(item => item.buttonType == virtualEntry.buttonType);
 
                 if (index < 0)
                 {
-                    Destroy(handle.Result);
+                    Destroy(handle.Result.gameObject);
                     entryAsset.ReleaseInstance(handle.Result.gameObject);
                 }
                 else
                 {
-                    handle.Result.icon.ButtonType = entry.buttonType;
-                    handle.Result.text.text = entry.text;
-                    entry.realEntry = handle.Result;
+                    handle.Result.icon.ButtonType = virtualEntry.buttonType;
+                    handle.Result.text.text = virtualEntry.text;
+                    handle.Result.name = "InputEntry-" + virtualEntry.buttonType;
+                    list[index] = VirtualInputEntry.From(virtualEntry, handle.Result);
                 }
             };
         }
@@ -67,7 +68,7 @@ namespace JK.UI
 
             if (entry != null)
             {
-                Destroy(entry);
+                Destroy(entry.gameObject);
                 entryAsset.ReleaseInstance(entry.gameObject);
             }
 

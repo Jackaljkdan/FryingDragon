@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 6750134045134247242}
   - component: {fileID: 50094986001291096}
   - component: {fileID: 1915340718477114864}
-  - component: {fileID: 7909089410541152349}
+  - component: {fileID: 2212277675325740685}
   - component: {fileID: 5081489628859471065}
   m_Layer: 8
   m_Name: BrazierDragonInteractionTrigger
@@ -280,7 +280,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4411898263308102386}
   m_Father: {fileID: 5008006341839126}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
@@ -314,7 +315,7 @@ MonoBehaviour:
   secondaryTarget: {fileID: 3103310176968642591}
   tertiaryTarget: {fileID: 0}
   quaternaryTarget: {fileID: 0}
---- !u!114 &7909089410541152349
+--- !u!114 &2212277675325740685
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -323,11 +324,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1822971646726725881}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9272d5be0c4a8a440baa67287b42382d, type: 3}
+  m_Script: {fileID: 11500000, guid: fd4fb790b01a4bc4c8561db0165a8d8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <IsHighlighting>k__BackingField: 0
-  target: {fileID: 8712741712626340}
+  targets:
+  - {fileID: 8712741712626340}
+  - {fileID: 5096319564127064700}
 --- !u!114 &5081489628859471065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -643,6 +646,57 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: -10}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &2882857354596527538
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4411898263308102386}
+  - component: {fileID: 5096319564127064700}
+  m_Layer: 8
+  m_Name: InputEntryAffordance
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4411898263308102386
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2882857354596527538}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6750134045134247242}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5096319564127064700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2882857354596527538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13640b57a906f5f4eb3d63ba7804a62a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <IsHighlighting>k__BackingField: 0
+  interaction: {fileID: 1915340718477114864}
+  primaryText: Get
+  secondaryText: Fire
+  tertiaryText: 
+  quaternaryText: 
+  inputList: {fileID: 0}
 --- !u!1 &3652799387892846161
 GameObject:
   m_ObjectHideFlags: 0

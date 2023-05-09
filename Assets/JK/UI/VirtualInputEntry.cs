@@ -13,5 +13,25 @@ namespace JK.UI
         public InputEntry realEntry;
         public ButtonType buttonType;
         public string text;
+
+        public static VirtualInputEntry From(VirtualInputEntry other)
+        {
+            return new VirtualInputEntry()
+            {
+                realEntry = other.realEntry,
+                buttonType = other.buttonType,
+                text = other.text,
+            };
+        }
+
+        public static VirtualInputEntry From(VirtualInputEntry other, InputEntry realEntry)
+        {
+            return new VirtualInputEntry()
+            {
+                realEntry = realEntry,
+                buttonType = other.buttonType,
+                text = other.text,
+            };
+        }
     }
 }
