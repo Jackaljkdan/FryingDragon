@@ -1,4 +1,5 @@
 using JK.Injection;
+using JK.UI;
 using JK.Utils;
 using Project.Character;
 using System;
@@ -27,6 +28,9 @@ namespace Project.Dragon
         public DragonInteractore dragonInteractore;
 
         [RuntimeField]
+        public bool shouldUseMouseInput = true;
+
+        [RuntimeField]
         public Vector2 inertia;
 
         [Injected]
@@ -34,6 +38,9 @@ namespace Project.Dragon
 
         [Injected]
         public Transform cameraTransform;
+
+        [Injected]
+        public InputTypeDetector inputTypeDetector;
 
         private void Reset()
         {
@@ -49,6 +56,7 @@ namespace Project.Dragon
             Context context = Context.Find(this);
             camera = context.Get<Camera>(this);
             cameraTransform = context.Get<Transform>(this, "camera");
+            inputTypeDetector = context.GetOptional<InputTypeDetector>();
         }
 
         private void Awake()
@@ -60,6 +68,7 @@ namespace Project.Dragon
         {
             Vector3 fwd = dragonMovement.transform.forward;
             inertia = new Vector2(fwd.x, fwd.z);
+            shouldUseMouseInput = true;
         }
 
         private void OnEnable()
@@ -75,30 +84,22 @@ namespace Project.Dragon
 
         //private Vector2 dampVelocity;
 
-        bool shouldUseMouseInput = false;
-        private Vector3 lastMousePosition = Vector3.zero;
-
         private Vector2 GetTargetForward()
         {
+            if (inputTypeDetector == null || inputTypeDetector.current.Value == InputType.Keyboard)
+            {
+                Vector3 myScreenPosition = ScreenUtils.NormalizePosition(camera.WorldToScreenPoint(dragonMovement.transform.position).WithZ(0));
+                Vector3 currentMousePos = Input.mousePosition;
 
-            Vector3 myScreenPosition = ScreenUtils.NormalizePosition(camera.WorldToScreenPoint(dragonMovement.transform.position).WithZ(0));
-            Vector3 currentMousePos = Input.mousePosition;
-            float horizontal = Input.GetAxis("RightHorizontal");
-            float vertical = Input.GetAxis("RightVertical");
-
-            if (!shouldUseMouseInput && lastMousePosition != currentMousePos)
-                shouldUseMouseInput = true;
-
-            if (Mathf.Abs(horizontal) > joyInputThreshold || Mathf.Abs(vertical) > joyInputThreshold)
-                shouldUseMouseInput = false;
-
-            lastMousePosition = currentMousePos;
-
-            if (shouldUseMouseInput)
                 return (ScreenUtils.NormalizePosition(currentMousePos) - myScreenPosition).normalized;
-
-
-            return new Vector2(horizontal, vertical).normalized;
+            }
+            else
+            {
+                return new Vector2(
+                    Input.GetAxis("RightHorizontal"),
+                    Input.GetAxis("RightVertical")
+                );
+            }
         }
 
         private void Update()
@@ -106,7 +107,6 @@ namespace Project.Dragon
             if (dropButton.GetAxisDown())
                 dragonItemHolder.DropItem();
 
-            Vector3 myScreenPosition = ScreenUtils.NormalizePosition(camera.WorldToScreenPoint(dragonMovement.transform.position).WithZ(0));
             Vector2 targetForward = GetTargetForward();
 
             float run = 1 + Input.GetAxis("Run");
