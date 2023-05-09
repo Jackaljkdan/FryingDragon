@@ -1,3 +1,4 @@
+using JK.Dev.SceneSetup;
 using JK.Injection;
 using JK.Observables;
 using System;
@@ -9,7 +10,7 @@ using UnityEngine.Events;
 namespace Project.Flames
 {
     [DisallowMultipleComponent]
-    public class FlammableList : MonoBehaviour
+    public class FlammableList : MonoBehaviour, IEditorSceneSetup
     {
         #region Inspector
 
@@ -26,6 +27,11 @@ namespace Project.Flames
         }
 
         #endregion
+
+        public void EditorSceneSetup()
+        {
+            Reset();
+        }
 
         [InjectMethod]
         public void Inject()
