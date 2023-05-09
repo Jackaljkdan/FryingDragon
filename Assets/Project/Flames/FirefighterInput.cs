@@ -16,6 +16,8 @@ namespace Project.Flames
         #region Inspector
 
         public float mouseInertiaLerp = 0.01f;
+        public float joyRotationSpeed = 5f;
+        public float joyInputThreshold = 0.1f;
 
         public FirefighterMovement movement;
 
@@ -67,10 +69,36 @@ namespace Project.Flames
             movement.Move(new Vector2(0, 0), new Vector2(fwd.x, fwd.z));
         }
 
+        bool shouldUseMouseInput = false;
+        private Vector3 lastMousePosition = Vector3.zero;
+
+        private Vector2 GetTargetForward()
+        {
+
+            Vector3 myScreenPosition = ScreenUtils.NormalizePosition(camera.WorldToScreenPoint(movement.transform.position).WithZ(0));
+            Vector3 currentMousePos = Input.mousePosition;
+            float horizontal = Input.GetAxis("RightHorizontal");
+            float vertical = Input.GetAxis("RightVertical");
+
+            if (!shouldUseMouseInput && lastMousePosition != currentMousePos)
+                shouldUseMouseInput = true;
+
+            if (Mathf.Abs(horizontal) > joyInputThreshold || Mathf.Abs(vertical) > joyInputThreshold)
+                shouldUseMouseInput = false;
+
+            lastMousePosition = currentMousePos;
+
+            if (shouldUseMouseInput)
+                return (ScreenUtils.NormalizePosition(currentMousePos) - myScreenPosition).normalized;
+
+
+            return new Vector2(horizontal, vertical).normalized;
+        }
+
         private void Update()
         {
             Vector3 myScreenPosition = ScreenUtils.NormalizePosition(camera.WorldToScreenPoint(movement.transform.position).WithZ(0));
-            Vector2 targetForward = (ScreenUtils.NormalizePosition(Input.mousePosition) - myScreenPosition).normalized;
+            Vector2 targetForward = GetTargetForward();
 
             float run = 2;
 

@@ -3,7 +3,6 @@ using JK.Utils;
 using Project.Character;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -20,6 +19,8 @@ namespace Project.Dragon
         public float mouseInertiaLerp = 0.003f;
         public float rotationSmoothTime = 1;
         public float maxRotationSpeed = 1;
+        public float joyRotationSpeed = 5f;
+        public float joyInputThreshold = 0.1f;
 
         public DragonMovement dragonMovement;
         public DragonItemHolder dragonItemHolder;
@@ -74,19 +75,46 @@ namespace Project.Dragon
 
         //private Vector2 dampVelocity;
 
+        bool shouldUseMouseInput = false;
+        private Vector3 lastMousePosition = Vector3.zero;
+
+        private Vector2 GetTargetForward()
+        {
+
+            Vector3 myScreenPosition = ScreenUtils.NormalizePosition(camera.WorldToScreenPoint(dragonMovement.transform.position).WithZ(0));
+            Vector3 currentMousePos = Input.mousePosition;
+            float horizontal = Input.GetAxis("RightHorizontal");
+            float vertical = Input.GetAxis("RightVertical");
+
+            if (!shouldUseMouseInput && lastMousePosition != currentMousePos)
+                shouldUseMouseInput = true;
+
+            if (Mathf.Abs(horizontal) > joyInputThreshold || Mathf.Abs(vertical) > joyInputThreshold)
+                shouldUseMouseInput = false;
+
+            lastMousePosition = currentMousePos;
+
+            if (shouldUseMouseInput)
+                return (ScreenUtils.NormalizePosition(currentMousePos) - myScreenPosition).normalized;
+
+
+            return new Vector2(horizontal, vertical).normalized;
+        }
+
         private void Update()
         {
             if (dropButton.GetAxisDown())
                 dragonItemHolder.DropItem();
 
             Vector3 myScreenPosition = ScreenUtils.NormalizePosition(camera.WorldToScreenPoint(dragonMovement.transform.position).WithZ(0));
-            Vector2 targetForward = (ScreenUtils.NormalizePosition(Input.mousePosition) - myScreenPosition).normalized;
+            Vector2 targetForward = GetTargetForward();
 
             float run = 1 + Input.GetAxis("Run");
 
+            inertia = Vector2.Lerp(inertia, targetForward, TimeUtils.AdjustToFrameRate(mouseInertiaLerp * run)).normalized;
+
             //inertia = targetForward;
             //inertia = Vector2.SmoothDamp(inertia, targetForward, ref dampVelocity, rotationSmoothTime, maxRotationSpeed * run);
-            inertia = Vector2.Lerp(inertia, targetForward, TimeUtils.AdjustToFrameRate(mouseInertiaLerp * run)).normalized;
 
             Vector3 cameraRelative = Input.GetAxis("Vertical") * run * cameraTransform.forward.WithY(0).normalized;
             cameraRelative += Input.GetAxis("Horizontal") * run * cameraTransform.right.WithY(0).normalized;
