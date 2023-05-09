@@ -1,3 +1,4 @@
+using JK.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,8 +30,8 @@ namespace Project.Jam
                 if (!instatiatedPrefab)
                     instatiatedPrefab = Instantiate(hitObjectPrefab, hit.point, Quaternion.identity, transform.root);
 
-                instatiatedPrefab.transform.position = Vector3.Lerp(instatiatedPrefab.transform.position, hit.point, lerpingValue);
-
+                Transform instanceTransform = instatiatedPrefab.transform;
+                instanceTransform.position = hit.point.WithY(Mathf.Lerp(instanceTransform.position.y, hit.point.y, lerpingValue));
             }
         }
 
