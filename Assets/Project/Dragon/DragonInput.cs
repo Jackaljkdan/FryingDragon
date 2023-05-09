@@ -31,7 +31,7 @@ namespace Project.Dragon
         public bool shouldUseMouseInput = true;
 
         [RuntimeField]
-        public Vector2 inertia;
+        public Vector3 inertia;
 
         [Injected]
         public new Camera camera;
@@ -66,8 +66,7 @@ namespace Project.Dragon
 
         private void Start()
         {
-            Vector3 fwd = dragonMovement.transform.forward;
-            inertia = new Vector2(fwd.x, fwd.z);
+            inertia = dragonMovement.transform.forward;
             shouldUseMouseInput = true;
         }
 
@@ -78,25 +77,24 @@ namespace Project.Dragon
 
         private void OnDisable()
         {
-            dragonMovement.Move(Vector2.zero);
+            dragonMovement.Move(Vector3.zero);
             dragonInteractore.enabled = false;
         }
 
-        //private Vector2 dampVelocity;
-
-        private Vector2 GetTargetForward()
+        private Vector3 GetTargetForward()
         {
             if (inputTypeDetector == null || inputTypeDetector.current.Value == InputType.Keyboard)
             {
                 Vector3 myScreenPosition = ScreenUtils.NormalizePosition(camera.WorldToScreenPoint(dragonMovement.transform.position).WithZ(0));
-                Vector3 currentMousePos = Input.mousePosition;
+                Vector3 normalizedMousePosition = ScreenUtils.NormalizePosition(Input.mousePosition);
 
-                return (ScreenUtils.NormalizePosition(currentMousePos) - myScreenPosition).normalized;
+                return (normalizedMousePosition - myScreenPosition).normalized.WithSwappedYZ();
             }
             else
             {
-                return new Vector2(
+                return new Vector3(
                     Input.GetAxis("RightHorizontal"),
+                    0,
                     Input.GetAxis("RightVertical")
                 );
             }
@@ -107,22 +105,20 @@ namespace Project.Dragon
             if (dropButton.GetAxisDown())
                 dragonItemHolder.DropItem();
 
-            Vector2 targetForward = GetTargetForward();
+            Vector3 targetForward = GetTargetForward();
 
             float run = 1 + Input.GetAxis("Run");
 
-            inertia = Vector2.Lerp(inertia, targetForward, TimeUtils.AdjustToFrameRate(mouseInertiaLerp * run)).normalized;
-
-            //inertia = targetForward;
-            //inertia = Vector2.SmoothDamp(inertia, targetForward, ref dampVelocity, rotationSmoothTime, maxRotationSpeed * run);
+            inertia = Vector3.Lerp(inertia, targetForward, TimeUtils.AdjustToFrameRate(mouseInertiaLerp * run)).normalized;
 
             Vector3 cameraRelative = Input.GetAxis("Vertical") * run * cameraTransform.forward.WithY(0).normalized;
             cameraRelative += Input.GetAxis("Horizontal") * run * cameraTransform.right.WithY(0).normalized;
 
-            Vector3 dragonRelative = dragonMovement.characterControllerTransform.InverseTransformDirection(cameraRelative);
+            cameraRelative = Vector3.ClampMagnitude(cameraRelative, run);
 
-            //dragonMovement.Move(dragonRelative.WithY(mouseMultiplier * run * inertia));
-            dragonMovement.Move(new Vector2(dragonRelative.x, dragonRelative.z), inertia);
+            Vector3 dragonRelative = dragonMovement.transform.InverseTransformDirection(cameraRelative);
+
+            dragonMovement.Move(dragonRelative, inertia);
         }
     }
 }

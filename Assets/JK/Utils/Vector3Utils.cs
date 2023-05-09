@@ -40,6 +40,15 @@ namespace JK.Utils
             return self;
         }
 
+        public static Vector3 WithSwappedYZ(this Vector3 self)
+        {
+            return new Vector3(
+                self.x,
+                self.z,
+                self.y
+            );
+        }
+
         public static float InverseLerp(Vector3 a, Vector3 b, Vector3 value)
         {
             Vector3 AB = b - a;

@@ -1,3 +1,4 @@
+using JK.Actuators;
 using JK.Injection;
 using JK.Utils;
 using System;
@@ -10,7 +11,7 @@ using UnityEngine.EventSystems;
 namespace Project.Character
 {
     [DisallowMultipleComponent]
-    public class DragonMovement : MonoBehaviour
+    public class DragonMovement : AbstractMovement
     {
         #region Inspector
 
@@ -28,9 +29,9 @@ namespace Project.Character
         public float xLerp = 0.1f;
 
         [RuntimeField]
-        public int xHash;
+        public Vector3 movementInput;
         [RuntimeField]
-        public int zHash;
+        public Vector3 forwardInput;
 
         [RuntimeField]
         public float xInertia;
@@ -69,8 +70,10 @@ namespace Project.Character
 
         #endregion
 
-        private Vector2 movementInput;
-        private Vector2 rotationInput;
+        [HideInInspector]
+        public int xHash;
+        [HideInInspector]
+        public int zHash;
 
         private void Start()
         {
@@ -79,8 +82,7 @@ namespace Project.Character
 
             xInertia = 0;
             deltaRotation = Quaternion.identity;
-            Vector3 fwd = transform.forward;
-            rotationInput = new Vector2(fwd.x, fwd.z);
+            forwardInput = transform.forward;
 
             characterControllerTransform = characterController.transform;
             characterControllerTransform.SetParent(transform.parent, worldPositionStays: true);
@@ -97,26 +99,19 @@ namespace Project.Character
             characterController.enabled = false;
         }
 
-        public void Move(Vector2 movementInput)
-        {
-            Vector3 fwd = transform.forward;
-            Move(movementInput, new Vector2(fwd.x, fwd.z));
-        }
-
-        public void Move(Vector2 movementInput, Vector2 rotationInput)
+        public override void Move(Vector3 movementInput, Vector3 forwardInput)
         {
             this.movementInput = movementInput;
-            this.rotationInput = rotationInput;
+            this.forwardInput = forwardInput;
 
-            Vector3 rotationInput3 = new Vector3(rotationInput.x, 0, rotationInput.y);
-            float rightDot = Vector3.Dot(transform.right, rotationInput3);
+            float rightDot = Vector3.Dot(transform.right, forwardInput);
             rightDot = Mathf.Min(1, Mathf.Max(-1, rightDot * 100));
 
             float xTarget = movementInput.x != 0 ? movementInput.x : rightDot;
             xInertia = Mathf.Lerp(xInertia, xTarget, TimeUtils.AdjustToFrameRate(xLerp));
 
             animator.SetFloat(xHash, xInertia);
-            animator.SetFloat(zHash, movementInput.y);
+            animator.SetFloat(zHash, movementInput.z);
         }
 
         private void OnAnimatorMove()
@@ -133,17 +128,12 @@ namespace Project.Character
             adjustedDelta = myTransform.TransformDirection(localDelta).WithY(0).normalized * magnitude * speed;
             characterController.Move(adjustedDelta.WithY(-9));
 
-            //deltaRotation *= Quaternion.Euler(0, input.y * TimeUtils.AdjustToFrameRate(rotationSpeed), 0);
-            //targetRotation = Quaternion.LookRotation(new Vector3(rotationInput.x, 0, rotationInput.y));
-
-            movementInput = Vector2.zero;
-            //rotationInput = Vector2.zero;
+            movementInput = Vector3.zero;
         }
 
         private void FixedUpdate()
         {
-            //rb.MoveRotation(rb.rotation * deltaRotation);
-            rb.MoveRotation(Quaternion.LookRotation(new Vector3(rotationInput.x, 0, rotationInput.y)));
+            rb.MoveRotation(Quaternion.LookRotation(forwardInput));
             rb.MovePosition(characterControllerTransform.position);
             characterControllerTransform.rotation = rb.rotation;
 
