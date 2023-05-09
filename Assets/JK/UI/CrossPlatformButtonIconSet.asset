@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b24b359764b3e478199f15928e2f03, type: 3}
   m_Name: CrossPlatformButtonIconSet
   m_EditorClassIdentifier: 
-  keyboard: {fileID: 11400000, guid: 9f185a8b8d53b81448823ad141536101, type: 2}
+  keyboard: {fileID: 11400000, guid: 782520bd96bdf3e48a3553742d1f1b93, type: 2}
   controller: {fileID: 11400000, guid: 9f185a8b8d53b81448823ad141536101, type: 2}

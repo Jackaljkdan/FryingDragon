@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 52211f9dd0c777047a6e4cde1cddd890, type: 3}
-  m_Name: ControllerButtonIconSet
+  m_Name: KeyboardButtonIconSet
   m_EditorClassIdentifier: 
-  primary: {fileID: 21300000, guid: 7524885d0bfe6ed4b98876020541d934, type: 3}
-  secondary: {fileID: 21300000, guid: c224da6931cf2db43bfdbe09a5e88ee0, type: 3}
-  tertiary: {fileID: 21300000, guid: da9f787a6c3b6164686922a8fa001e47, type: 3}
-  quaternary: {fileID: 21300000, guid: aacb3fb8ea2eed441b4469164c1bbc45, type: 3}
+  primary: {fileID: 21300000, guid: 6cd2eb3434fd7924e877e127d2cfb591, type: 3}
+  secondary: {fileID: 21300000, guid: 116d21216073a474d9877dee6cb7cd48, type: 3}
+  tertiary: {fileID: 0}
+  quaternary: {fileID: 0}

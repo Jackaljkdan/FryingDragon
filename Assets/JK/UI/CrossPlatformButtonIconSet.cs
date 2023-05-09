@@ -15,5 +15,17 @@ namespace JK.UI
         public ButtonIconSet controller;
 
         #endregion
+
+        public ButtonIconSet Get(InputType type)
+        {
+            switch (type)
+            {
+                default:
+                case InputType.Keyboard:
+                    return keyboard;
+                case InputType.Controller:
+                    return controller;
+            }
+        }
     }
 }

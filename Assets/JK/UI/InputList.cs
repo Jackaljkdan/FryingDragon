@@ -49,9 +49,9 @@ namespace JK.UI
                 }
                 else
                 {
+                    handle.Result.name = "InputEntry-" + virtualEntry.buttonType;
                     handle.Result.icon.ButtonType = virtualEntry.buttonType;
                     handle.Result.text.text = virtualEntry.text;
-                    handle.Result.name = "InputEntry-" + virtualEntry.buttonType;
                     list[index] = VirtualInputEntry.From(virtualEntry, handle.Result);
                 }
             };

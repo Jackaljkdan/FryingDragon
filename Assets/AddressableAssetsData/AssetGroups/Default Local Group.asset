@@ -129,6 +129,14 @@ MonoBehaviour:
     m_Address: Assets/Project/UI/InputEntry.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 6cd2eb3434fd7924e877e127d2cfb591
+    m_Address: Assets/JK/UI/Sprites/keyboard_e.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 116d21216073a474d9877dee6cb7cd48
+    m_Address: Assets/JK/UI/Sprites/keyboard_f.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 873293cb24b41d94ea8a0391e86446f7, type: 2}
   m_SchemaSet:

@@ -12,26 +12,26 @@ namespace JK.UI
     {
         #region Inspector fields
 
-        public AssetReferenceSprite primaryAsset;
-        public AssetReferenceSprite secondaryAsset;
-        public AssetReferenceSprite tertiaryAsset;
-        public AssetReferenceSprite quaternaryAsset;
+        public Sprite primary;
+        public Sprite secondary;
+        public Sprite tertiary;
+        public Sprite quaternary;
 
         #endregion
 
-        public AssetReferenceT<Sprite> Get(ButtonType type)
+        public Sprite Get(ButtonType type)
         {
             switch (type)
             {
                 case ButtonType.Primary:
                 default:
-                    return primaryAsset;
+                    return primary;
                 case ButtonType.Secondary:
-                    return secondaryAsset;
+                    return secondary;
                 case ButtonType.Tertiary:
-                    return tertiaryAsset;
+                    return tertiary;
                 case ButtonType.Quaternary:
-                    return quaternaryAsset;
+                    return quaternary;
             }
         }
     }
