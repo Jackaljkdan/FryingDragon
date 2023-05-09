@@ -263,25 +263,36 @@ namespace JK.Utils
             }
         }
 
-        public static void RevertEverything(GameObject gameObject)
+        public static void RevertEverything(GameObject gameObject, List<UnityEngine.Object> excluded = null)
         {
 #if UNITY_EDITOR
             HashSet<GameObject> reverted = new HashSet<GameObject>();
 
-            PrefabUtility.RevertObjectOverride(gameObject, InteractionMode.AutomatedAction);
-            PrefabUtility.RevertObjectOverride(gameObject.transform, InteractionMode.AutomatedAction);
+            if (excluded == null || !excluded.Contains(gameObject))
+                PrefabUtility.RevertObjectOverride(gameObject, InteractionMode.AutomatedAction);
+
+            if (excluded == null || !excluded.Contains(gameObject.transform))
+                PrefabUtility.RevertObjectOverride(gameObject.transform, InteractionMode.AutomatedAction);
+
             reverted.Add(gameObject);
             UndoUtils.SetDirty(gameObject);
 
             foreach (var component in gameObject.GetComponentsInChildren<Component>(includeInactive: true))
             {
-                PrefabUtility.RevertObjectOverride(component, InteractionMode.AutomatedAction);
-                UndoUtils.SetDirty(component);
+                if (excluded == null || !excluded.Contains(component))
+                {
+                    PrefabUtility.RevertObjectOverride(component, InteractionMode.AutomatedAction);
+                    UndoUtils.SetDirty(component);
+                }
 
                 if (!reverted.Contains(component.gameObject))
                 {
-                    PrefabUtility.RevertObjectOverride(component.gameObject, InteractionMode.AutomatedAction);
-                    PrefabUtility.RevertObjectOverride(component.transform, InteractionMode.AutomatedAction);
+                    if (excluded == null || !excluded.Contains(component.gameObject))
+                        PrefabUtility.RevertObjectOverride(component.gameObject, InteractionMode.AutomatedAction);
+
+                    if (excluded == null || !excluded.Contains(component.transform))
+                        PrefabUtility.RevertObjectOverride(component.transform, InteractionMode.AutomatedAction);
+
                     reverted.Add(component.gameObject);
                     UndoUtils.SetDirty(component.gameObject);
                 }
