@@ -50,10 +50,15 @@ namespace Project.Cooking.Recipes
             if (!(obj is Recipe other))
                 return false;
 
-            if (ingredients.Count != other.ingredients.Count)
+            return MatchIngredients(other.ingredients);
+        }
+
+        public bool MatchIngredients(List<IngredientTypeValue> ingredients)
+        {
+            if (this.ingredients.Count != ingredients.Count)
                 return false;
 
-            return ingredients.OrderBy(x => x).SequenceEqual(other.ingredients.OrderBy(x => x));
+            return this.ingredients.OrderBy(x => x).SequenceEqual(ingredients.OrderBy(x => x));
         }
 
         public override int GetHashCode()
@@ -100,30 +105,31 @@ namespace Project.Cooking.Recipes
 
         public static bool TryFindBestMatch(List<IngredientTypeValue> ingredients, List<Recipe> list, out Recipe bestMatch)
         {
-            return TryFindBestMatch(new Recipe(ingredients), list, out bestMatch);
-        }
-
-        public static bool TryFindBestMatch(Recipe recipe, List<Recipe> list, out Recipe bestMatch)
-        {
-            var index = list.IndexOf(recipe);
-
-            if (index >= 0)
+            foreach (Recipe item in list)
             {
-                bestMatch = list[index];
-                return true;
+                if (item.MatchIngredients(ingredients))
+                {
+                    bestMatch = item;
+                    return true;
+                }
             }
 
-            foreach (var el in list)
+            foreach (Recipe item in list)
             {
-                if (el.CanMakeWith(recipe.ingredients))
+                if (item.CanMakeWith(ingredients))
                 {
-                    bestMatch = el;
+                    bestMatch = item;
                     return true;
                 }
             }
 
             bestMatch = null;
             return false;
+        }
+
+        public static bool TryFindBestMatch(Recipe recipe, List<Recipe> list, out Recipe bestMatch)
+        {
+            return TryFindBestMatch(recipe.ingredients, list, out bestMatch);
         }
     }
 }
