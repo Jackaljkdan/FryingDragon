@@ -9,7 +9,7 @@ namespace JK.Editor
 {
     public class SpriteAssetPostprocessor : AssetPostprocessor
     {
-        void OnPreprocessTexture(Texture2D texture)
+        void OnPreprocessTexture()
         {
             // preprocess only when imported the first time
             if (!assetImporter.importSettingsMissing)
@@ -23,8 +23,16 @@ namespace JK.Editor
             if (!isInSpritesFolder)
                 return;
 
-            textureImporter.textureType = TextureImporterType.Sprite;
-            textureImporter.alphaIsTransparency = true;
+            var settings = new TextureImporterSettings();
+
+            textureImporter.ReadTextureSettings(settings);
+
+            settings.textureType = TextureImporterType.Sprite;
+            settings.alphaIsTransparency = true;
+            settings.spriteMode = (int)SpriteImportMode.Single;
+            settings.spriteMeshType = SpriteMeshType.FullRect;
+
+            textureImporter.SetTextureSettings(settings);
         }
     }
 }

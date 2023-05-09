@@ -1,4 +1,5 @@
 using JK.Interaction;
+using Project.Dispensers;
 using Project.Jam;
 using System;
 using System.Collections;
@@ -22,7 +23,7 @@ namespace Project.Items.Ingredients
 
         public UnityEvent onDispense = new UnityEvent();
 
-        public IngredientTypeValue ingredientType => prefab.GetComponent<Ingredient>().ingredientTypeValue;
+        public IngredientTypeValue IngredientType => prefab.GetComponent<Ingredient>().ingredientTypeValue;
 
         private void Reset()
         {

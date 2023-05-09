@@ -1,4 +1,5 @@
 using JK.Interaction;
+using Project.Dispensers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,13 +9,15 @@ using UnityEngine.Events;
 namespace Project.Items.Ingredients
 {
     [DisallowMultipleComponent]
-    public class IngredientDispenser : ItemDispenser
+    public class IngredientDispenser : ItemDispenser, IDispenser
     {
         #region Inspector
 
 
 
         #endregion
+
+        public IngredientTypeValue IngredientType => grabbableItem.GetComponent<Ingredient>().ingredientTypeValue;
 
         protected override void InteractProtected(RaycastHit hit)
         {

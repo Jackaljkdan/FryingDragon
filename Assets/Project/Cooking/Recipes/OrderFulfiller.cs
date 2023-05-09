@@ -1,5 +1,6 @@
 using JK.Injection;
 using JK.Utils;
+using Project.Dispensers;
 using Project.Items.Ingredients;
 using Project.Jam;
 using System;
@@ -56,7 +57,7 @@ namespace Project.Cooking.Recipes
         {
             Context context = Context.Find(this);
             signalBus = context.Get<SignalBus>(this);
-            levelSettings = context.Get<LevelSettings>(this);
+            levelSettings = context.GetOptional<LevelSettings>();
         }
 
         private void Awake()
@@ -69,12 +70,21 @@ namespace Project.Cooking.Recipes
             signalBus.AddListener<OrderFulfilledSignal>(FulfillRecipe);
 
             foreach (IDispenser dispenser in transform.root.GetComponentsInChildren<IDispenser>())
-            {
-                availableIngredients.Add(dispenser.ingredientType);
-            }
+                availableIngredients.Add(dispenser.IngredientType);
 
-            minIngredients = levelSettings.minEggPerRecipe;
-            maxIngredients = levelSettings.maxEggPerRecipe;
+            if (availableIngredients.Count == 0)
+                Debug.LogWarning("no available ingredients found");
+
+            if (levelSettings != null)
+            {
+                minIngredients = levelSettings.minEggPerRecipe;
+                maxIngredients = levelSettings.maxEggPerRecipe;
+            }
+            else
+            {
+                minIngredients = 2;
+                maxIngredients = 3;
+            }
         }
 
         private void OnDestroy()

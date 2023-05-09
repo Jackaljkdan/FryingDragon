@@ -5,10 +5,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Project.Jam
+namespace Project.Dispensers
 {
     public interface IDispenser
     {
-        IngredientTypeValue ingredientType { get; }
+        IngredientTypeValue IngredientType { get; }
     }
 }

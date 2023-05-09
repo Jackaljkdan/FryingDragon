@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52211f9dd0c777047a6e4cde1cddd890, type: 3}
+  m_Name: ControllerButtonIconSet
+  m_EditorClassIdentifier: 
+  primaryAsset:
+    m_AssetGUID: 7524885d0bfe6ed4b98876020541d934
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  secondaryAsset:
+    m_AssetGUID: aacb3fb8ea2eed441b4469164c1bbc45
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  tertiaryAsset:
+    m_AssetGUID: da9f787a6c3b6164686922a8fa001e47
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  quaternaryAsset:
+    m_AssetGUID: c224da6931cf2db43bfdbe09a5e88ee0
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
