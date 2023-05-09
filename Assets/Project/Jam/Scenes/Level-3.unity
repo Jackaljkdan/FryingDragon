@@ -1012,10 +1012,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 199443152}
     m_Modifications:
-    - target: {fileID: 312132265621460976, guid: a8e0a9c91f52fbd4490c0e24ab47ebcc, type: 3}
-      propertyPath: surfaceObject
-      value: 
-      objectReference: {fileID: 199443150}
     - target: {fileID: 7841658434002840757, guid: a8e0a9c91f52fbd4490c0e24ab47ebcc, type: 3}
       propertyPath: level
       value: 3
@@ -1124,14 +1120,6 @@ PrefabInstance:
       propertyPath: list.Array.data[6]
       value: 
       objectReference: {fileID: 1211267617}
-    - target: {fileID: 7841658435537660889, guid: a8e0a9c91f52fbd4490c0e24ab47ebcc, type: 3}
-      propertyPath: maxIngredients
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7841658435537660889, guid: a8e0a9c91f52fbd4490c0e24ab47ebcc, type: 3}
-      propertyPath: minIngredients
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8e0a9c91f52fbd4490c0e24ab47ebcc, type: 3}
 --- !u!1001 &8846544877688479863
