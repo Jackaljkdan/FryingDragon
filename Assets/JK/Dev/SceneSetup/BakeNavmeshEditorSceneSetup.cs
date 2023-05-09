@@ -11,8 +11,11 @@ using UnityEngine.Events;
 
 namespace JK.Dev.SceneSetup
 {
+    /// <summary>
+    /// Add package by name: com.unity.ai.navigation
+    /// </summary>
     [DisallowMultipleComponent]
-    public class BakeNavmeshEditorSceneSetup : MonoBehaviour, IEditorSceneSetup
+    public class BakeNavmeshEditorSceneSetup : AbstractEditorSceneSetup
     {
         #region Inspector
 
@@ -31,7 +34,7 @@ namespace JK.Dev.SceneSetup
 
         #endregion
 
-        public void EditorSceneSetup()
+        protected override void EditorSceneSetupProtected()
         {
             var scene = gameObject.scene;
 
@@ -48,7 +51,7 @@ namespace JK.Dev.SceneSetup
             AssetDatabase.CreateAsset(surface.navMeshData, $"{Path.GetDirectoryName(scene.path)}/{scene.name}/NavMesh-{scene.name}.asset");
         }
 
-        public string GetEditorSceneSetupTitle()
+        public override string GetEditorSceneSetupTitle()
         {
             return $"Bake {gameObject.scene.name} navmesh";
         }
