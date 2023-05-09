@@ -14,6 +14,8 @@ namespace Project.Jam
         public LayerMask hitLayer;
         public GameObject hitObjectPrefab;
 
+        public float lerpingValue = 0.1f;
+
         #endregion
 
         private GameObject instatiatedPrefab;
@@ -27,7 +29,7 @@ namespace Project.Jam
                 if (!instatiatedPrefab)
                     instatiatedPrefab = Instantiate(hitObjectPrefab, hit.point, Quaternion.identity, transform.root);
 
-                instatiatedPrefab.transform.position = hit.point;
+                instatiatedPrefab.transform.position = Vector3.Lerp(instatiatedPrefab.transform.position, hit.point, lerpingValue);
 
             }
         }
