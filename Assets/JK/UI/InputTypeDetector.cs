@@ -32,8 +32,33 @@ namespace JK.UI
                 }
             }
 
+            if (UnityEngine.Input.GetAxis("KeyboardHorizontal") != 0 || UnityEngine.Input.GetAxis("KeyboardVertical") != 0)
+            {
+                current.Value = InputType.Keyboard;
+                return;
+            }
+
+            if (UnityEngine.Input.GetAxis("KeyboardButtons") != 0)
+            {
+                current.Value = InputType.Keyboard;
+                return;
+            }
+
+            if (InputUtils.DeadFilter(UnityEngine.Input.GetAxis("LeftHorizontal"), controllerDead) != 0
+                || InputUtils.DeadFilter(UnityEngine.Input.GetAxis("LeftVertical"), controllerDead) != 0)
+            {
+                current.Value = InputType.Controller;
+                return;
+            }
+
             if (InputUtils.DeadFilter(UnityEngine.Input.GetAxis("RightHorizontal"), controllerDead) != 0
                 || InputUtils.DeadFilter(UnityEngine.Input.GetAxis("RightVertical"), controllerDead) != 0)
+            {
+                current.Value = InputType.Controller;
+                return;
+            }
+
+            if (UnityEngine.Input.GetAxis("ControllerButtons") != 0)
             {
                 current.Value = InputType.Controller;
                 return;
