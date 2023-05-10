@@ -13,6 +13,7 @@ namespace Project.Items.Ingredients
         Sandwich,
         Steak,
         DragonEgg,
+        Potato,
         box = 1000,
     }
 

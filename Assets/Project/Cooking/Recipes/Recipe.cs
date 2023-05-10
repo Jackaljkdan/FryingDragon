@@ -11,7 +11,10 @@ namespace Project.Cooking.Recipes
     [Serializable]
     public class Recipe
     {
+        public string id;
+        public string name;
         public List<IngredientTypeValue> ingredients;
+        public GameObject recipePrefab;
 
         private struct TypeCount
         {
