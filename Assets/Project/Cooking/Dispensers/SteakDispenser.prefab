@@ -1,67 +1,67 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &2663592797219461471
+--- !u!1001 &3679625294225704088
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2460122497488768629, guid: 8c6a0baf330fdb241ae477b47c64b0e4, type: 3}
+    - target: {fileID: 4030194150144215, guid: 312b21f13b604974c80abeac9d0fa57d, type: 3}
       propertyPath: grabbableItem
       value: 
       objectReference: {fileID: 100000, guid: cf7f049c2f1bd9d43807f05c2a65458c, type: 3}
-    - target: {fileID: 2703085023713962328, guid: 8c6a0baf330fdb241ae477b47c64b0e4, type: 3}
-      propertyPath: m_Name
-      value: SteakDispenser
-      objectReference: {fileID: 0}
-    - target: {fileID: 2705287530671291062, guid: 8c6a0baf330fdb241ae477b47c64b0e4, type: 3}
+    - target: {fileID: 549810502587812884, guid: 312b21f13b604974c80abeac9d0fa57d, type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2705287530671291062, guid: 8c6a0baf330fdb241ae477b47c64b0e4, type: 3}
+    - target: {fileID: 549810502587812884, guid: 312b21f13b604974c80abeac9d0fa57d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2705287530671291062, guid: 8c6a0baf330fdb241ae477b47c64b0e4, type: 3}
+    - target: {fileID: 549810502587812884, guid: 312b21f13b604974c80abeac9d0fa57d, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2705287530671291062, guid: 8c6a0baf330fdb241ae477b47c64b0e4, type: 3}
+    - target: {fileID: 549810502587812884, guid: 312b21f13b604974c80abeac9d0fa57d, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2705287530671291062, guid: 8c6a0baf330fdb241ae477b47c64b0e4, type: 3}
+    - target: {fileID: 549810502587812884, guid: 312b21f13b604974c80abeac9d0fa57d, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2705287530671291062, guid: 8c6a0baf330fdb241ae477b47c64b0e4, type: 3}
+    - target: {fileID: 549810502587812884, guid: 312b21f13b604974c80abeac9d0fa57d, type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 2705287530671291062, guid: 8c6a0baf330fdb241ae477b47c64b0e4, type: 3}
+    - target: {fileID: 549810502587812884, guid: 312b21f13b604974c80abeac9d0fa57d, type: 3}
       propertyPath: m_LocalRotation.y
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 2705287530671291062, guid: 8c6a0baf330fdb241ae477b47c64b0e4, type: 3}
+    - target: {fileID: 549810502587812884, guid: 312b21f13b604974c80abeac9d0fa57d, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 2705287530671291062, guid: 8c6a0baf330fdb241ae477b47c64b0e4, type: 3}
+    - target: {fileID: 549810502587812884, guid: 312b21f13b604974c80abeac9d0fa57d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2705287530671291062, guid: 8c6a0baf330fdb241ae477b47c64b0e4, type: 3}
+    - target: {fileID: 549810502587812884, guid: 312b21f13b604974c80abeac9d0fa57d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2705287530671291062, guid: 8c6a0baf330fdb241ae477b47c64b0e4, type: 3}
+    - target: {fileID: 549810502587812884, guid: 312b21f13b604974c80abeac9d0fa57d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8677510717125754585, guid: 8c6a0baf330fdb241ae477b47c64b0e4, type: 3}
+    - target: {fileID: 551977453641539578, guid: 312b21f13b604974c80abeac9d0fa57d, type: 3}
+      propertyPath: m_Name
+      value: SteakDispenser
+      objectReference: {fileID: 0}
+    - target: {fileID: 6505162782225123451, guid: 312b21f13b604974c80abeac9d0fa57d, type: 3}
       propertyPath: itemToDisplay
       value: 
       objectReference: {fileID: 6477788131068673817, guid: 7b877013430152048870bb5d899dfe37, type: 3}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 8c6a0baf330fdb241ae477b47c64b0e4, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 312b21f13b604974c80abeac9d0fa57d, type: 3}
