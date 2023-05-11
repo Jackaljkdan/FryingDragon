@@ -1,3 +1,4 @@
+using Project.Items;
 using Project.Items.Ingredients;
 using System;
 using System.Collections;
@@ -12,12 +13,22 @@ namespace Project.Cooking
     public struct CookingStartedSignal
     {
         public float cookingTime;
-        public List<IngredientTypeValue> ingredients;
+        public Bowl bowl;
+    }
+
+    public struct CookingFinishedSignal
+    {
+        public Bowl bowl;
+    }
+
+    public struct CookingBurnedSignal
+    {
+        public Bowl bowl;
     }
 
     public struct CookingInterruptedSignal
     {
         public float cookingTime;
-        public List<IngredientTypeValue> ingredients;
+        public Bowl bowl;
     }
 }
