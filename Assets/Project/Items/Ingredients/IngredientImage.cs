@@ -22,6 +22,7 @@ namespace Project.Items.Ingredients
         public float animationOutSeconds = .3f;
 
         public List<Texture2D> ingredientsImages = new();
+        public List<IngredientInfo> ingredientInfos = new();
 
         [Injected]
         private SignalBus signalBus;
@@ -61,8 +62,15 @@ namespace Project.Items.Ingredients
 
         public void SetImage(IngredientTypeValue ingredient)
         {
-            image.texture = ingredientsImages[(int)ingredient];
-            currentIngredient = ingredient;
+            foreach (var info in ingredientInfos)
+            {
+                if (info.type == ingredient)
+                {
+                    image.texture = info.image.texture;
+                    currentIngredient = ingredient;
+                    return;
+                }
+            }
         }
 
         public bool ShowChecked(IngredientTypeValue ingredient)

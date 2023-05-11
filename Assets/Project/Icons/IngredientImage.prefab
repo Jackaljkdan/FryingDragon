@@ -59,6 +59,15 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 54d3d18e1006f7140b118ee77fe16dd3, type: 3}
   - {fileID: 2800000, guid: bc08e29bd5c221945a108430c9da4b6a, type: 3}
   - {fileID: 2800000, guid: 59e7e550ea23b214487ae8c5282cc414, type: 3}
+  ingredientInfos:
+  - type: 0
+    image: {fileID: 21300000, guid: 54d3d18e1006f7140b118ee77fe16dd3, type: 3}
+  - type: 1
+    image: {fileID: 21300000, guid: bc08e29bd5c221945a108430c9da4b6a, type: 3}
+  - type: 2
+    image: {fileID: 21300000, guid: 59e7e550ea23b214487ae8c5282cc414, type: 3}
+  - type: 4
+    image: {fileID: 21300000, guid: 8457caf81f41e3b48916784a1496659c, type: 3}
 --- !u!1 &1126450220596585582
 GameObject:
   m_ObjectHideFlags: 0
