@@ -1,9 +1,12 @@
 using JK.Injection;
 using JK.Utils;
+using Project.Cooking;
+using Project.Cooking.Recipes;
 using Project.Items.Ingredients;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -27,6 +30,9 @@ namespace Project.Items
         public List<Ingredient> ingredients = new();
 
         [Injected]
+        public OrderFulfiller fulfiller;
+
+        [Injected]
         public Transform anchorTransform;
 
         [Injected]
@@ -46,11 +52,22 @@ namespace Project.Items
             Context context = Context.Find(this);
             signalBus = context.Get<SignalBus>(this);
             anchorTransform = context.Get<Transform>(this, "dragon.anchor");
+            fulfiller = context.Get<OrderFulfiller>(this);
         }
 
         private void Awake()
         {
             Inject();
+        }
+
+        private void Start()
+        {
+            signalBus.AddListener<CookingFinishedSignal>(OnCookingFinished);
+        }
+
+        private void OnDestroy()
+        {
+            signalBus.RemoveListener<CookingFinishedSignal>(OnCookingFinished);
         }
 
         private void FixedUpdate()
@@ -130,6 +147,21 @@ namespace Project.Items
             ingredientLostTrigger.SetActive(true);
         }
 
+        public void OnCookingFinished(CookingFinishedSignal signal)
+        {
+            if (signal.bowl != this)
+                return;
+
+            if (IsCookingARecipe(out Recipe recipe))
+            {
+                RemoveAllIngedients();
+                TryAddIngredient(recipe.recipePrefab);
+                GlueIngredients();
+            }
+
+        }
+
+
         public void Drop()
         {
             enabled = false;
@@ -144,6 +176,26 @@ namespace Project.Items
 
             for (int i = ingredients.Count - 1; i >= 0; i--)
                 RemoveIngredient(ingredients[i]);
+        }
+
+        private bool IsCookingARecipe(out Recipe recipe)
+        {
+            recipe = null;
+            if (ingredients == null)
+                return false;
+
+            List<IngredientTypeValue> ingredientsTypes = ingredients.Select(el => el.ingredientTypeValue).ToList();
+
+            foreach (Recipe rec in fulfiller.recipes)
+            {
+                if (rec.MatchIngredients(ingredientsTypes))
+                {
+                    recipe = rec;
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

@@ -36,6 +36,9 @@ namespace Project.Cooking
         public UICookingSlider cookingSlider;
 
         [Injected]
+        public OrderFulfiller fulfiller;
+
+        [Injected]
         private SignalBus signalBus;
 
         [ContextMenu("Stop")]
@@ -64,13 +67,12 @@ namespace Project.Cooking
 
         #endregion
 
-        private List<IngredientTypeValue> ingredients;
-
         [InjectMethod]
         public void Inject()
         {
             Context context = Context.Find(this);
             signalBus = context.Get<SignalBus>(this);
+            fulfiller = context.Get<OrderFulfiller>(this);
         }
 
         private void Awake()
@@ -89,9 +91,7 @@ namespace Project.Cooking
 
             cookingTween = cookingSlider.DOFillWithScale(cookingTime);
 
-            ingredients = brazier.bowl.ingredients.Select(el => el.ingredientTypeValue).ToList();
-
-            signalBus.Invoke(new CookingStartedSignal() { cookingTime = cookingTime, ingredients = ingredients });
+            signalBus.Invoke(new CookingStartedSignal() { cookingTime = cookingTime, bowl = brazier.bowl });
 
             cookingTween.OnComplete(StartOvercooking);
         }
@@ -100,6 +100,7 @@ namespace Project.Cooking
         {
             readyParticles.gameObject.SetActive(true);
             readyParticles.Play();
+            signalBus.Invoke(new CookingFinishedSignal() { bowl = brazier.bowl });
             cookingTween = cookingSlider.DOOverfill(cookingTime);
 
             cookingTween.OnComplete(BurnedRecipe);
@@ -107,6 +108,7 @@ namespace Project.Cooking
 
         public void BurnedRecipe()
         {
+            signalBus.Invoke(new CookingBurnedSignal() { bowl = brazier.bowl });
             cookingSlider.DOScaledown();
             dynamicParticleText.UpdateText(burnedText);
             textParticles.Play(true);
@@ -116,7 +118,7 @@ namespace Project.Cooking
         {
             if (!IsCooking)
                 return;
-            signalBus.Invoke(new CookingInterruptedSignal() { ingredients = ingredients });
+            signalBus.Invoke(new CookingInterruptedSignal() { bowl = brazier.bowl });
             particles.Stop();
             cookingTween?.Kill(false);
             cookingSlider.DOScaledown();
