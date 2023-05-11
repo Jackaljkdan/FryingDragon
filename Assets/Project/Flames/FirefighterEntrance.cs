@@ -21,7 +21,7 @@ namespace Project.Flames
         public Animator animator;
 
         public FirefighterInput input;
-        public FirefighterMovement movement;
+        public CharacterControllerAnimatedMovement movement;
 
         [RuntimeField]
         public float ikWeight;

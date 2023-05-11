@@ -1,4 +1,3 @@
-using JK.Actuators;
 using JK.Utils;
 using System;
 using System.Collections;
@@ -7,10 +6,10 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UIElements;
 
-namespace Project.Flames
+namespace JK.Actuators
 {
     [DisallowMultipleComponent]
-    public class FirefighterMovement : AbstractMovement
+    public class CharacterControllerAnimatedMovement : AbstractMovement
     {
         #region Inspector
 

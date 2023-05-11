@@ -1,3 +1,4 @@
+using JK.Actuators;
 using JK.Injection;
 using JK.Utils;
 using Project.Dragon;
@@ -18,7 +19,7 @@ namespace Project.Flames
         public float joyRotationSpeed = 5f;
         public float joyInputThreshold = 0.1f;
 
-        public FirefighterMovement movement;
+        public CharacterControllerAnimatedMovement movement;
 
         public ParticleSystem extinguisherParticleSystem;
 

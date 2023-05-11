@@ -1,3 +1,4 @@
+using JK.Actuators;
 using JK.Injection;
 using JK.Observables;
 using Project.Dragon;
@@ -19,7 +20,7 @@ namespace Project.Flames
 
         public FirefighterInput input;
 
-        public FirefighterMovement movement;
+        public CharacterControllerAnimatedMovement movement;
 
         public NavMeshAgent agent;
 
