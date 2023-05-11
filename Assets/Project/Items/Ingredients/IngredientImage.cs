@@ -21,7 +21,6 @@ namespace Project.Items.Ingredients
         public float animationInSeconds = 1f;
         public float animationOutSeconds = .3f;
 
-        public List<Texture2D> ingredientsImages = new();
         public List<IngredientInfo> ingredientInfos = new();
 
         [Injected]
