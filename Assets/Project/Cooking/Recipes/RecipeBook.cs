@@ -12,14 +12,14 @@ namespace Project.Cooking.Recipes
     {
         #region Inspector
 
-        public List<Recipe> recipes = new();
+        public List<RecipeScriptable> recipes = new();
 
         #endregion
 
         public Recipe GetRandomRecipe()
         {
             int randomIndex = Random.Range(0, recipes.Count);
-            return recipes[randomIndex];
+            return recipes[randomIndex].recipe;
         }
     }
 }
