@@ -1951,22 +1951,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f0a6df1e04b51742a5e0bf290e0cead, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropButton:
-    axis: Drop
-    isDown: 0
-  mouseInertiaLerp: 0.03
-  rotationSmoothTime: 1
-  maxRotationSpeed: 1
-  joyRotationSpeed: 5
-  joyInputThreshold: 0.1
-  dragonMovement: {fileID: 6142508412747029040}
-  dragonItemHolder: {fileID: 4229203199805098585}
-  dragonInteractore: {fileID: 6544867737126421830}
-  shouldUseMouseInput: 1
+  movement: {fileID: 6142508412747029040}
+  zeroInput: 0
+  onEnable:
+    m_PersistentCalls:
+      m_Calls: []
+  onDisable:
+    m_PersistentCalls:
+      m_Calls: []
+  inertiaLerp: 0.03
+  alwaysRun: 0
   inertia: {x: 0, y: 0, z: 0}
   camera: {fileID: 0}
   cameraTransform: {fileID: 0}
   inputTypeDetector: {fileID: 0}
+  dropButton:
+    axis: Drop
+    isDown: 0
+  dragonItemHolder: {fileID: 4229203199805098585}
+  dragonInteractore: {fileID: 6544867737126421830}
 --- !u!114 &4229203199805098585
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -279,7 +279,7 @@ namespace Project.Jam
         public void InteractAlseep()
         {
             dragonInput.enabled = false;
-            dragonInput.dragonMovement.enabled = false;
+            dragonInput.movement.enabled = false;
 
             Vector3 rotationEuler = Quaternion.LookRotation((farmerAnimator.transform.position - dragonFireAnimation.transform.position).normalized).eulerAngles;
             dragonFireAnimation.transform.DORotate(rotationEuler, 0.2f).OnComplete(() =>
@@ -287,8 +287,8 @@ namespace Project.Jam
                 dragonFireAnimation.PlayFireAnimation(onBreathFireEnd: () =>
                 {
                     dragonInput.enabled = true;
-                    dragonInput.dragonMovement.enabled = true;
-                    dragonInput.dragonMovement.Move(Vector2.zero);
+                    dragonInput.movement.enabled = true;
+                    dragonInput.movement.Move(Vector2.zero);
 
                     isSleeping.Value = false;
                     ScheduleFallAsleep();

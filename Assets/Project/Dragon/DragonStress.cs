@@ -87,6 +87,9 @@ namespace Project.Dragon
 
         #endregion
 
+        private int xHash;
+        private int zHash;
+
         [InjectMethod]
         public void Inject()
         {
@@ -102,6 +105,9 @@ namespace Project.Dragon
 
         private void Start()
         {
+            xHash = Animator.StringToHash("X");
+            zHash = Animator.StringToHash("Z");
+
             isInFrenzy = false;
             isEmbarassed = false;
         }
@@ -134,7 +140,7 @@ namespace Project.Dragon
             stress.Value = 1;
             isInFrenzy = true;
             dragonInput.enabled = false;
-            dragonInput.dragonMovement.enabled = false;
+            dragonInput.movement.enabled = false;
             agent.enabled = true;
             dragonItemHolder.DropItem();
             onFrenzy.Invoke();
@@ -154,7 +160,7 @@ namespace Project.Dragon
         {
             dragonAnimator.CrossFade("Move", 0.2f);
             isEmbarassed = false;
-            dragonInput.dragonMovement.enabled = true;
+            dragonInput.movement.enabled = true;
             dragonInput.enabled = true;
         }
 
@@ -205,8 +211,8 @@ namespace Project.Dragon
 
             Vector3 dragonRelativeVector = Vector3.ClampMagnitude(dragonTransform.InverseTransformDirection(vector), 2);
 
-            dragonAnimator.SetFloat(dragonInput.dragonMovement.xHash, dragonRelativeVector.x);
-            dragonAnimator.SetFloat(dragonInput.dragonMovement.zHash, dragonRelativeVector.z);
+            dragonAnimator.SetFloat(xHash, dragonRelativeVector.x);
+            dragonAnimator.SetFloat(zHash, dragonRelativeVector.z);
 
             if (isTooFar)
                 return;
@@ -217,8 +223,8 @@ namespace Project.Dragon
                 return;
             }
 
-            dragonAnimator.SetFloat(dragonInput.dragonMovement.xHash, 0);
-            dragonAnimator.SetFloat(dragonInput.dragonMovement.zHash, 0);
+            dragonAnimator.SetFloat(xHash, 0);
+            dragonAnimator.SetFloat(zHash, 0);
 
             dragonFireAnimation.PlayFireAnimation(onBreathFireEnd: () => Invoke(nameof(StopFiring), 2));
             chosenFlammable.StartFire();
