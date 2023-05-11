@@ -27,7 +27,7 @@ namespace Project.Flames
         public DragonInteractore interactore;
 
         [RuntimeField]
-        public Vector2 inertia;
+        public Vector3 inertia;
 
         [Injected]
         public new Camera camera;
@@ -52,8 +52,7 @@ namespace Project.Flames
 
         private void Start()
         {
-            Vector3 fwd = movement.transform.forward;
-            inertia = new Vector2(fwd.x, fwd.z);
+            inertia = movement.transform.forward;
         }
 
         private void OnEnable()
@@ -64,16 +63,14 @@ namespace Project.Flames
         private void OnDisable()
         {
             interactore.enabled = false;
-            Vector3 fwd = movement.transform.forward;
-            movement.Move(new Vector2(0, 0), new Vector2(fwd.x, fwd.z));
+            movement.Move(Vector3.zero);
         }
 
         bool shouldUseMouseInput = false;
         private Vector3 lastMousePosition = Vector3.zero;
 
-        private Vector2 GetTargetForward()
+        private Vector3 GetTargetForward()
         {
-
             Vector3 myScreenPosition = ScreenUtils.NormalizePosition(camera.WorldToScreenPoint(movement.transform.position).WithZ(0));
             Vector3 currentMousePos = Input.mousePosition;
             float horizontal = Input.GetAxis("RightHorizontal");
@@ -88,27 +85,26 @@ namespace Project.Flames
             lastMousePosition = currentMousePos;
 
             if (shouldUseMouseInput)
-                return (ScreenUtils.NormalizePosition(currentMousePos) - myScreenPosition).normalized;
+                return (ScreenUtils.NormalizePosition(currentMousePos) - myScreenPosition).WithSwappedYZ().normalized;
 
 
-            return new Vector2(horizontal, vertical).normalized;
+            return new Vector3(horizontal, 0, vertical).normalized;
         }
 
         private void Update()
         {
-            Vector3 myScreenPosition = ScreenUtils.NormalizePosition(camera.WorldToScreenPoint(movement.transform.position).WithZ(0));
-            Vector2 targetForward = GetTargetForward();
+            Vector3 targetForward = GetTargetForward();
 
             float run = 2;
 
-            inertia = Vector2.Lerp(inertia, targetForward, TimeUtils.AdjustToFrameRate(mouseInertiaLerp * run)).normalized;
+            inertia = Vector3.Lerp(inertia, targetForward, TimeUtils.AdjustToFrameRate(mouseInertiaLerp * run)).normalized;
 
             Vector3 cameraRelative = Input.GetAxis("Vertical") * run * cameraTransform.forward.WithY(0).normalized;
             cameraRelative += Input.GetAxis("Horizontal") * run * cameraTransform.right.WithY(0).normalized;
 
             Vector3 relative = movement.transform.InverseTransformDirection(cameraRelative);
 
-            movement.Move(new Vector2(relative.x, relative.z), inertia);
+            movement.Move(relative, inertia);
         }
     }
 }

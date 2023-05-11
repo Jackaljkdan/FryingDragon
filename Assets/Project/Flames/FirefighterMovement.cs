@@ -1,4 +1,4 @@
-using DG.Tweening;
+using JK.Actuators;
 using JK.Utils;
 using System;
 using System.Collections;
@@ -10,19 +10,20 @@ using UnityEngine.UIElements;
 namespace Project.Flames
 {
     [DisallowMultipleComponent]
-    public class FirefighterMovement : MonoBehaviour
+    public class FirefighterMovement : AbstractMovement
     {
         #region Inspector
 
         public float speed = 1;
-        public float rotationSpeed = 1;
+        public float gravity = -9;
 
         public Animator animator;
-        public IkAnchors ikAnchors;
         public CharacterController characterController;
 
         [RuntimeField]
-        public float ikWeight;
+        public Vector3 movementInput;
+        [RuntimeField]
+        public Vector3 forwardInput;
 
         [RuntimeField]
         public Transform characterControllerTransform;
@@ -44,13 +45,10 @@ namespace Project.Flames
 
         #endregion
 
-        private int xHash;
-        private int zHash;
-
-        [RuntimeField]
-        public Vector2 movementInput;
-        [RuntimeField]
-        public Vector2 rotationInput;
+        [HideInInspector]
+        public int xHash;
+        [HideInInspector]
+        public int zHash;
 
         private void Awake()
         {
@@ -59,8 +57,7 @@ namespace Project.Flames
 
             characterControllerTransform = characterController.transform;
 
-            Vector3 fwd = transform.forward;
-            rotationInput = new Vector2(fwd.x, fwd.z);
+            forwardInput = transform.forward;
         }
 
         private void Start()
@@ -68,13 +65,13 @@ namespace Project.Flames
 
         }
 
-        public void Move(Vector2 movementInput, Vector2 rotationInput)
+        public override void Move(Vector3 movementInput, Vector3 forwardInput)
         {
             this.movementInput = movementInput;
-            this.rotationInput = rotationInput;
+            this.forwardInput = forwardInput;
 
             animator.SetFloat(xHash, movementInput.x);
-            animator.SetFloat(zHash, movementInput.y);
+            animator.SetFloat(zHash, movementInput.z);
         }
 
         private void OnAnimatorMove()
@@ -87,34 +84,11 @@ namespace Project.Flames
                 localDelta.x = 0;
 
             adjustedDelta = characterControllerTransform.TransformDirection(localDelta).WithY(0).normalized * magnitude * speed;
-            characterController.Move(adjustedDelta.WithY(-9));
+            characterController.Move(adjustedDelta.WithY(gravity));
 
-            characterControllerTransform.rotation = Quaternion.LookRotation(new Vector3(rotationInput.x, 0, rotationInput.y));
+            characterControllerTransform.rotation = Quaternion.LookRotation(forwardInput);
 
-            movementInput = Vector2.zero;
-        }
-
-        private void OnAnimatorIK(int layerIndex)
-        {
-            ikAnchors.SetIKWithWeight(animator, ikWeight);
-        }
-
-        private Tween ikWeightTween;
-
-        public Tween DOIkWeight(float endValue, float seconds)
-        {
-            ikWeightTween?.Kill();
-
-            ikWeightTween = DOTween.To(
-                () => ikWeight,
-                val => ikWeight = val,
-                endValue,
-                seconds
-            );
-
-            ikWeightTween.SetTarget(this);
-
-            return ikWeightTween;
+            movementInput = Vector3.zero;
         }
     }
 }

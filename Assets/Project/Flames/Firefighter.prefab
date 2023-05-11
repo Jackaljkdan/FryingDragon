@@ -347,7 +347,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   available: []
-  highlighting: {fileID: 0}
+  highlighting:
+    _value: {fileID: 0}
+    onChange:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!114 &6890563808199022190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1888,6 +1892,7 @@ GameObject:
   - component: {fileID: 8888892721434103668}
   - component: {fileID: 7143162459236915358}
   - component: {fileID: 6759358304728985591}
+  - component: {fileID: 9214497049080907722}
   - component: {fileID: 2224744768708992921}
   - component: {fileID: 1478285804688941656}
   - component: {fileID: 8548467145901124414}
@@ -1953,17 +1958,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  rotationSpeed: 2.5
+  gravity: -9
   animator: {fileID: 8888892721434103668}
-  ikAnchors: {fileID: 4805856598668312093}
   characterController: {fileID: 8548467145901124414}
-  ikWeight: 0
+  movementInput: {x: 0, y: 0, z: 0}
+  forwardInput: {x: 0, y: 0, z: 0}
   characterControllerTransform: {fileID: 0}
   deltaPosition: {x: 0, y: 0, z: 0}
   localDelta: {x: 0, y: 0, z: 0}
   adjustedDelta: {x: 0, y: 0, z: 0}
-  movementInput: {x: 0, y: 0}
-  rotationInput: {x: 0, y: 0}
+  xHash: 0
+  zHash: 0
 --- !u!114 &6759358304728985591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1977,6 +1982,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseInertiaLerp: 0.1
+  joyRotationSpeed: 5
+  joyInputThreshold: 0.1
   movement: {fileID: 7143162459236915358}
   extinguisherParticleSystem: {fileID: 2129856533312100134}
   extinguisherAudioSource: {fileID: 6524435602954943430}
@@ -1984,6 +1991,21 @@ MonoBehaviour:
   inertia: {x: 0, y: 0}
   camera: {fileID: 0}
   cameraTransform: {fileID: 0}
+--- !u!114 &9214497049080907722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8888892721426773448}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f9065e80a4f7bc4ca6cab15974cccf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ikAnchors: {fileID: 4805856598668312093}
+  ikWeight: 1
+  animator: {fileID: 8888892721434103668}
 --- !u!114 &2224744768708992921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1997,6 +2019,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ikAnchors: {fileID: 5546426182048317732}
+  ikApplier: {fileID: 9214497049080907722}
   animator: {fileID: 8888892721434103668}
   input: {fileID: 6759358304728985591}
   movement: {fileID: 7143162459236915358}

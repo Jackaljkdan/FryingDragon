@@ -1,4 +1,5 @@
 using DG.Tweening;
+using JK.Actuators;
 using JK.Utils;
 using System;
 using System.Collections;
@@ -14,6 +15,8 @@ namespace Project.Flames
         #region Inspector
 
         public IkAnchors ikAnchors;
+
+        public IkApplier ikApplier;
 
         public Animator animator;
 
@@ -74,8 +77,9 @@ namespace Project.Flames
         {
             input.enabled = true;
             movement.enabled = true;
-            movement.ikWeight = 0;
-            movement.DOIkWeight(1, 0.5f);
+            ikApplier.enabled = true;
+            ikApplier.ikWeight = 0;
+            ikApplier.DOIkWeight(1, 0.5f);
             enabled = false;
         }
     }
