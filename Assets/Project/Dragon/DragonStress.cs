@@ -1,7 +1,6 @@
 using JK.Injection;
 using JK.Observables;
 using JK.Utils;
-using Project.Character;
 using Project.Flames;
 using Project.Items.Ingredients;
 using System;

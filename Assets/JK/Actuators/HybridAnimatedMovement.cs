@@ -1,4 +1,3 @@
-using JK.Actuators;
 using JK.Injection;
 using JK.Utils;
 using System;
@@ -8,10 +7,10 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-namespace Project.Character
+namespace JK.Actuators
 {
     [DisallowMultipleComponent]
-    public class DragonMovement : AbstractMovement
+    public class HybridAnimatedMovement : AbstractMovement
     {
         #region Inspector
 
@@ -22,11 +21,10 @@ namespace Project.Character
         [RuntimeField]
         public Transform characterControllerTransform;
 
-        public float speed = 5.0f;
-        public float lerpSpeed = 0.15f;
-        public float rotationSpeed = 10.0f;
-
+        public float speed = 1.0f;
         public float xLerp = 0.1f;
+
+        public float gravity = -9;
 
         [RuntimeField]
         public Vector3 movementInput;
@@ -126,7 +124,7 @@ namespace Project.Character
                 localDelta.x = 0;
 
             adjustedDelta = myTransform.TransformDirection(localDelta).WithY(0).normalized * magnitude * speed;
-            characterController.Move(adjustedDelta.WithY(-9));
+            characterController.Move(adjustedDelta.WithY(TimeUtils.AdjustToFrameRate(gravity)));
 
             movementInput = Vector3.zero;
         }

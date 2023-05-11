@@ -1,6 +1,5 @@
 using JK.Injection;
 using JK.Utils;
-using Project.Character;
 using Project.Dragon;
 using System;
 using System.Collections;

@@ -1,7 +1,7 @@
+using JK.Actuators;
 using JK.Injection;
 using JK.UI;
 using JK.Utils;
-using Project.Character;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -23,7 +23,7 @@ namespace Project.Dragon
         public float joyRotationSpeed = 5f;
         public float joyInputThreshold = 0.1f;
 
-        public DragonMovement dragonMovement;
+        public HybridAnimatedMovement dragonMovement;
         public DragonItemHolder dragonItemHolder;
         public DragonInteractore dragonInteractore;
 
@@ -44,7 +44,7 @@ namespace Project.Dragon
 
         private void Reset()
         {
-            dragonMovement = GetComponent<DragonMovement>();
+            dragonMovement = GetComponent<HybridAnimatedMovement>();
             dragonItemHolder = GetComponent<DragonItemHolder>();
         }
 
