@@ -21,6 +21,8 @@ namespace Project.Cooking.Recipes
 
         public UnityEvent onRecipeFulfilled;
 
+        public RecipeBook recipeBook;
+
         [DebugField]
         public List<IngredientTypeValue> availableIngredients = new();
 
@@ -49,6 +51,11 @@ namespace Project.Cooking.Recipes
             {
                 RequestNewRecipe();
             }
+        }
+
+        private void Reset()
+        {
+            recipeBook = GetComponent<RecipeBook>();
         }
         #endregion
 
@@ -112,7 +119,7 @@ namespace Project.Cooking.Recipes
             if (recipes.Count >= maxRecipes)
                 return;
 
-            Recipe newRecipe = new(GetRandomIngredients(UnityEngine.Random.Range(minIngredients, maxIngredients + 1)));
+            Recipe newRecipe = recipeBook.GetRandomRecipe();
             recipes.Add(newRecipe);
             signalBus.Invoke(new NewRecipeSignal() { recipe = newRecipe });
         }
