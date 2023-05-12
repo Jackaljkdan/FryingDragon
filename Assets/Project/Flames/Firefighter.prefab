@@ -1981,16 +1981,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f274020d7845394abc61e9699f3b0cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movement: {fileID: 7143162459236915358}
+  zeroInput: 0
+  onEnable:
+    m_PersistentCalls:
+      m_Calls: []
+  onDisable:
+    m_PersistentCalls:
+      m_Calls: []
+  inertiaLerp: 0.1
+  alwaysRun: 1
+  inertia: {x: 0, y: 0, z: 0}
+  camera: {fileID: 0}
+  cameraTransform: {fileID: 0}
+  inputTypeDetector: {fileID: 0}
   mouseInertiaLerp: 0.1
   joyRotationSpeed: 5
   joyInputThreshold: 0.1
-  movement: {fileID: 7143162459236915358}
   extinguisherParticleSystem: {fileID: 2129856533312100134}
   extinguisherAudioSource: {fileID: 6524435602954943430}
   interactore: {fileID: 4326236578885633409}
-  inertia: {x: 0, y: 0}
-  camera: {fileID: 0}
-  cameraTransform: {fileID: 0}
 --- !u!114 &9214497049080907722
 MonoBehaviour:
   m_ObjectHideFlags: 0
