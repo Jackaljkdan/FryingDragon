@@ -99,7 +99,7 @@ namespace Project.Flames
             firefighterInput.extinguisherParticleSystem.Play();
             firefighterInput.enabled = false;
 
-            Transform firefighterTransform = firefighterInput.movement.characterControllerTransform;
+            Transform firefighterTransform = firefighterInput.movement.transform;
             firefighterTransform.DORotate(
                 Quaternion.LookRotation((transform.position - firefighterTransform.position).WithY(0).normalized).eulerAngles,
                 0.5f
