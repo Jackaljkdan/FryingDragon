@@ -29,6 +29,8 @@ namespace JK.Actuators
         [RuntimeField]
         public Vector3 movementInput;
         [RuntimeField]
+        public Vector3 localMovementInput;
+        [RuntimeField]
         public Vector3 forwardInput;
 
         [RuntimeField]
@@ -37,14 +39,11 @@ namespace JK.Actuators
         [RuntimeField]
         public Vector3 deltaPosition;
 
-        [RuntimeField]
-        public Quaternion deltaRotation;
+        [DebugField]
+        public float deltaMagnitude;
 
         [DebugField]
-        public Vector3 localDelta;
-
-        [DebugField]
-        public Vector3 adjustedDelta;
+        public Vector3 actualMovement;
 
         [Injected]
         public Transform mainCamera;
@@ -79,7 +78,6 @@ namespace JK.Actuators
             zHash = Animator.StringToHash("Z");
 
             xInertia = 0;
-            deltaRotation = Quaternion.identity;
             forwardInput = transform.forward;
 
             characterControllerTransform = characterController.transform;
@@ -102,14 +100,18 @@ namespace JK.Actuators
             this.movementInput = movementInput;
             this.forwardInput = forwardInput;
 
-            float rightDot = Vector3.Dot(transform.right, forwardInput);
+            Transform myTransform = transform;
+
+            localMovementInput = myTransform.InverseTransformDirection(movementInput);
+
+            float rightDot = Vector3.Dot(myTransform.right, forwardInput);
             rightDot = Mathf.Min(1, Mathf.Max(-1, rightDot * 100));
 
-            float xTarget = movementInput.x != 0 ? movementInput.x : rightDot;
+            float xTarget = localMovementInput.x != 0 ? localMovementInput.x : rightDot;
             xInertia = Mathf.Lerp(xInertia, xTarget, TimeUtils.AdjustToFrameRate(xLerp));
 
             animator.SetFloat(xHash, xInertia);
-            animator.SetFloat(zHash, movementInput.z);
+            animator.SetFloat(zHash, localMovementInput.z);
         }
 
         private void OnAnimatorMove()
@@ -117,14 +119,10 @@ namespace JK.Actuators
             Transform myTransform = transform;
 
             deltaPosition = animator.deltaPosition;
-            float magnitude = deltaPosition.magnitude;
+            deltaMagnitude = deltaPosition.magnitude;
 
-            localDelta = myTransform.InverseTransformDirection(deltaPosition);
-            if (movementInput.x == 0)
-                localDelta.x = 0;
-
-            adjustedDelta = myTransform.TransformDirection(localDelta).WithY(0).normalized * magnitude * speed;
-            characterController.Move(adjustedDelta.WithY(TimeUtils.AdjustToFrameRate(gravity)));
+            actualMovement = movementInput.normalized * deltaMagnitude * speed;
+            characterController.Move(actualMovement.WithY(TimeUtils.AdjustToFrameRate(gravity)));
 
             movementInput = Vector3.zero;
         }
@@ -134,8 +132,6 @@ namespace JK.Actuators
             rb.MoveRotation(Quaternion.LookRotation(forwardInput));
             rb.MovePosition(characterControllerTransform.position);
             characterControllerTransform.rotation = rb.rotation;
-
-            deltaRotation = Quaternion.identity;
         }
     }
 }

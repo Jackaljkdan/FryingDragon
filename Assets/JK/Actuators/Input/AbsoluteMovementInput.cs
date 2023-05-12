@@ -95,9 +95,7 @@ namespace JK.Actuators.Input
 
             cameraRelative = Vector3.ClampMagnitude(cameraRelative, run);
 
-            Vector3 movementRelative = movement.transform.InverseTransformDirection(cameraRelative);
-
-            movement.Move(movementRelative, inertia);
+            movement.Move(cameraRelative, inertia);
         }
     }
 }

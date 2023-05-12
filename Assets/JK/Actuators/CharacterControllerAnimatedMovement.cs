@@ -22,19 +22,21 @@ namespace JK.Actuators
         [RuntimeField]
         public Vector3 movementInput;
         [RuntimeField]
+        public Vector3 localMovementInput;
+        [RuntimeField]
         public Vector3 forwardInput;
 
         [RuntimeField]
         public Transform characterControllerTransform;
 
-        [RuntimeField]
+        [DebugField]
         public Vector3 deltaPosition;
 
         [DebugField]
-        public Vector3 localDelta;
+        public float deltaMagnitude;
 
         [DebugField]
-        public Vector3 adjustedDelta;
+        public Vector3 actualMovement;
 
         private void Reset()
         {
@@ -69,21 +71,19 @@ namespace JK.Actuators
             this.movementInput = movementInput;
             this.forwardInput = forwardInput;
 
-            animator.SetFloat(xHash, movementInput.x);
-            animator.SetFloat(zHash, movementInput.z);
+            localMovementInput = transform.InverseTransformDirection(movementInput);
+
+            animator.SetFloat(xHash, localMovementInput.x);
+            animator.SetFloat(zHash, localMovementInput.z);
         }
 
         private void OnAnimatorMove()
         {
             deltaPosition = animator.deltaPosition;
-            float magnitude = deltaPosition.magnitude;
+            deltaMagnitude = deltaPosition.magnitude;
 
-            localDelta = characterControllerTransform.InverseTransformDirection(deltaPosition);
-            if (movementInput.x == 0)
-                localDelta.x = 0;
-
-            adjustedDelta = characterControllerTransform.TransformDirection(localDelta).WithY(0).normalized * magnitude * speed;
-            characterController.Move(adjustedDelta.WithY(gravity));
+            actualMovement = movementInput.normalized * deltaMagnitude * speed;
+            characterController.Move(actualMovement.WithY(TimeUtils.AdjustToFrameRate(gravity)));
 
             characterControllerTransform.rotation = Quaternion.LookRotation(forwardInput);
 
