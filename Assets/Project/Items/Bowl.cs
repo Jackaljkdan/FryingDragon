@@ -19,9 +19,11 @@ namespace Project.Items
         #region Inspector
 
         public GameObject ingredientLostTrigger;
+        public GameObject burnedPrefab;
 
         public Transform spawnAnchor;
         public Transform boxSpawnAnchor;
+        public Transform recipeSpawnAnchor;
         public Rigidbody rb;
 
         public Transform dropForceAnchor;
@@ -63,11 +65,13 @@ namespace Project.Items
         private void Start()
         {
             signalBus.AddListener<CookingFinishedSignal>(OnCookingFinished);
+            signalBus.AddListener<CookingBurnedSignal>(OnCookingBurned);
         }
 
         private void OnDestroy()
         {
             signalBus.RemoveListener<CookingFinishedSignal>(OnCookingFinished);
+            signalBus.RemoveListener<CookingBurnedSignal>(OnCookingBurned);
         }
 
         private void FixedUpdate()
@@ -76,10 +80,16 @@ namespace Project.Items
             rb.MoveRotation(anchorTransform.rotation);
         }
 
+
+        public void TryAddIngredient(GameObject prefab, Transform spawnPosition)
+        {
+            GameObject spawned = Instantiate(prefab, spawnPosition.position, UnityEngine.Random.rotation, transform.root);
+            AddIngredient(spawned.GetComponent<Ingredient>());
+        }
+
         public void TryAddIngredient(GameObject prefab)
         {
-            GameObject spawned = Instantiate(prefab, spawnAnchor.position, UnityEngine.Random.rotation, transform.root);
-            AddIngredient(spawned.GetComponent<Ingredient>());
+            TryAddIngredient(prefab, spawnAnchor);
         }
 
         public void TryAddBox(GameObject prefab)
@@ -147,7 +157,7 @@ namespace Project.Items
             ingredientLostTrigger.SetActive(true);
         }
 
-        public void OnCookingFinished(CookingFinishedSignal signal)
+        private void OnCookingFinished(CookingFinishedSignal signal)
         {
             if (signal.bowl != this)
                 return;
@@ -155,12 +165,22 @@ namespace Project.Items
             if (IsCookingARecipe(out Recipe recipe))
             {
                 RemoveAllIngedients();
-                TryAddIngredient(recipe.recipePrefab);
+                TryAddIngredient(recipe.recipePrefab, recipeSpawnAnchor);
                 GlueIngredients();
             }
 
         }
 
+        private void OnCookingBurned(CookingBurnedSignal signal)
+        {
+            if (signal.bowl != this)
+                return;
+
+            RemoveAllIngedients();
+            TryAddIngredient(burnedPrefab, recipeSpawnAnchor);
+            GlueIngredients();
+
+        }
 
         public void Drop()
         {

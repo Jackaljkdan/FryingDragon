@@ -469,6 +469,7 @@ Transform:
   - {fileID: 8515668083240736286}
   - {fileID: 2799198662504349591}
   - {fileID: 249145919677954701}
+  - {fileID: 5879746733632707609}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -485,11 +486,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ingredientLostTrigger: {fileID: 1007798851499646501}
+  burnedPrefab: {fileID: 1269640322806982173, guid: dcc41986d81562b46984d8ae8224f88b, type: 3}
   spawnAnchor: {fileID: 3329629542998326953}
   boxSpawnAnchor: {fileID: 8515668083240736286}
+  recipeSpawnAnchor: {fileID: 5879746733632707609}
   rb: {fileID: 1009923789983941946}
   dropForceAnchor: {fileID: 4140393461707846006}
   ingredients: []
+  fulfiller: {fileID: 0}
   anchorTransform: {fileID: 0}
 --- !u!54 &1009923789983941946
 Rigidbody:
@@ -694,6 +698,37 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.2, y: 0.023, z: 0.25}
   m_Center: {x: 0, y: 0.012, z: 0}
+--- !u!1 &9151013279526978016
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5879746733632707609}
+  m_Layer: 6
+  m_Name: RecipeSpawnAnchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5879746733632707609
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9151013279526978016}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.072, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4557304887982568404}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &7217639868401999443
 PrefabInstance:
   m_ObjectHideFlags: 0

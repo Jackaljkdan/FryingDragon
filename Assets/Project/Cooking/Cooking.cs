@@ -108,6 +108,7 @@ namespace Project.Cooking
 
         public void BurnedRecipe()
         {
+            StopCooking();
             signalBus.Invoke(new CookingBurnedSignal() { bowl = brazier.bowl });
             cookingSlider.DOScaledown();
             dynamicParticleText.UpdateText(burnedText);
@@ -116,12 +117,13 @@ namespace Project.Cooking
 
         public void StopCooking()
         {
-            if (!IsCooking)
-                return;
-            signalBus.Invoke(new CookingInterruptedSignal() { bowl = brazier.bowl });
             particles.Stop();
             cookingTween?.Kill(false);
             cookingSlider.DOScaledown();
+
+            if (!IsCooking)
+                return;
+            signalBus.Invoke(new CookingInterruptedSignal() { bowl = brazier.bowl });
         }
     }
 }

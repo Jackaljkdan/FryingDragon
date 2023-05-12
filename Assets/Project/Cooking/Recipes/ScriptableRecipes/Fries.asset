@@ -16,3 +16,4 @@ MonoBehaviour:
     name: Fries
     ingredients: 0400000004000000
     recipePrefab: {fileID: 191648, guid: 41546065381f78a469a86096ed92df15, type: 3}
+    burnedRecipePrefab: {fileID: 483159452823713128, guid: 64977e123a028794590a6d1e61806ee9, type: 3}
