@@ -687,7 +687,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7841658434545874805}
-  - component: {fileID: 7841658434545874802}
+  - component: {fileID: 7927234179790047694}
   m_Layer: 0
   m_Name: RecipeRequester
   m_TagString: Untagged
@@ -710,7 +710,7 @@ Transform:
   m_Father: {fileID: 7841658434448798123}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7841658434545874802
+--- !u!114 &7927234179790047694
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -719,13 +719,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 7841658434545874804}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e6b86af9f66d5245b75a31aca3aba83, type: 3}
+  m_Script: {fileID: 11500000, guid: b3f8f5d7232a6bd45ba51db6b1a73ddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   minWaitSeconds: 1
   maxWaitSeconds: 3
-  orderFulfiller: {fileID: 7841658435537660889}
-  nextRecipeTime: 0
+  nextRecipeSeconds: 0
+  orderFulfiller: {fileID: 0}
+  availableIngredients: 
+  minIngredients: 2
+  maxIngredients: 5
+  levelSettings: {fileID: 0}
 --- !u!1 &7841658434659532827
 GameObject:
   m_ObjectHideFlags: 0
@@ -851,10 +855,6 @@ MonoBehaviour:
   onRecipeFulfilled:
     m_PersistentCalls:
       m_Calls: []
-  availableIngredients: 
-  minIngredients: 2
-  maxIngredients: 5
-  levelSettings: {fileID: 0}
 --- !u!114 &7841658435537660886
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -42,25 +42,27 @@ namespace Project.Cooking.Recipes
 
         #endregion
 
+        protected Context context;
+
         [InjectMethod]
-        public void Inject()
+        public virtual void Inject()
         {
-            Context context = Context.Find(this);
+            context = Context.Find(this);
             orderFulfiller = context.Get<OrderFulfiller>(this);
         }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             Inject();
         }
 
-        private void Start()
+        protected virtual void Start()
         {
             Invoke(nameof(RequestRecipeAndReschedule), 2f);
             orderFulfiller.onRecipeFulfilled.AddListener(ScheduleNextRequest);
         }
 
-        private void OnDestroy()
+        protected virtual void OnDestroy()
         {
             orderFulfiller.onRecipeFulfilled.RemoveListener(ScheduleNextRequest);
         }

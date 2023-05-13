@@ -1,4 +1,5 @@
 using JK.Injection;
+using JK.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,6 +16,8 @@ namespace Project.Jam.Tutorial
         public float initialDelaySeconds = 2.5f;
 
         public string message;
+
+        public bool showInEditor = true;
 
         [Injected]
         public TutorialPopup popup;
@@ -35,6 +38,9 @@ namespace Project.Jam.Tutorial
 
         private void Start()
         {
+            if (PlatformUtils.IsEditor && !showInEditor)
+                return;
+
             Invoke(nameof(Welcome), initialDelaySeconds);
         }
 

@@ -309,7 +309,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 327892373}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &358589346
 MonoBehaviour:
@@ -326,6 +326,7 @@ MonoBehaviour:
   initialDelaySeconds: 2.5
   message: Wha- How?! Someone sabotaged our dispenser. Must be that worker who left
     us. We don't have time to fix it, we are losing our clients! GO!
+  showInEditor: 0
   popup: {fileID: 8846544877688479864}
 --- !u!4 &630733359 stripped
 Transform:
@@ -1212,6 +1213,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 199443152}
     m_Modifications:
+    - target: {fileID: 3692166409106200399, guid: a8e0a9c91f52fbd4490c0e24ab47ebcc, type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 7841658434002840757, guid: a8e0a9c91f52fbd4490c0e24ab47ebcc, type: 3}
       propertyPath: level
       value: 5
@@ -1320,15 +1325,8 @@ PrefabInstance:
       propertyPath: list.Array.data[6]
       value: 
       objectReference: {fileID: 1158767988}
-    - target: {fileID: 7841658435537660889, guid: a8e0a9c91f52fbd4490c0e24ab47ebcc, type: 3}
-      propertyPath: maxIngredients
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7841658435537660889, guid: a8e0a9c91f52fbd4490c0e24ab47ebcc, type: 3}
-      propertyPath: minIngredients
-      value: 2
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7841658434545874802, guid: a8e0a9c91f52fbd4490c0e24ab47ebcc, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a8e0a9c91f52fbd4490c0e24ab47ebcc, type: 3}
 --- !u!1001 &8123803756839447886
 PrefabInstance:

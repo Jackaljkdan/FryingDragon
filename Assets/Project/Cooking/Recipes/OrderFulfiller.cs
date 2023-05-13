@@ -1,6 +1,5 @@
 using JK.Injection;
 using JK.Utils;
-using Project.Dispensers;
 using Project.Items.Ingredients;
 using Project.Jam;
 using System;
@@ -21,20 +20,8 @@ namespace Project.Cooking.Recipes
 
         public UnityEvent onRecipeFulfilled;
 
-        [DebugField]
-        public List<IngredientTypeValue> availableIngredients = new();
-
-        [DebugField]
-        public int minIngredients = 2;
-
-        [DebugField]
-        public int maxIngredients = 5;
-
         [Injected]
         private SignalBus signalBus;
-
-        [Injected]
-        public LevelSettings levelSettings;
 
         #endregion
 
@@ -43,7 +30,6 @@ namespace Project.Cooking.Recipes
         {
             Context context = Context.Find(this);
             signalBus = context.Get<SignalBus>(this);
-            levelSettings = context.GetOptional<LevelSettings>();
         }
 
         private void Awake()
@@ -54,23 +40,6 @@ namespace Project.Cooking.Recipes
         private void Start()
         {
             signalBus.AddListener<OrderFulfilledSignal>(FulfillRecipe);
-
-            foreach (IDispenser dispenser in transform.root.GetComponentsInChildren<IDispenser>())
-                availableIngredients.Add(dispenser.IngredientType);
-
-            if (availableIngredients.Count == 0)
-                Debug.LogWarning("no available ingredients found");
-
-            if (levelSettings != null)
-            {
-                minIngredients = levelSettings.minEggPerRecipe;
-                maxIngredients = levelSettings.maxEggPerRecipe;
-            }
-            else
-            {
-                minIngredients = 2;
-                maxIngredients = 3;
-            }
         }
 
         private void OnDestroy()
@@ -95,19 +64,6 @@ namespace Project.Cooking.Recipes
             Recipe newRecipe = recipeFn();
             recipes.Add(newRecipe);
             signalBus.Invoke(new NewRecipeSignal() { recipe = newRecipe });
-        }
-
-        private List<IngredientTypeValue> GetRandomIngredients(int count)
-        {
-            List<IngredientTypeValue> ingredients = new();
-
-            for (int i = 0; i < count; i++)
-            {
-                int randomIndex = UnityEngine.Random.Range(0, availableIngredients.Count);
-                ingredients.Add(availableIngredients[randomIndex]);
-            }
-
-            return ingredients;
         }
     }
 }
