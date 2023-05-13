@@ -624,7 +624,10 @@ MonoBehaviour:
   - {fileID: 4756292370126467186}
   - {fileID: 4323748041319449523}
   - {fileID: 8131666730708538267}
-  neededValueList: 
+  recipe:
+    name: 
+    ingredients: 
+    recipePrefab: {fileID: 0}
   animation: {fileID: 6405274334084485988}
   cookingSlider: {fileID: 1871870442408534717}
   burnedImg: {fileID: 707017265703485847}
@@ -660,6 +663,26 @@ PrefabInstance:
       propertyPath: ingredientsImages.Array.data[3]
       value: 
       objectReference: {fileID: 2800000, guid: 65a5a7dbac396ce4d854ac71b05e5e77, type: 3}
+    - target: {fileID: 739659454191692560, guid: b726045814a591a45ab881261a7669c1, type: 3}
+      propertyPath: ingredientInfos.Array.data[3].type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 739659454191692560, guid: b726045814a591a45ab881261a7669c1, type: 3}
+      propertyPath: ingredientInfos.Array.data[0].image
+      value: 
+      objectReference: {fileID: 21300000, guid: ecebb00a3401ed643aa620c880437f66, type: 3}
+    - target: {fileID: 739659454191692560, guid: b726045814a591a45ab881261a7669c1, type: 3}
+      propertyPath: ingredientInfos.Array.data[1].image
+      value: 
+      objectReference: {fileID: 21300000, guid: bee7aecd110f2bf47b0c92aadf480cb5, type: 3}
+    - target: {fileID: 739659454191692560, guid: b726045814a591a45ab881261a7669c1, type: 3}
+      propertyPath: ingredientInfos.Array.data[2].image
+      value: 
+      objectReference: {fileID: 21300000, guid: 4b322e13f72e7e2459919208bd9bcbe4, type: 3}
+    - target: {fileID: 739659454191692560, guid: b726045814a591a45ab881261a7669c1, type: 3}
+      propertyPath: ingredientInfos.Array.data[3].image
+      value: 
+      objectReference: {fileID: 21300000, guid: 65a5a7dbac396ce4d854ac71b05e5e77, type: 3}
     - target: {fileID: 1126450219559517382, guid: b726045814a591a45ab881261a7669c1, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -797,6 +820,26 @@ PrefabInstance:
       propertyPath: ingredientsImages.Array.data[3]
       value: 
       objectReference: {fileID: 2800000, guid: 65a5a7dbac396ce4d854ac71b05e5e77, type: 3}
+    - target: {fileID: 739659454191692560, guid: b726045814a591a45ab881261a7669c1, type: 3}
+      propertyPath: ingredientInfos.Array.data[3].type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 739659454191692560, guid: b726045814a591a45ab881261a7669c1, type: 3}
+      propertyPath: ingredientInfos.Array.data[0].image
+      value: 
+      objectReference: {fileID: 21300000, guid: ecebb00a3401ed643aa620c880437f66, type: 3}
+    - target: {fileID: 739659454191692560, guid: b726045814a591a45ab881261a7669c1, type: 3}
+      propertyPath: ingredientInfos.Array.data[1].image
+      value: 
+      objectReference: {fileID: 21300000, guid: bee7aecd110f2bf47b0c92aadf480cb5, type: 3}
+    - target: {fileID: 739659454191692560, guid: b726045814a591a45ab881261a7669c1, type: 3}
+      propertyPath: ingredientInfos.Array.data[2].image
+      value: 
+      objectReference: {fileID: 21300000, guid: 4b322e13f72e7e2459919208bd9bcbe4, type: 3}
+    - target: {fileID: 739659454191692560, guid: b726045814a591a45ab881261a7669c1, type: 3}
+      propertyPath: ingredientInfos.Array.data[3].image
+      value: 
+      objectReference: {fileID: 21300000, guid: 65a5a7dbac396ce4d854ac71b05e5e77, type: 3}
     - target: {fileID: 1126450219559517382, guid: b726045814a591a45ab881261a7669c1, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -934,6 +977,26 @@ PrefabInstance:
       propertyPath: ingredientsImages.Array.data[3]
       value: 
       objectReference: {fileID: 2800000, guid: 65a5a7dbac396ce4d854ac71b05e5e77, type: 3}
+    - target: {fileID: 739659454191692560, guid: b726045814a591a45ab881261a7669c1, type: 3}
+      propertyPath: ingredientInfos.Array.data[3].type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 739659454191692560, guid: b726045814a591a45ab881261a7669c1, type: 3}
+      propertyPath: ingredientInfos.Array.data[0].image
+      value: 
+      objectReference: {fileID: 21300000, guid: ecebb00a3401ed643aa620c880437f66, type: 3}
+    - target: {fileID: 739659454191692560, guid: b726045814a591a45ab881261a7669c1, type: 3}
+      propertyPath: ingredientInfos.Array.data[1].image
+      value: 
+      objectReference: {fileID: 21300000, guid: bee7aecd110f2bf47b0c92aadf480cb5, type: 3}
+    - target: {fileID: 739659454191692560, guid: b726045814a591a45ab881261a7669c1, type: 3}
+      propertyPath: ingredientInfos.Array.data[2].image
+      value: 
+      objectReference: {fileID: 21300000, guid: 4b322e13f72e7e2459919208bd9bcbe4, type: 3}
+    - target: {fileID: 739659454191692560, guid: b726045814a591a45ab881261a7669c1, type: 3}
+      propertyPath: ingredientInfos.Array.data[3].image
+      value: 
+      objectReference: {fileID: 21300000, guid: 65a5a7dbac396ce4d854ac71b05e5e77, type: 3}
     - target: {fileID: 1126450219559517382, guid: b726045814a591a45ab881261a7669c1, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1071,6 +1134,26 @@ PrefabInstance:
       propertyPath: ingredientsImages.Array.data[3]
       value: 
       objectReference: {fileID: 2800000, guid: 65a5a7dbac396ce4d854ac71b05e5e77, type: 3}
+    - target: {fileID: 739659454191692560, guid: b726045814a591a45ab881261a7669c1, type: 3}
+      propertyPath: ingredientInfos.Array.data[3].type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 739659454191692560, guid: b726045814a591a45ab881261a7669c1, type: 3}
+      propertyPath: ingredientInfos.Array.data[0].image
+      value: 
+      objectReference: {fileID: 21300000, guid: ecebb00a3401ed643aa620c880437f66, type: 3}
+    - target: {fileID: 739659454191692560, guid: b726045814a591a45ab881261a7669c1, type: 3}
+      propertyPath: ingredientInfos.Array.data[1].image
+      value: 
+      objectReference: {fileID: 21300000, guid: bee7aecd110f2bf47b0c92aadf480cb5, type: 3}
+    - target: {fileID: 739659454191692560, guid: b726045814a591a45ab881261a7669c1, type: 3}
+      propertyPath: ingredientInfos.Array.data[2].image
+      value: 
+      objectReference: {fileID: 21300000, guid: 4b322e13f72e7e2459919208bd9bcbe4, type: 3}
+    - target: {fileID: 739659454191692560, guid: b726045814a591a45ab881261a7669c1, type: 3}
+      propertyPath: ingredientInfos.Array.data[3].image
+      value: 
+      objectReference: {fileID: 21300000, guid: 65a5a7dbac396ce4d854ac71b05e5e77, type: 3}
     - target: {fileID: 1126450219559517382, guid: b726045814a591a45ab881261a7669c1, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1208,6 +1291,26 @@ PrefabInstance:
       propertyPath: ingredientsImages.Array.data[3]
       value: 
       objectReference: {fileID: 2800000, guid: 65a5a7dbac396ce4d854ac71b05e5e77, type: 3}
+    - target: {fileID: 739659454191692560, guid: b726045814a591a45ab881261a7669c1, type: 3}
+      propertyPath: ingredientInfos.Array.data[3].type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 739659454191692560, guid: b726045814a591a45ab881261a7669c1, type: 3}
+      propertyPath: ingredientInfos.Array.data[0].image
+      value: 
+      objectReference: {fileID: 21300000, guid: ecebb00a3401ed643aa620c880437f66, type: 3}
+    - target: {fileID: 739659454191692560, guid: b726045814a591a45ab881261a7669c1, type: 3}
+      propertyPath: ingredientInfos.Array.data[1].image
+      value: 
+      objectReference: {fileID: 21300000, guid: bee7aecd110f2bf47b0c92aadf480cb5, type: 3}
+    - target: {fileID: 739659454191692560, guid: b726045814a591a45ab881261a7669c1, type: 3}
+      propertyPath: ingredientInfos.Array.data[2].image
+      value: 
+      objectReference: {fileID: 21300000, guid: 4b322e13f72e7e2459919208bd9bcbe4, type: 3}
+    - target: {fileID: 739659454191692560, guid: b726045814a591a45ab881261a7669c1, type: 3}
+      propertyPath: ingredientInfos.Array.data[3].image
+      value: 
+      objectReference: {fileID: 21300000, guid: 65a5a7dbac396ce4d854ac71b05e5e77, type: 3}
     - target: {fileID: 1126450219559517382, guid: b726045814a591a45ab881261a7669c1, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
