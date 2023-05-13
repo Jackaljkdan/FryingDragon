@@ -21,8 +21,6 @@ namespace Project.Cooking.Recipes
 
         public UnityEvent onRecipeFulfilled;
 
-        public RecipeBook recipeBook;
-
         [DebugField]
         public List<IngredientTypeValue> availableIngredients = new();
 
@@ -38,25 +36,6 @@ namespace Project.Cooking.Recipes
         [Injected]
         public LevelSettings levelSettings;
 
-        [ContextMenu("Request Recipe")]
-        public void RequestRecipeFromInspector()
-        {
-            RequestNewRecipe();
-        }
-
-        [ContextMenu("Request All Recipes")]
-        public void RequestAllRecipesFromInspector()
-        {
-            for (int i = 0; i < maxRecipes; i++)
-            {
-                RequestNewRecipe();
-            }
-        }
-
-        private void Reset()
-        {
-            recipeBook = GetComponent<RecipeBook>();
-        }
         #endregion
 
         [InjectMethod]
@@ -108,18 +87,12 @@ namespace Project.Cooking.Recipes
             recipes.Remove(signal.recipe);
         }
 
-        public void TryRequestNewRecipe()
-        {
-            if (recipes.Count < maxRecipes)
-                RequestNewRecipe();
-        }
-
-        private void RequestNewRecipe()
+        public void TryRequestNewRecipe(Func<Recipe> recipeFn)
         {
             if (recipes.Count >= maxRecipes)
                 return;
 
-            Recipe newRecipe = recipeBook.GetRandomRecipe();
+            Recipe newRecipe = recipeFn();
             recipes.Add(newRecipe);
             signalBus.Invoke(new NewRecipeSignal() { recipe = newRecipe });
         }
