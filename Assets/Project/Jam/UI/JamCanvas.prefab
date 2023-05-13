@@ -1784,7 +1784,7 @@ GameObject:
   - component: {fileID: 8846544877514495378}
   - component: {fileID: 7723082607630871685}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: JamCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1826,7 +1826,7 @@ Canvas:
   m_GameObject: {fileID: 8846544877514495380}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -1891,6 +1891,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 8846544877514495376}
+  planeDistance: 1
   injectionId: ui
   camera: {fileID: 0}
 --- !u!1 &8846544877567286084

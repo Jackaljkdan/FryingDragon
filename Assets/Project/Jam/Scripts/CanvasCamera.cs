@@ -38,6 +38,11 @@ namespace Project.Jam
         private void Awake()
         {
             Inject();
+        }
+
+        private void Start()
+        {
+            canvas.renderMode = RenderMode.ScreenSpaceCamera;
             canvas.worldCamera = camera;
             canvas.planeDistance = planeDistance;
         }
