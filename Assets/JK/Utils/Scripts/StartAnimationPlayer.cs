@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Project.Jam
+namespace JK.Utils
 {
     [DisallowMultipleComponent]
     public class StartAnimationPlayer : MonoBehaviour
